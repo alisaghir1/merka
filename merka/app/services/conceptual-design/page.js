@@ -162,7 +162,7 @@ export default function ConceptualDesign() {
               
               <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
-                  Mirka Architecture offers comprehensive conceptual design services as the first formal phase in the architectural development process. Based in Dubai, we serve clients throughout the UAE in regulated environments and premium developments.
+                  Merka Architecture offers comprehensive conceptual design services as the first formal phase in the architectural development process. Based in Dubai, we serve clients throughout the UAE in regulated environments and premium developments.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
                   The objective is to define strategic direction before committing to detailed design development. This involves spatial layouts, bulk and massing strategies, site circulation diagrams, and early feasibility studies.

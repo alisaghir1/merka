@@ -128,7 +128,7 @@ export default function BlogPost() {
             </p>
             
             <p className="mb-8">
-              Mirka Architecture, an architecture design company based in Dubai, delivers façade systems that comply with authority regulations while maintaining architectural clarity. This article outlines the main façade-related rules, typical approval processes, and documentation required for construction in the UAE.
+              Merka Architecture, an architecture design company based in Dubai, delivers façade systems that comply with authority regulations while maintaining architectural clarity. This article outlines the main façade-related rules, typical approval processes, and documentation required for construction in the UAE.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -163,7 +163,7 @@ export default function BlogPost() {
               <li><strong>Paints and coatings:</strong> Must be UV-stable and non-peeling under solar exposure</li>
             </ul>
             <p className="mb-8">
-              Mirka Architecture selects materials based on compliance with authority criteria and submits full documentation, including test reports and certificates from approved UAE labs.
+              Merka Architecture selects materials based on compliance with authority criteria and submits full documentation, including test reports and certificates from approved UAE labs.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -182,7 +182,7 @@ export default function BlogPost() {
               <li><strong>Orientation-specific restrictions:</strong> West-facing glazing is heavily scrutinized</li>
             </ul>
             <p className="mb-8">
-              Projects failing to meet these standards may require redesign or additional shading systems. Mirka conducts performance simulations to confirm compliance before submission.
+              Projects failing to meet these standards may require redesign or additional shading systems. Merka conducts performance simulations to confirm compliance before submission.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -202,7 +202,7 @@ export default function BlogPost() {
               <li>Coordination with window openings, duct paths, and lighting</li>
             </ul>
             <p className="mb-8">
-              Mirka Architecture uses simulation tools to verify shading effectiveness and includes sun-path analysis diagrams in the submission package.
+              Merka Architecture uses simulation tools to verify shading effectiveness and includes sun-path analysis diagrams in the submission package.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -222,7 +222,7 @@ export default function BlogPost() {
               <li><strong>Safety anchors and certification:</strong> Load testing and anchorage details</li>
             </ul>
             <p className="mb-8">
-              Projects in Business Bay and high-rise zones are routinely delayed due to missing or inadequate access plans. Mirka prepares this documentation early to avoid design-stage approval issues.
+              Projects in Business Bay and high-rise zones are routinely delayed due to missing or inadequate access plans. Merka prepares this documentation early to avoid design-stage approval issues.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -241,7 +241,7 @@ export default function BlogPost() {
               <li>Developer NOC if façade treatment varies from original design brief</li>
             </ul>
             <p className="mb-8">
-              Mirka Architecture handles coordination with the authority portal (DM or DDA), including file formatting, uploads, and resubmissions.
+              Merka Architecture handles coordination with the authority portal (DM or DDA), including file formatting, uploads, and resubmissions.
             </p>
             
             <div className="bg-gray-50 rounded-2xl p-8 mt-12">
@@ -249,7 +249,7 @@ export default function BlogPost() {
                 Plan Your Façade Strategy Before You Submit
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company in Dubai, supporting façade planning, performance analysis, and authority approvals across the UAE.
+                Merka Architecture is an architecture design company in Dubai, supporting façade planning, performance analysis, and authority approvals across the UAE.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

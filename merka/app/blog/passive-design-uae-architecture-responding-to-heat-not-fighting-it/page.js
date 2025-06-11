@@ -124,7 +124,7 @@ export default function BlogPost() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              The UAE's climate demands more than mechanical solutions. Across Dubai, Abu Dhabi, Sharjah, and Al Ain, buildings exposed to high solar loads face long-term performance issues when passive strategies are not incorporated. At Mirka Architecture, an architecture design company based in Dubai, passive design is approached not as an add-on but as a foundational planning method.
+              The UAE's climate demands more than mechanical solutions. Across Dubai, Abu Dhabi, Sharjah, and Al Ain, buildings exposed to high solar loads face long-term performance issues when passive strategies are not incorporated. At Merka Architecture, an architecture design company based in Dubai, passive design is approached not as an add-on but as a foundational planning method.
             </p>
             
             <p className="mb-8">
@@ -145,7 +145,7 @@ export default function BlogPost() {
               1. Orientation Strategy - Starting with the Plot, Not the Façade
             </h2>
             <p className="mb-6">
-              The orientation of a building on its site is a primary passive design decision. Mirka's residential and commercial projects are often located on tight urban parcels—such as Dubai Hills, Al Furjan, or Reem Island—where orientation is constrained by master plans or road layouts.
+              The orientation of a building on its site is a primary passive design decision. Merka's residential and commercial projects are often located on tight urban parcels—such as Dubai Hills, Al Furjan, or Reem Island—where orientation is constrained by master plans or road layouts.
             </p>
             <p className="mb-8">
               To reduce solar load, primary spaces are located away from direct western exposure. Openings are minimized on west-facing facades. Courtyards, service zones, or shaded parking structures are used to block solar radiation on the harshest axis. Glazing is shifted to the north and east, where solar angles are lower and more manageable.
@@ -155,7 +155,7 @@ export default function BlogPost() {
               2. Façade Recesses and Shading Devices
             </h2>
             <p className="mb-6">
-              A building's skin can either trap heat or manage it. Passive design relies on overhangs, reveals, projections, and external screens to reduce internal heat gain. In Mirka's projects in Dubai South and Masdar City, louvered metal fins or patterned GRC panels are used not for decoration but for environmental performance.
+              A building's skin can either trap heat or manage it. Passive design relies on overhangs, reveals, projections, and external screens to reduce internal heat gain. In Merka's projects in Dubai South and Masdar City, louvered metal fins or patterned GRC panels are used not for decoration but for environmental performance.
             </p>
             <p className="mb-8">
               Horizontal shading is prioritized on south-facing façades, while vertical fins are positioned to manage low-angle morning or afternoon sun on the east and west. Façade shading is coordinated during the concept stage to prevent late-stage façade revisions during DDA or Trakhees approval.
@@ -165,7 +165,7 @@ export default function BlogPost() {
               3. Natural Ventilation and Courtyard Planning
             </h2>
             <p className="mb-6">
-              Cross-ventilation is effective in seasonal months and reduces dependency on full-load air conditioning. Courtyard plans, historically used in Emirati homes, are adapted into Mirka's villa and school designs. These allow stack ventilation, pressure differentials, and controlled wind access.
+              Cross-ventilation is effective in seasonal months and reduces dependency on full-load air conditioning. Courtyard plans, historically used in Emirati homes, are adapted into Merka's villa and school designs. These allow stack ventilation, pressure differentials, and controlled wind access.
             </p>
             <p className="mb-8">
               Openings are placed on opposite façades to create airflow. Operable clerestory windows or roof ventilators assist in drawing warm air upward. In projects in Al Ain and inland Abu Dhabi, where night-time temperatures drop more significantly, nighttime flushing strategies are also incorporated.
@@ -175,7 +175,7 @@ export default function BlogPost() {
               4. Material Mass and Thermal Storage
             </h2>
             <p className="mb-6">
-              Thermal mass slows heat transfer into interior spaces. In areas like Dubai Investment Park or Al Ruwayyah, Mirka uses double-block cavity walls or AAC blockwork to control internal temperature swings.
+              Thermal mass slows heat transfer into interior spaces. In areas like Dubai Investment Park or Al Ruwayyah, Merka uses double-block cavity walls or AAC blockwork to control internal temperature swings.
             </p>
             <p className="mb-8">
               Floors and walls are designed to absorb heat during the day and release it at night. Roofs are finished with reflective membranes or insulated sandwich panels. Window frames are specified with thermal breaks, and glazing selection targets a Solar Heat Gain Coefficient (SHGC) below 0.3 for habitable zones.
@@ -194,7 +194,7 @@ export default function BlogPost() {
               <li>DDA's façade shading and daylight studies</li>
             </ul>
             <p className="mb-6">
-              As an architecture design company, Mirka provides detailed documentation including:
+              As an architecture design company, Merka provides detailed documentation including:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Shading analysis diagrams</li>
@@ -212,7 +212,7 @@ export default function BlogPost() {
               In the UAE, passive design is not a trend. It is a necessity. Mechanical systems will always be required, but their size, cost, and lifespan depend on how well passive systems are integrated from the beginning.
             </p>
             <p className="mb-8">
-              Mirka Architecture continues to apply passive design strategies across project types—from residential villas in Nad Al Sheba to commercial offices in Business Bay and civic buildings in Al Ain. The approach reduces lifecycle costs, supports code compliance, and results in environments that work with the climate, not against it.
+              Merka Architecture continues to apply passive design strategies across project types—from residential villas in Nad Al Sheba to commercial offices in Business Bay and civic buildings in Al Ain. The approach reduces lifecycle costs, supports code compliance, and results in environments that work with the climate, not against it.
             </p>
             
             <div className="bg-gray-50 rounded-2xl p-8 mt-12">
@@ -220,7 +220,7 @@ export default function BlogPost() {
                 Discuss Passive Design Options for Your Plot
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company based in Dubai, providing regionally responsive building strategies.
+                Merka Architecture is an architecture design company based in Dubai, providing regionally responsive building strategies.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

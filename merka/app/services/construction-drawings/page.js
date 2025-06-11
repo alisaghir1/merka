@@ -195,7 +195,7 @@ export default function ConstructionDrawings() {
                   Construction drawings serve as the technical foundation for any building to move from concept into execution. Developed with precision and project-specific clarity according to UAE authority standards.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
-                  Mirka prepares construction drawing sets that address structural layout, material integration, service zones, compliance, and architectural logic across all project types.
+                  Merka prepares construction drawing sets that address structural layout, material integration, service zones, compliance, and architectural logic across all project types.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
                   Every sheet follows consistent layering systems, title block structures, and authority-mandated annotation formats for seamless implementation.

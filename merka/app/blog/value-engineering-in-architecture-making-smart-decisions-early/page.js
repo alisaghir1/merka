@@ -128,7 +128,7 @@ export default function BlogPost() {
             </p>
             
             <p className="mb-8">
-              Mirka Architecture, an architecture design company based in Dubai, applies value engineering from the concept phase onward. This approach is integrated into planning, systems coordination, and material selection to meet budget, authority, and project delivery goals.
+              Merka Architecture, an architecture design company based in Dubai, applies value engineering from the concept phase onward. This approach is integrated into planning, systems coordination, and material selection to meet budget, authority, and project delivery goals.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -150,14 +150,14 @@ export default function BlogPost() {
               <li>Circulation routes</li>
             </ul>
             <p className="mb-8">
-              Mirka conducts this review before the design is finalized. The goal is to identify long-term savings without compromising on safety, regulatory acceptance, or user comfort.
+              Merka conducts this review before the design is finalized. The goal is to identify long-term savings without compromising on safety, regulatory acceptance, or user comfort.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
               2. Structural Systems: Choosing the Right Format
             </h2>
             <p className="mb-6">
-              Early-stage structural choices influence both construction timeline and cost. Mirka evaluates several options for each plot based on use, scale, and authority expectations.
+              Early-stage structural choices influence both construction timeline and cost. Merka evaluates several options for each plot based on use, scale, and authority expectations.
             </p>
             <p className="mb-6">
               Examples include:
@@ -177,7 +177,7 @@ export default function BlogPost() {
               3. Mechanical and Electrical Systems
             </h2>
             <p className="mb-6">
-              Service layouts can significantly affect slab thickness, ceiling heights, and material routing. Mirka reviews:
+              Service layouts can significantly affect slab thickness, ceiling heights, and material routing. Merka reviews:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Centralized vs. split HVAC systems</li>
@@ -194,7 +194,7 @@ export default function BlogPost() {
               4. Material Selection and Sourcing
             </h2>
             <p className="mb-6">
-              Material choices impact both direct cost and long-term maintenance. Mirka prepares comparative matrices for:
+              Material choices impact both direct cost and long-term maintenance. Merka prepares comparative matrices for:
             </p>
             <ul className="mb-8 space-y-2">
               <li><strong>Façade systems:</strong> precast, GRC, ACP, or insulated panels</li>
@@ -214,7 +214,7 @@ export default function BlogPost() {
               Dubai Municipality, DDA, and Trakhees impose performance benchmarks for façades. A compliant system can be costly if selected late.
             </p>
             <p className="mb-6">
-              Mirka reviews options based on:
+              Merka reviews options based on:
             </p>
             <ul className="mb-8 space-y-2">
               <li>SHGC and U-values</li>
@@ -234,7 +234,7 @@ export default function BlogPost() {
               Efficient planning improves usable area, circulation, and service routing. It can also support faster authority approval.
             </p>
             <p className="mb-6">
-              Mirka evaluates:
+              Merka evaluates:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Core location and shape</li>
@@ -251,7 +251,7 @@ export default function BlogPost() {
               7. Tender and Contractor Feedback
             </h2>
             <p className="mb-6">
-              Value engineering continues into the tender process. Mirka engages with shortlisted contractors to identify:
+              Value engineering continues into the tender process. Merka engages with shortlisted contractors to identify:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Alternative suppliers</li>
@@ -269,7 +269,7 @@ export default function BlogPost() {
                 Plan for Value, Not Just Appearance
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company in Dubai that applies value engineering from the concept phase to support efficiency and compliance.
+                Merka Architecture is an architecture design company in Dubai that applies value engineering from the concept phase to support efficiency and compliance.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

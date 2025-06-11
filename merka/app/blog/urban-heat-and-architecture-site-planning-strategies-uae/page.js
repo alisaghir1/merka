@@ -128,7 +128,7 @@ export default function BlogPost() {
             </p>
             
             <p className="mb-8">
-              Mirka Architecture, an architecture design company based in Dubai, addresses urban heat during concept planning. The goal is to reduce thermal stress across buildings, open spaces, and pedestrian corridors. This article outlines site planning strategies that help mitigate urban heat in real project conditions.
+              Merka Architecture, an architecture design company based in Dubai, addresses urban heat during concept planning. The goal is to reduce thermal stress across buildings, open spaces, and pedestrian corridors. This article outlines site planning strategies that help mitigate urban heat in real project conditions.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -152,7 +152,7 @@ export default function BlogPost() {
               2. Site Orientation and Building Placement
             </h2>
             <p className="mb-6">
-              Proper orientation reduces solar exposure and improves natural air movement. Mirka organizes site plans to:
+              Proper orientation reduces solar exposure and improves natural air movement. Merka organizes site plans to:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Minimize long elevations facing west</li>
@@ -169,7 +169,7 @@ export default function BlogPost() {
               3. Shading and Solar Obstruction Planning
             </h2>
             <p className="mb-6">
-              Shading reduces surface temperature and improves thermal comfort. Mirka incorporates:
+              Shading reduces surface temperature and improves thermal comfort. Merka incorporates:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Continuous colonnades or arcades along building bases</li>
@@ -199,14 +199,14 @@ export default function BlogPost() {
               <li><strong>Roof finishes:</strong> White or light gray membranes for flat roofs</li>
             </ul>
             <p className="mb-8">
-              Mirka reviews the Solar Reflectance Index (SRI) for all surface materials and submits it during Dubai Green Building or Estidama reviews.
+              Merka reviews the Solar Reflectance Index (SRI) for all surface materials and submits it during Dubai Green Building or Estidama reviews.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
               5. Courtyard and Buffer Space Integration
             </h2>
             <p className="mb-6">
-              Buffer zones reduce direct heat impact on habitable zones. Mirka incorporates:
+              Buffer zones reduce direct heat impact on habitable zones. Merka incorporates:
             </p>
             <ul className="mb-8 space-y-2">
               <li><strong>Interior courtyards:</strong> Promote stack ventilation and reduce solar exposure</li>
@@ -223,7 +223,7 @@ export default function BlogPost() {
               6. Mechanical and Passive Integration
             </h2>
             <p className="mb-6">
-              While passive design is prioritized, Mirka also evaluates mechanical support systems that reduce ambient heat:
+              While passive design is prioritized, Merka also evaluates mechanical support systems that reduce ambient heat:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Misting systems for outdoor seating in shaded areas</li>
@@ -239,7 +239,7 @@ export default function BlogPost() {
               7. Documentation for Authority Submissions
             </h2>
             <p className="mb-6">
-              Dubai Municipality and Abu Dhabi DMT expect heat mitigation strategies in many zones. Mirka includes:
+              Dubai Municipality and Abu Dhabi DMT expect heat mitigation strategies in many zones. Merka includes:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Microclimate diagrams in masterplans</li>
@@ -257,7 +257,7 @@ export default function BlogPost() {
                 Control Urban Heat From the First Line on Paper
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company in Dubai delivering site planning that addresses heat at the scale of the community, not just the building.
+                Merka Architecture is an architecture design company in Dubai delivering site planning that addresses heat at the scale of the community, not just the building.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

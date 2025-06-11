@@ -124,7 +124,7 @@ export default function BlogPost() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Dubai offers one of the most dynamic construction markets in the world—but with it comes a complex and highly regulated design approval process. At Mirka Architecture, an architecture design company based in Dubai, every project begins with a clear submission strategy. This guide outlines the typical steps involved in obtaining building permits through local authorities such as Dubai Municipality (DM), Trakhees, and Dubai Development Authority (DDA).
+              Dubai offers one of the most dynamic construction markets in the world—but with it comes a complex and highly regulated design approval process. At Merka Architecture, an architecture design company based in Dubai, every project begins with a clear submission strategy. This guide outlines the typical steps involved in obtaining building permits through local authorities such as Dubai Municipality (DM), Trakhees, and Dubai Development Authority (DDA).
             </p>
             
             <p className="mb-8">
@@ -135,7 +135,7 @@ export default function BlogPost() {
               1. Concept Design and Site Review
             </h2>
             <p className="mb-6">
-              The first step in any project is confirming whether the intended design can be developed on the assigned plot. Mirka begins this phase with:
+              The first step in any project is confirming whether the intended design can be developed on the assigned plot. Merka begins this phase with:
             </p>
             <ul className="mb-8 space-y-2">
               <li><strong>Zoning check:</strong> FAR, BUA, height, and setback requirements</li>
@@ -159,7 +159,7 @@ export default function BlogPost() {
               <li><strong>Trakhees:</strong> Required for Jebel Ali Free Zone, Palm Jumeirah, and Dubai South</li>
             </ul>
             <p className="mb-6">
-              Mirka Architecture coordinates submission of:
+              Merka Architecture coordinates submission of:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Concept drawings (site plan, massing, basic elevations)</li>
@@ -193,7 +193,7 @@ export default function BlogPost() {
               <li>Accessibility compliance diagrams (as per DDA or DM guidelines)</li>
             </ul>
             <p className="mb-8">
-              As an architecture design company experienced in Dubai submissions, Mirka uses BIM and CAD platforms to prepare structured packages ready for online uploads or physical submission (depending on the authority).
+              As an architecture design company experienced in Dubai submissions, Merka uses BIM and CAD platforms to prepare structured packages ready for online uploads or physical submission (depending on the authority).
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -211,7 +211,7 @@ export default function BlogPost() {
               <li>Fire alarm and sprinkler layout</li>
             </ul>
             <p className="mb-8">
-              Mirka coordinates directly with fire consultants to prepare compliant plans and system layouts. Revisions are tracked through internal logs, and authority resubmissions are made promptly to avoid delays.
+              Merka coordinates directly with fire consultants to prepare compliant plans and system layouts. Revisions are tracked through internal logs, and authority resubmissions are made promptly to avoid delays.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -230,7 +230,7 @@ export default function BlogPost() {
               <li>Gas line routing (if applicable)</li>
             </ul>
             <p className="mb-8">
-              Mirka's team works with specialist consultants to synchronize all submission files and drawing references. This prevents cross-discipline conflicts during authority review or site inspection stages.
+              Merka's team works with specialist consultants to synchronize all submission files and drawing references. This prevents cross-discipline conflicts during authority review or site inspection stages.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -248,7 +248,7 @@ export default function BlogPost() {
               <li>Soil test results and geotechnical report</li>
             </ul>
             <p className="mb-8">
-              Mirka assists clients in gathering and submitting these documents for final clearance.
+              Merka assists clients in gathering and submitting these documents for final clearance.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -265,7 +265,7 @@ export default function BlogPost() {
               <li>Final fit-out and occupancy review</li>
             </ul>
             <p className="mb-8">
-              Mirka continues to provide documentation, clarification responses, and as-built drawings during the construction phase to satisfy ongoing authority requirements.
+              Merka continues to provide documentation, clarification responses, and as-built drawings during the construction phase to satisfy ongoing authority requirements.
             </p>
             
             <div className="bg-gray-50 rounded-2xl p-8 mt-12">
@@ -273,7 +273,7 @@ export default function BlogPost() {
                 Need Guidance on Dubai's Authority Submissions?
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company in Dubai, experienced in handling authority submissions across DM, DDA, and Trakhees zones.
+                Merka Architecture is an architecture design company in Dubai, experienced in handling authority submissions across DM, DDA, and Trakhees zones.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

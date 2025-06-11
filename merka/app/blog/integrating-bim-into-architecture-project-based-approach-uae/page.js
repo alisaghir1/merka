@@ -124,7 +124,7 @@ export default function BlogPost() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Building Information Modeling (BIM) has moved beyond 3D visualization. It now forms the technical backbone of construction documentation, authority coordination, and project delivery across the UAE. Mirka Architecture, an architecture design company based in Dubai, integrates BIM workflows across all project phases—from concept through construction.
+              Building Information Modeling (BIM) has moved beyond 3D visualization. It now forms the technical backbone of construction documentation, authority coordination, and project delivery across the UAE. Merka Architecture, an architecture design company based in Dubai, integrates BIM workflows across all project phases—from concept through construction.
             </p>
             
             <p className="mb-8">
@@ -138,7 +138,7 @@ export default function BlogPost() {
               BIM begins before construction documents. At the concept stage, it assists in visualizing massing, verifying FAR/BUA compliance, and simulating environmental factors.
             </p>
             <p className="mb-6">
-              In Mirka projects across Dubai Hills, Saadiyat Island, and Al Barsha South, early BIM models help resolve:
+              In Merka projects across Dubai Hills, Saadiyat Island, and Al Barsha South, early BIM models help resolve:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Building height restrictions</li>
@@ -168,7 +168,7 @@ export default function BlogPost() {
               <li>Authority-compliant zoning for waste, fire egress, and ventilation</li>
             </ul>
             <p className="mb-8">
-              In projects for DDA and Trakhees, clash detection reports are mandatory before design approval. Mirka prepares these reports through software such as Navisworks and Revit.
+              In projects for DDA and Trakhees, clash detection reports are mandatory before design approval. Merka prepares these reports through software such as Navisworks and Revit.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -184,7 +184,7 @@ export default function BlogPost() {
               <li><strong>Estidama and Dubai Green Building:</strong> Require zoned energy models built on architectural BIM</li>
             </ul>
             <p className="mb-8">
-              Mirka Architecture produces IFC-compliant models for submission, including layer control, object categorization, and metadata tagging. These files are reviewed alongside standard CAD sheets and architectural drawings.
+              Merka Architecture produces IFC-compliant models for submission, including layer control, object categorization, and metadata tagging. These files are reviewed alongside standard CAD sheets and architectural drawings.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -218,7 +218,7 @@ export default function BlogPost() {
               <li>Fire zone mapping and Civil Defense compliance markings</li>
             </ul>
             <p className="mb-8">
-              Clients receive native model files and visual dashboards if required. Mirka provides this documentation for school campuses, healthcare centers, and office buildings throughout the UAE.
+              Clients receive native model files and visual dashboards if required. Merka provides this documentation for school campuses, healthcare centers, and office buildings throughout the UAE.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -235,7 +235,7 @@ export default function BlogPost() {
               <li>Easier communication across multi-disciplinary teams</li>
             </ul>
             <p className="mb-8">
-              As an architecture design company, Mirka deploys BIM to reduce rework, improve approval timelines, and deliver transparent coordination between all stakeholders.
+              As an architecture design company, Merka deploys BIM to reduce rework, improve approval timelines, and deliver transparent coordination between all stakeholders.
             </p>
             
             <div className="bg-gray-50 rounded-2xl p-8 mt-12">
@@ -243,7 +243,7 @@ export default function BlogPost() {
                 Need BIM Integration for Your Next Project?
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company in Dubai using BIM for design, coordination, and authority approvals across the UAE.
+                Merka Architecture is an architecture design company in Dubai using BIM for design, coordination, and authority approvals across the UAE.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

@@ -242,7 +242,7 @@ export default function AuthorityApprovals() {
                   Regulatory compliance is mandatory for every construction project in the UAE. Each authority operates with distinct codebases, formatting requirements, and submission platforms.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
-                  Mirka provides full support across initial pre-approvals, main submission packages, design NOCs, and re-submissions with jurisdiction-specific expertise.
+                  Merka provides full support across initial pre-approvals, main submission packages, design NOCs, and re-submissions with jurisdiction-specific expertise.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
                   Our authority coordinators have managed complex approvals across all major UAE development zones with proven track records.
@@ -494,7 +494,7 @@ export default function AuthorityApprovals() {
               Multi-Authority Coordination
             </h2>
             <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-              Certain projects require approvals from multiple jurisdictions. Mirka coordinates hybrid situations with unified submission plans to reduce approval time and avoid document redundancy.
+              Certain projects require approvals from multiple jurisdictions. Merka coordinates hybrid situations with unified submission plans to reduce approval time and avoid document redundancy.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <div className="bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">

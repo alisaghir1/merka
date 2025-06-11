@@ -85,7 +85,7 @@ export default function About() {
         >
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-6 leading-tight">
             <span className="inline-block hover:scale-110 transition-transform duration-500">About</span>
-            <span className="block text-secondary-300 hover:text-white transition-colors duration-500">MIRKA</span>
+            <span className="block text-secondary-300 hover:text-white transition-colors duration-500">Merka</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed hover:text-white transition-colors duration-500">
             Architecture design company headquartered in Dubai, specializing in comprehensive architectural solutions across residential, commercial, hospitality, and institutional sectors.
@@ -111,7 +111,7 @@ export default function About() {
       {/* Parallax Transition Section */}
       <div className="relative h-32 bg-gradient-to-b from-primary-900 to-white"></div>
 
-      {/* Enhanced About Mirka Section */}
+      {/* Enhanced About Merka Section */}
       <section className="py-20 bg-white relative">
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
@@ -124,17 +124,17 @@ export default function About() {
             <div className="space-y-8">
               <div className="group">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary-900 mb-8 group-hover:text-secondary-800 transition-colors duration-300">
-                  About Mirka
+                  About Merka
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-secondary-400 to-primary-400 rounded-full group-hover:w-32 transition-all duration-300"></div>
               </div>
               
               <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
-                  Mirka is an architecture design company headquartered in Dubai, United Arab Emirates. The studio specializes in comprehensive architectural solutions across residential, commercial, hospitality, and institutional sectors. Its operational footprint extends beyond Dubai, with active projects across Abu Dhabi, Sharjah, and other emirates, as well as collaborations with international clients in the GCC, Asia, USA and Europe.
+                  Merka is an architecture design company headquartered in Dubai, United Arab Emirates. The studio specializes in comprehensive architectural solutions across residential, commercial, hospitality, and institutional sectors. Its operational footprint extends beyond Dubai, with active projects across Abu Dhabi, Sharjah, and other emirates, as well as collaborations with international clients in the GCC, Asia, USA and Europe.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
-                  The firm's design approach is grounded in contextual intelligence. Each project begins with a deep understanding of site conditions, user needs, and environmental constraints. Mirka integrates building code knowledge, urban logic, and cultural expectations into every stage of design.
+                  The firm's design approach is grounded in contextual intelligence. Each project begins with a deep understanding of site conditions, user needs, and environmental constraints. Merka integrates building code knowledge, urban logic, and cultural expectations into every stage of design.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-4 hover:bg-gray-50 rounded-lg">
                   In areas such as Downtown Dubai, Business Bay, and Jumeirah, where space, light, and density pose unique challenges, the firm's experience proves invaluable.
@@ -211,13 +211,13 @@ export default function About() {
                 </div>
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p className="hover:text-gray-900 transition-colors duration-300">
-                    Mirka envisions a built environment where architecture responds directly to its context, enhances the lives of its users, and remains viable through time. The firm believes that design should not merely occupy a site but rather contribute meaningfully to its surrounding conditions—whether physical, social, or climatic.
+                    Merka envisions a built environment where architecture responds directly to its context, enhances the lives of its users, and remains viable through time. The firm believes that design should not merely occupy a site but rather contribute meaningfully to its surrounding conditions—whether physical, social, or climatic.
                   </p>
                   <p className="hover:text-gray-900 transition-colors duration-300">
                     In locations such as Dubai Marina, where density is high and solar exposure is intense, buildings must be planned with passive cooling in mind. In villa zones like Mirdif or Al Furjan, privacy and internal zoning take precedence.
                   </p>
                   <p className="font-medium text-primary-800 bg-primary-50 p-3 rounded-lg hover:bg-primary-100 transition-colors duration-300">
-                    Mirka's vision is one of restraint, precision, and respect—for the site, for the people who occupy it, and for the city that hosts it.
+                    Merka's vision is one of restraint, precision, and respect—for the site, for the people who occupy it, and for the city that hosts it.
                   </p>
                 </div>
               </div>
@@ -235,13 +235,13 @@ export default function About() {
                 </div>
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p className="hover:text-gray-900 transition-colors duration-300">
-                    The mission of Mirka is to produce architectural solutions that are clear, rational, and responsive. Each project begins with rigorous research, followed by technical strategy, schematic planning, and development into working drawings.
+                    The mission of Merka is to produce architectural solutions that are clear, rational, and responsive. Each project begins with rigorous research, followed by technical strategy, schematic planning, and development into working drawings.
                   </p>
                   <p className="hover:text-gray-900 transition-colors duration-300">
                     No design element is arbitrary; all components are evaluated for purpose, cost, and buildability. Clients are engaged throughout the project timeline. Authorities are consulted proactively.
                   </p>
                   <p className="font-medium text-secondary-800 bg-secondary-50 p-3 rounded-lg hover:bg-secondary-100 transition-colors duration-300">
-                    Mirka's objective is to produce work that holds up to technical scrutiny while maintaining spatial intelligence and design clarity.
+                    Merka's objective is to produce work that holds up to technical scrutiny while maintaining spatial intelligence and design clarity.
                   </p>
                 </div>
               </div>
@@ -282,7 +282,7 @@ export default function About() {
               
               <div className="space-y-6 text-gray-700 leading-relaxed relative z-10">
                 <p className="text-xl font-medium text-primary-900 p-4 bg-white/50 rounded-lg hover:bg-white transition-colors duration-300">
-                  Mirka was established in Dubai to address a growing gap in architectural delivery: the disconnect between visual ambition and practical execution.
+                  Merka was established in Dubai to address a growing gap in architectural delivery: the disconnect between visual ambition and practical execution.
                 </p>
                 <p className="hover:text-gray-900 transition-colors duration-300 p-3 hover:bg-white/30 rounded-lg">
                   The founders—architects and planners with backgrounds in high-density developments and civic architecture—recognized a pattern of buildings being produced without due regard for site logic, energy use, or regulatory viability.
@@ -294,7 +294,7 @@ export default function About() {
                   As projects scaled up—such as commercial designs in Dubai Silicon Oasis and mixed-use compounds in Sharjah—the same process proved reliable. Each building was planned to solve real-world conditions: noise intrusion, heat gain, zoning limitations, and user behavior.
                 </p>
                 <p className="font-medium text-primary-800 bg-primary-100 p-4 rounded-lg hover:bg-primary-200 transition-colors duration-300">
-                  This foundational philosophy continues to define Mirka's practice. The studio grew not through aggressive branding but through consistent delivery, word-of-mouth recommendations, and performance-based results.
+                  This foundational philosophy continues to define Merka's practice. The studio grew not through aggressive branding but through consistent delivery, word-of-mouth recommendations, and performance-based results.
                 </p>
               </div>
             </div>
@@ -354,7 +354,7 @@ export default function About() {
               <div className="space-y-6">
                 <h3 className="text-2xl font-serif font-bold text-primary-900 mb-6 hover:text-secondary-800 transition-colors duration-300">Our Approach</h3>
                 <div className="space-y-4 text-gray-700">
-                  <p className="hover:text-gray-900 transition-colors duration-300 p-3 hover:bg-gray-50 rounded-lg">Mirka maintains a collaborative and multidisciplinary work environment. The studio brings together diverse professionals who encourage intellectual exchange, peer review, and continuous improvement.</p>
+                  <p className="hover:text-gray-900 transition-colors duration-300 p-3 hover:bg-gray-50 rounded-lg">Merka maintains a collaborative and multidisciplinary work environment. The studio brings together diverse professionals who encourage intellectual exchange, peer review, and continuous improvement.</p>
                   <p className="hover:text-gray-900 transition-colors duration-300 p-3 hover:bg-gray-50 rounded-lg">The office operates from Al Quoz, Dubai, while maintaining on-ground collaborators in Abu Dhabi and Sharjah. All design work follows a structured review cycle where concepts are discussed internally before presentation.</p>
                 </div>
               </div>
@@ -410,7 +410,7 @@ export default function About() {
                 <h3 className="text-2xl font-serif font-bold text-primary-900 mb-6 group-hover:text-secondary-800 transition-colors duration-300">Recognition</h3>
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p className="hover:text-gray-900 transition-colors duration-300 p-3 hover:bg-white/50 rounded-lg">
-                    Although Mirka is a recently established architectural design company, its impact within the built environment has been acknowledged by clients, collaborators, and regulatory entities alike.
+                    Although Merka is a recently established architectural design company, its impact within the built environment has been acknowledged by clients, collaborators, and regulatory entities alike.
                   </p>
                   <p className="hover:text-gray-900 transition-colors duration-300 p-3 hover:bg-white/50 rounded-lg">
                     Designs completed in areas such as Al Barsha, Dubai Hills, and Al Reem Island have been cited by local consultants and developers for their clarity, code compliance, and site-responsiveness.
@@ -525,7 +525,7 @@ export default function About() {
               
               <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 mt-8 hover:bg-white/20 hover:border-white/40 hover:scale-105 transition-all duration-500 group">
                 <p className="text-gray-200 italic group-hover:text-white transition-colors duration-300">
-                  "Whether designing a family compound in Al Mizhar or a retail podium in Al Maryah Island, Mirka brings not only design knowledge but a deep operational understanding of each local market."
+                  "Whether designing a family compound in Al Mizhar or a retail podium in Al Maryah Island, Merka brings not only design knowledge but a deep operational understanding of each local market."
                 </p>
               </div>
             </div>

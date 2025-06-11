@@ -124,7 +124,7 @@ export default function BlogPost() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Architecture in the UAE continues to evolve—driven by climate, regulation, urban development, and new technologies. Mirka Architecture, an architecture design company based in Dubai, has identified key architectural trends emerging across residential, commercial, institutional, and hospitality sectors.
+              Architecture in the UAE continues to evolve—driven by climate, regulation, urban development, and new technologies. Merka Architecture, an architecture design company based in Dubai, has identified key architectural trends emerging across residential, commercial, institutional, and hospitality sectors.
             </p>
             
             <p className="mb-8">
@@ -144,7 +144,7 @@ export default function BlogPost() {
               <li>Simplified color palettes to manage heat absorption</li>
             </ul>
             <p className="mb-8">
-              This shift reflects a preference for material consistency, regulatory clarity, and construction efficiency. Mirka Architecture delivers building envelopes that reduce long-term maintenance while remaining visually strong.
+              This shift reflects a preference for material consistency, regulatory clarity, and construction efficiency. Merka Architecture delivers building envelopes that reduce long-term maintenance while remaining visually strong.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -160,7 +160,7 @@ export default function BlogPost() {
               <li>Easier integration of passive cooling features</li>
             </ul>
             <p className="mb-8">
-              Mirka's residential blocks are now planned with open corridors, cross-ventilated cores, and semi-private courtyards. Façade treatments emphasize rhythm and proportion over bulk massing.
+              Merka's residential blocks are now planned with open corridors, cross-ventilated cores, and semi-private courtyards. Façade treatments emphasize rhythm and proportion over bulk massing.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -176,7 +176,7 @@ export default function BlogPost() {
               <li>Schools: Outdoor learning zones and recreation courts</li>
             </ul>
             <p className="mb-8">
-              In Mirka's recent projects in Al Barsha South and Saadiyat Island, balconies, patios, and courtyards are treated as primary components—not secondary accessories.
+              In Merka's recent projects in Al Barsha South and Saadiyat Island, balconies, patios, and courtyards are treated as primary components—not secondary accessories.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -193,14 +193,14 @@ export default function BlogPost() {
               <li>Roof finish analysis for solar reflectivity</li>
             </ul>
             <p className="mb-8">
-              Mirka Architecture applies passive principles as a baseline and confirms performance through BIM and environmental modeling platforms.
+              Merka Architecture applies passive principles as a baseline and confirms performance through BIM and environmental modeling platforms.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
               5. Mixed-Use, Not Just Vertical
             </h2>
             <p className="mb-6">
-              Mixed-use zoning has moved beyond high-rise towers. Horizontal plots are now being designed with integrated usage types. In Reem Island and Dubai Creek Harbour, Mirka has delivered:
+              Mixed-use zoning has moved beyond high-rise towers. Horizontal plots are now being designed with integrated usage types. In Reem Island and Dubai Creek Harbour, Merka has delivered:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Street-facing retail under residential blocks</li>
@@ -226,7 +226,7 @@ export default function BlogPost() {
               <li>Designated zones for delivery, waste, and recycling</li>
             </ul>
             <p className="mb-8">
-              Mirka, as an experienced architecture design company, begins project planning with all consultants active from the earliest concept stage—reducing redesigns and submission delays.
+              Merka, as an experienced architecture design company, begins project planning with all consultants active from the earliest concept stage—reducing redesigns and submission delays.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -243,7 +243,7 @@ export default function BlogPost() {
               <li>Seamless visual transitions from built to natural elements</li>
             </ul>
             <p className="mb-8">
-              In projects near Sharjah's cultural core and the Abu Dhabi Corniche, Mirka includes public interface design as part of architectural planning.
+              In projects near Sharjah's cultural core and the Abu Dhabi Corniche, Merka includes public interface design as part of architectural planning.
             </p>
             
             <div className="bg-gray-50 rounded-2xl p-8 mt-12">
@@ -251,7 +251,7 @@ export default function BlogPost() {
                 Interested in Applying These Trends to Your Project?
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company in Dubai helping clients build spaces that respond to regulation, use, and climate.
+                Merka Architecture is an architecture design company in Dubai helping clients build spaces that respond to regulation, use, and climate.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

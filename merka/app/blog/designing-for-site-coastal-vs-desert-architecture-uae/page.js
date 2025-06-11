@@ -124,7 +124,7 @@ export default function BlogPost() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Architecture in the UAE must respond to distinct site conditions. Coastal plots experience salt-laden air, humidity, and direct solar exposure, while inland sites face temperature extremes, high winds, and dust-driven erosion. Mirka Architecture, an architecture design company based in Dubai, approaches each plot based on its environmental zone—not just its coordinates.
+              Architecture in the UAE must respond to distinct site conditions. Coastal plots experience salt-laden air, humidity, and direct solar exposure, while inland sites face temperature extremes, high winds, and dust-driven erosion. Merka Architecture, an architecture design company based in Dubai, approaches each plot based on its environmental zone—not just its coordinates.
             </p>
             
             <p className="mb-8">
@@ -163,7 +163,7 @@ export default function BlogPost() {
               <li>Greater risk of heat retention in exposed slabs and roofs</li>
             </ul>
             <p className="mb-8">
-              Mirka develops material, façade, and planning strategies based on these environmental parameters.
+              Merka develops material, façade, and planning strategies based on these environmental parameters.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -174,7 +174,7 @@ export default function BlogPost() {
               Coastal Projects
             </h3>
             <p className="mb-6">
-              For buildings near the sea, façade materials must resist corrosion and moisture infiltration. Mirka Architecture specifies:
+              For buildings near the sea, façade materials must resist corrosion and moisture infiltration. Merka Architecture specifies:
             </p>
             <ul className="mb-8 space-y-2">
               <li>GRC or precast panels with salt-resistant aggregates</li>
@@ -191,7 +191,7 @@ export default function BlogPost() {
               Inland Projects
             </h3>
             <p className="mb-6">
-              Inland sites require facades that reduce radiant heat gain and resist surface cracking. Mirka prioritizes:
+              Inland sites require facades that reduce radiant heat gain and resist surface cracking. Merka prioritizes:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Double cavity walls with high R-value insulation</li>
@@ -212,7 +212,7 @@ export default function BlogPost() {
               Coastal Sites
             </h3>
             <p className="mb-6">
-              HVAC systems on the coast require extra protection from moisture. Mirka coordinates:
+              HVAC systems on the coast require extra protection from moisture. Merka coordinates:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Dehumidification systems in common areas</li>
@@ -228,7 +228,7 @@ export default function BlogPost() {
               Inland Sites
             </h3>
             <p className="mb-6">
-              Desert interiors favor passive ventilation where feasible. In schools, villas, and mosques, Mirka integrates:
+              Desert interiors favor passive ventilation where feasible. In schools, villas, and mosques, Merka integrates:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Cross ventilation paths for seasonal airflow</li>
@@ -248,7 +248,7 @@ export default function BlogPost() {
               Coastal Zones
             </h3>
             <p className="mb-6">
-              Landscaping near the sea must tolerate salinity. This affects both planting and hardscape finishes. Mirka's strategy includes:
+              Landscaping near the sea must tolerate salinity. This affects both planting and hardscape finishes. Merka's strategy includes:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Native plant selection based on salt tolerance</li>
@@ -279,7 +279,7 @@ export default function BlogPost() {
               5. Regulatory Requirements and Developer Guidelines
             </h2>
             <p className="mb-6">
-              Both coastal and inland developments must meet authority criteria. Mirka Architecture adapts submittals accordingly:
+              Both coastal and inland developments must meet authority criteria. Merka Architecture adapts submittals accordingly:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Coastal zones often require Trakhees façade testing and marine-grade system certificates</li>
@@ -295,7 +295,7 @@ export default function BlogPost() {
                 Site-Specific Design Begins with the Environment
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company based in Dubai, supporting climate-based design for both coastal and inland developments across the UAE.
+                Merka Architecture is an architecture design company based in Dubai, supporting climate-based design for both coastal and inland developments across the UAE.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

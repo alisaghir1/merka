@@ -173,7 +173,7 @@ export default function Home() {
               filter: 'drop-shadow(0 0 20px rgba(4, 21, 51, 0.3))',
             }}
           >
-            MIRKA
+            Merka
           </h2>
         </div>
 

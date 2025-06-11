@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "Mirka Architecture - Dubai's Premier Architectural Design Studio",
+  title: "Merka Architecture - Dubai's Premier Architectural Design Studio",
   description: "Leading architectural design studio in Dubai specializing in residential, commercial, and hospitality projects with modern and traditional fusion styles.",
   keywords: "architecture Dubai, architectural design, residential architecture, commercial architecture, Dubai architects",
 };

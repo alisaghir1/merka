@@ -128,7 +128,7 @@ export default function BlogPost() {
             </p>
             
             <p className="mb-8">
-              Mirka Architecture, an architecture design company based in Dubai, designs mosques across diverse neighborhoods. This article outlines the design process, authority requirements, and architectural decisions that shape mosque projects in the UAE.
+              Merka Architecture, an architecture design company based in Dubai, designs mosques across diverse neighborhoods. This article outlines the design process, authority requirements, and architectural decisions that shape mosque projects in the UAE.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -156,7 +156,7 @@ export default function BlogPost() {
               <li>Parking (if required by authority)</li>
             </ul>
             <p className="mb-8">
-              Each zone must be accessible, clearly defined, and easy to maintain. Mirka designs spatial flow to support ritual movement and operational efficiency.
+              Each zone must be accessible, clearly defined, and easy to maintain. Merka designs spatial flow to support ritual movement and operational efficiency.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -173,14 +173,14 @@ export default function BlogPost() {
               <li>Arches and screens: Used for shading and spatial rhythm</li>
             </ul>
             <p className="mb-8">
-              Authorities generally prefer simple, climate-appropriate design with limited ornamental excess. Mirka evaluates wind direction, sun path, and community access before finalizing exterior form and openings.
+              Authorities generally prefer simple, climate-appropriate design with limited ornamental excess. Merka evaluates wind direction, sun path, and community access before finalizing exterior form and openings.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
               3. Materials and Finishes
             </h2>
             <p className="mb-6">
-              Materials must balance aesthetics, durability, and maintenance requirements. Mirka Architecture selects mosque materials based on:
+              Materials must balance aesthetics, durability, and maintenance requirements. Merka Architecture selects mosque materials based on:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Thermal stability: Stone, plaster, and low-maintenance tiles</li>
@@ -218,7 +218,7 @@ export default function BlogPost() {
               <li>Parking and accessibility compliance</li>
             </ul>
             <p className="mb-8">
-              Mirka coordinates design documents with religious consultants when required.
+              Merka coordinates design documents with religious consultants when required.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -252,7 +252,7 @@ export default function BlogPost() {
               <li>Landscape reflecting regional planting or shaded gathering areas</li>
             </ul>
             <p className="mb-8">
-              Mirka integrates these requests while preserving clarity and approval feasibility.
+              Merka integrates these requests while preserving clarity and approval feasibility.
             </p>
             
             <div className="bg-gray-50 rounded-2xl p-8 mt-12">
@@ -260,7 +260,7 @@ export default function BlogPost() {
                 Design with Purpose, Submit with Confidence
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company in Dubai experienced in mosque design across Dubai, Sharjah, and Abu Dhabi.
+                Merka Architecture is an architecture design company in Dubai experienced in mosque design across Dubai, Sharjah, and Abu Dhabi.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">

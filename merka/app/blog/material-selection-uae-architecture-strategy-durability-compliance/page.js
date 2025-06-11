@@ -128,7 +128,7 @@ export default function BlogPost() {
             </p>
             
             <p className="mb-8">
-              Mirka Architecture, an architecture design company based in Dubai, develops material strategies that address heat, humidity, salt exposure, and buildability—while meeting all required UAE codes.
+              Merka Architecture, an architecture design company based in Dubai, develops material strategies that address heat, humidity, salt exposure, and buildability—while meeting all required UAE codes.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -148,7 +148,7 @@ export default function BlogPost() {
               <li>Staining or fading on porous materials</li>
             </ul>
             <p className="mb-8">
-              For each project, Mirka begins with a climate profile. This includes solar exposure maps, humidity levels, wind speed, and the distance to the coast. In zones like Palm Jumeirah or Saadiyat Island, only materials with documented salt resistance are considered for façade or roof use.
+              For each project, Merka begins with a climate profile. This includes solar exposure maps, humidity levels, wind speed, and the distance to the coast. In zones like Palm Jumeirah or Saadiyat Island, only materials with documented salt resistance are considered for façade or roof use.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -176,7 +176,7 @@ export default function BlogPost() {
               Flat roofs are common in UAE architecture. These surfaces experience high solar gain and must resist cracking, delamination, or water retention.
             </p>
             <p className="mb-6">
-              Mirka Architecture coordinates:
+              Merka Architecture coordinates:
             </p>
             <ul className="mb-8 space-y-2">
               <li>Modified bitumen membranes with reflective coatings</li>
@@ -207,7 +207,7 @@ export default function BlogPost() {
               <li>Slip-rated vinyl flooring in kitchens and service areas</li>
             </ul>
             <p className="mb-8">
-              Mirka coordinates with interior designers and contractors to verify samples, check batch codes, and confirm authority certificates.
+              Merka coordinates with interior designers and contractors to verify samples, check batch codes, and confirm authority certificates.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -224,7 +224,7 @@ export default function BlogPost() {
               <li>Insulation layers in cavity walls or roofs</li>
             </ul>
             <p className="mb-8">
-              Mirka Architecture collaborates with Civil Defense-accredited labs to confirm fire performance. All material selections are reflected in architectural drawings, BOQs, and authority submittals. In zones such as Jebel Ali (Trakhees), this also includes façade risk assessments and third-party reviews.
+              Merka Architecture collaborates with Civil Defense-accredited labs to confirm fire performance. All material selections are reflected in architectural drawings, BOQs, and authority submittals. In zones such as Jebel Ali (Trakhees), this also includes façade risk assessments and third-party reviews.
             </p>
             
             <h2 className="text-3xl font-serif font-bold text-[#041533] mt-12 mb-6">
@@ -241,7 +241,7 @@ export default function BlogPost() {
               <li>Mock-up approval (for projects requiring site samples or façade test walls)</li>
             </ul>
             <p className="mb-8">
-              Material boards are created digitally and physically. Mock-ups are reviewed on-site when required, with contractor coordination handled directly by Mirka's architectural and supervision teams.
+              Material boards are created digitally and physically. Mock-ups are reviewed on-site when required, with contractor coordination handled directly by Merka's architectural and supervision teams.
             </p>
             
             <div className="bg-gray-50 rounded-2xl p-8 mt-12">
@@ -249,7 +249,7 @@ export default function BlogPost() {
                 Need Help Selecting Materials for Your Project?
               </h3>
               <p className="text-gray-600 mb-6">
-                Mirka Architecture is an architecture design company based in Dubai, supporting material strategy from concept to construction.
+                Merka Architecture is an architecture design company based in Dubai, supporting material strategy from concept to construction.
               </p>
               <Link href="/contact">
                 <button className="bg-[#041533] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#877051] transition-colors duration-300">
