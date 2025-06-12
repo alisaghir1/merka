@@ -1,10 +1,13 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import emailjs from '@emailjs/browser'
 
 export default function Contact() {
+  const [mounted, setMounted] = useState(false)
   const [scrollY, setScrollY] = useState(0)
+  const [isLoaded, setIsLoaded] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,10 +27,22 @@ export default function Contact() {
   const subscriptionFormRef = useRef()
 
   useEffect(() => {
+    setMounted(true)
+    // Trigger entrance animation after component mounts
+    const timer = setTimeout(() => {
+      setIsLoaded(true)
+    }, 100)
+
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      clearTimeout(timer)
+    }
   }, [])
+
+  const scrollValue = mounted ? scrollY : 0
 
   const handleInputChange = (e) => {
     setFormData({
@@ -93,125 +108,177 @@ export default function Contact() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section 
-        className="relative h-screen flex items-center justify-center overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, #041533 0%, #1a2332 25%, #2f3541 50%, #4a5568 75%, #877051 100%)`,
-        }}
+    <div className="min-h-screen bg-white overflow-x-hidden">
+      {/* Loading Curtain Animation */}
+      <div 
+        className={`fixed inset-0 z-50 transition-all duration-1500 ease-out ${
+          isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
       >
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
+        <div className="relative w-full h-full bg-gradient-to-br from-[#041533] to-[#877051]">
+          {/* Curtain Effect */}
           <div 
-            className="absolute top-20 left-20 w-96 h-96 border-2 border-white/10 rotate-45"
-            style={{ 
-              transform: `translateY(${scrollY * 0.1}px) rotate(${45 + scrollY * 0.05}deg)`,
-            }}
-          ></div>
+            className={`absolute inset-0 bg-gradient-to-br from-[#041533] to-[#877051] transition-transform duration-1500 ease-out ${
+              isLoaded ? 'transform translate-y-full' : 'transform translate-y-0'
+            }`}
+          />
           <div 
-            className="absolute bottom-20 right-20 w-64 h-64 border-2 border-white/15 rounded-full"
-            style={{ 
-              transform: `translateY(${scrollY * -0.15}px) scale(${1 + scrollY * 0.0003})`,
-            }}
-          ></div>
+            className={`absolute inset-0 bg-gradient-to-br from-[#877051] to-[#041533] transition-transform duration-1500 ease-out delay-300 ${
+              isLoaded ? 'transform -translate-y-full' : 'transform translate-y-0'
+            }`}
+          />
           
-          <div 
-            className="absolute top-1/3 right-1/4 w-48 h-48 border border-white/20"
-            style={{ 
-              transform: `translateX(${scrollY * 0.2}px) translateY(${scrollY * 0.1}px) rotate(${scrollY * 0.15}deg)`,
-            }}
-          ></div>
-          
-          <div 
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: '60px 60px',
-              transform: `translateY(${scrollY * 0.3}px)`,
-            }}
-          ></div>
+          {/* Loading Logo */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
+              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-4">
+                <span className="text-[#041533] text-2xl">📞</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-serif font-bold text-white text-center">
+                CONTACT
+              </h1>
+              <div className="w-32 h-1 bg-white mx-auto mt-4 animate-pulse"></div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        {/* Hero Content */}
+      {/* Hero Section with Image Parallax */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Parallax Background Image */}
         <div 
-          className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 lg:px-8"
-          style={{ 
-            transform: `translateY(${scrollY * 0.3}px)`,
-            opacity: Math.max(0, 1 - scrollY * 0.003)
+          className="absolute inset-0 scale-110"
+          style={{
+            transform: mounted ? `translateY(${scrollValue * 0.5}px)` : 'translateY(0px)',
+            transition: mounted ? 'none' : 'transform 0.1s ease-out'
           }}
         >
-          <div 
-            className="w-20 h-20 bg-gradient-to-r from-secondary-600 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-8 hover:scale-110 transition-all duration-300"
-          >
-            <span className="text-white text-3xl">📞</span>
+          <Image
+            src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80"
+            alt="Modern Communication and Contact"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+        </div>
+
+        {/* Content with entrance animation */}
+        <div 
+          className={`relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 ease-out ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+          }`}
+          style={{ transitionDelay: '800ms' }}
+        >
+          <div className="mb-8">
+            <div 
+              className={`w-16 h-16 bg-gradient-to-r from-[#877051] to-[#041533] rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+              }`}
+              style={{ transitionDelay: '1000ms' }}
+            >
+              <span className="text-white text-2xl">📞</span>
+            </div>
           </div>
-          
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-8 leading-none">
-            <span className="inline-block hover:scale-110 transition-transform duration-700">
-              Let's Talk
+
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-6 leading-tight">
+            <span 
+              className={`inline-block transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+              }`}
+              style={{ transitionDelay: '1200ms' }}
+            >
+              Let's
             </span>
-            <br />
-            <span className="inline-block text-secondary-300 hover:text-white transition-colors duration-700">
+            <span 
+              className={`block text-[#877051] transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '1400ms' }}
+            >
+              Talk
+            </span>
+            <span 
+              className={`block transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+              }`}
+              style={{ transitionDelay: '1600ms' }}
+            >
               Design
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed mb-12">
-            At Merka, we believe every project begins with a conversation. Whether you're planning a new home, 
-            a commercial development, or a landmark structure, we're ready to bring your vision to life.
+          <p 
+            className={`text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed transition-all duration-1000 ease-out ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '1800ms' }}
+          >
+            At Merka, we believe every project begins with a conversation. Whether you're planning a new home, a commercial development, or a landmark structure, we're ready to bring your vision to life.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a href="#consultation" className="group bg-white text-primary-900 px-10 py-5 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden">
-              <span className="absolute inset-0 bg-gradient-to-r from-secondary-600 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+
+          <div 
+            className={`flex flex-col sm:flex-row gap-6 justify-center mt-8 transition-all duration-1000 ease-out ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '2000ms' }}
+          >
+            <a href="#consultation" className="group bg-white text-[#041533] px-10 py-5 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden">
+              <span className="absolute inset-0 bg-gradient-to-r from-[#877051] to-[#041533] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
               <span className="relative z-10 group-hover:text-white transition-colors duration-500">
                 Book Consultation
               </span>
             </a>
             <a href="#contact-form" className="group border-2 border-white text-white px-10 py-5 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden">
               <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-              <span className="relative z-10 group-hover:text-primary-900 transition-colors duration-500">
+              <span className="relative z-10 group-hover:text-[#041533] transition-colors duration-500">
                 Quick Inquiry
               </span>
             </a>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+          style={{ opacity: mounted ? Math.max(0, 1 - scrollValue * 0.01) : 1 }}
+        >
+          <div className="flex flex-col items-center animate-bounce">
+            <span className="text-sm mb-2">Get In Touch</span>
+            <div className="w-6 h-10 border-2 border-white rounded-full relative">
+              <div className="w-1 h-3 bg-white rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-bounce"></div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact Information Section */}
       <section className="py-20 bg-white relative">
-        <div className="absolute inset-0 overflow-hidden">
-          <div 
-            className="absolute top-20 right-20 w-64 h-64 border border-primary-100 rotate-45 opacity-30"
-            style={{ transform: `translateY(${scrollY * 0.02}px) rotate(${45 + scrollY * 0.01}deg)` }}
-          ></div>
-          <div 
-            className="absolute bottom-20 left-20 w-48 h-48 border border-secondary-100 rounded-full opacity-30"
-            style={{ transform: `translateY(${scrollY * -0.03}px)` }}
-          ></div>
-        </div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-serif font-bold text-primary-900 mb-6">
+          <div 
+            className={`text-center mb-16 transition-all duration-1000 ease-out ${
+              scrollValue > 500 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#041533] mb-6">
               Our Studio
             </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-secondary-400 to-primary-400 rounded-full mx-auto mb-8"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Info Cards */}
             <div className="lg:col-span-1 space-y-8">
               {/* Office Location */}
-              <div className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 group">
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div 
+                className={`bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-1000 ease-out group ${
+                  scrollValue > 700 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+              >
+                <div className="w-12 h-12 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <span className="text-white text-xl">📍</span>
                 </div>
-                <h3 className="text-xl font-serif font-bold text-primary-900 mb-4">Merka Architecture</h3>
+                <h3 className="text-xl font-serif font-bold text-[#041533] mb-4">Merka Architecture</h3>
                 <p className="text-gray-700 mb-2">Dubai, United Arab Emirates</p>
                 <p className="text-gray-600 text-sm mb-4">[Business Bay, Plot No. 123, Office Tower, Floor 15]</p>
                 <p className="text-sm text-gray-600">
@@ -220,11 +287,16 @@ export default function Contact() {
               </div>
 
               {/* Contact Details */}
-              <div className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 group">
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div 
+                className={`bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-1000 ease-out group ${
+                  scrollValue > 900 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: '200ms' }}
+              >
+                <div className="w-12 h-12 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <span className="text-white text-xl">📱</span>
                 </div>
-                <h3 className="text-xl font-serif font-bold text-primary-900 mb-4">Get in Touch</h3>
+                <h3 className="text-xl font-serif font-bold text-[#041533] mb-4">Get in Touch</h3>
                 <div className="space-y-3">
                   <div>
                     <span className="text-gray-500 text-sm">Phone:</span>
@@ -236,7 +308,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <span className="text-gray-500 text-sm">WhatsApp:</span>
-                    <a href="https://wa.me/971412345678" className="text-primary-600 hover:text-primary-800 font-semibold transition-colors">
+                    <a href="https://wa.me/971412345678" className="text-[#041533] hover:text-[#877051] font-semibold transition-colors">
                       Click to Chat
                     </a>
                   </div>
@@ -244,22 +316,27 @@ export default function Contact() {
               </div>
 
               {/* Social Media */}
-              <div className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 group">
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div 
+                className={`bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-1000 ease-out group ${
+                  scrollValue > 1100 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: '400ms' }}
+              >
+                <div className="w-12 h-12 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <span className="text-white text-xl">🌐</span>
                 </div>
-                <h3 className="text-xl font-serif font-bold text-primary-900 mb-4">Stay Connected</h3>
+                <h3 className="text-xl font-serif font-bold text-[#041533] mb-4">Stay Connected</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   Follow our design stories, project progress, and studio life.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-primary-50 transition-colors text-sm">
+                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-[#041533]/5 transition-colors text-sm">
                     <span className="mr-2">📷</span> Instagram
                   </a>
-                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-primary-50 transition-colors text-sm">
+                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-[#041533]/5 transition-colors text-sm">
                     <span className="mr-2">💼</span> LinkedIn
                   </a>
-                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-primary-50 transition-colors text-sm">
+                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-[#041533]/5 transition-colors text-sm">
                     <span className="mr-2">📌</span> Pinterest
                   </a>
                 </div>
@@ -268,8 +345,13 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2" id="contact-form">
-              <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-serif font-bold text-primary-900 mb-2">Quick Inquiry Form</h3>
+              <div 
+                className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-lg transition-all duration-1000 ease-out ${
+                  scrollValue > 700 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: '300ms' }}
+              >
+                <h3 className="text-2xl font-serif font-bold text-[#041533] mb-2">Quick Inquiry Form</h3>
                 <p className="text-gray-600 mb-8">Have a quick question or need more info? We typically respond within 24 hours.</p>
                 
                 {error && (
@@ -287,7 +369,7 @@ export default function Contact() {
                     <p className="text-gray-600">Thank you for your inquiry. We'll get back to you within 24 hours.</p>
                     <button 
                       onClick={() => setSubmitted(false)}
-                      className="mt-4 text-primary-600 hover:text-primary-800 font-semibold"
+                      className="mt-4 text-[#041533] hover:text-[#877051] font-semibold"
                     >
                       Send Another Message
                     </button>
@@ -306,7 +388,7 @@ export default function Contact() {
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#041533] focus:border-transparent transition-all duration-300"
                           placeholder="Your full name"
                         />
                       </div>
@@ -321,7 +403,7 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#041533] focus:border-transparent transition-all duration-300"
                           placeholder="your.email@example.com"
                         />
                       </div>
@@ -338,7 +420,7 @@ export default function Contact() {
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#041533] focus:border-transparent transition-all duration-300"
                           placeholder="+971 XX XXX XXXX"
                         />
                       </div>
@@ -351,7 +433,7 @@ export default function Contact() {
                           name="projectType"
                           value={formData.projectType}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#041533] focus:border-transparent transition-all duration-300"
                         >
                           <option value="">Select project type</option>
                           <option value="residential">Residential Villa</option>
@@ -374,7 +456,7 @@ export default function Contact() {
                         name="budget"
                         value={formData.budget}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#041533] focus:border-transparent transition-all duration-300"
                       >
                         <option value="">Select budget range</option>
                         <option value="under-500k">Under AED 500K</option>
@@ -397,7 +479,7 @@ export default function Contact() {
                         onChange={handleInputChange}
                         required
                         rows={6}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300 resize-none"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#041533] focus:border-transparent transition-all duration-300 resize-none"
                         placeholder="Tell us about your project, timeline, and any specific requirements..."
                       ></textarea>
                     </div>
@@ -405,7 +487,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="w-full bg-gradient-to-r from-[#041533] to-[#877051] text-white py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center justify-center">
@@ -430,17 +512,25 @@ export default function Contact() {
       {/* Newsletter Subscription Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary-900 mb-6">
+          <div 
+            className={`text-center mb-12 transition-all duration-1000 ease-out ${
+              scrollValue > 1500 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#041533] mb-6">
               Stay Updated
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-secondary-400 to-primary-400 rounded-full mx-auto mb-8"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
             <p className="text-lg text-gray-700 max-w-2xl mx-auto">
               Subscribe to our newsletter for design insights, project updates, and architectural inspiration delivered to your inbox.
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto">
+          <div 
+            className={`bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto transition-all duration-1000 ease-out ${
+              scrollValue > 1700 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
             {subscribed ? (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -462,7 +552,7 @@ export default function Contact() {
                     value={subscriptionEmail}
                     onChange={(e) => setSubscriptionEmail(e.target.value)}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#041533] focus:border-transparent transition-all duration-300"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -470,7 +560,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubscribing}
-                  className="w-full bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-[#041533] to-[#877051] text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isSubscribing ? (
                     <span className="flex items-center justify-center">
@@ -497,49 +587,55 @@ export default function Contact() {
       {/* Consultation Booking Section */}
       <section id="consultation" className="py-20 bg-white relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary-900 mb-6">
-            Book a Consultation
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-secondary-400 to-primary-400 rounded-full mx-auto mb-8"></div>
-          
-          <p className="text-xl text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Have a project in mind? Schedule a one-on-one design consultation with our lead architects. 
-            We'll review your site, explore your goals, and help shape a clear architectural direction.
-          </p>
-          
-          <div className="bg-gray-50 rounded-2xl p-8 shadow-lg">
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl">💭</span>
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">Site Review</h4>
-                <p className="text-gray-600 text-sm">Analyze your location and constraints</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl">🎯</span>
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">Goal Setting</h4>
-                <p className="text-gray-600 text-sm">Define your vision and objectives</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white text-2xl">📐</span>
-                </div>
-                <h4 className="font-bold text-gray-900 mb-2">Design Direction</h4>
-                <p className="text-gray-600 text-sm">Create a clear architectural roadmap</p>
-              </div>
-            </div>
+          <div 
+            className={`transition-all duration-1000 ease-out ${
+              scrollValue > 2000 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#041533] mb-6">
+              Book a Consultation
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
             
-            <a 
-              href="mailto:hello@merka-architecture.com?subject=Consultation Booking Request&body=Hello, I would like to schedule a consultation for my project."
-              className="inline-block bg-gradient-to-r from-primary-600 to-secondary-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
-            >
-              Schedule Consultation →
-            </a>
+            <p className="text-xl text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Have a project in mind? Schedule a one-on-one design consultation with our lead architects. 
+              We'll review your site, explore your goals, and help shape a clear architectural direction.
+            </p>
+            
+            <div className="bg-gray-50 rounded-2xl p-8 shadow-lg">
+              <div className="grid md:grid-cols-3 gap-8 mb-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <span className="text-white text-2xl">💭</span>
+                  </div>
+                  <h4 className="font-bold text-gray-900 mb-2">Site Review</h4>
+                  <p className="text-gray-600 text-sm">Analyze your location and constraints</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <span className="text-white text-2xl">🎯</span>
+                  </div>
+                  <h4 className="font-bold text-gray-900 mb-2">Goal Setting</h4>
+                  <p className="text-gray-600 text-sm">Define your vision and objectives</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <span className="text-white text-2xl">📐</span>
+                  </div>
+                  <h4 className="font-bold text-gray-900 mb-2">Design Direction</h4>
+                  <p className="text-gray-600 text-sm">Create a clear architectural roadmap</p>
+                </div>
+              </div>
+              
+              <a 
+                href="mailto:hello@merka-architecture.com?subject=Consultation Booking Request&body=Hello, I would like to schedule a consultation for my project."
+                className="inline-block bg-gradient-to-r from-[#041533] to-[#877051] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
+              >
+                Schedule Consultation →
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -547,17 +643,23 @@ export default function Contact() {
       {/* Working with Merka Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-primary-900 mb-6">
-            Working With Merka
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-secondary-400 to-primary-400 rounded-full mx-auto mb-8"></div>
-          
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
-            We serve clients across Dubai and the UAE, and collaborate internationally. Our team is experienced 
-            in navigating local approvals, site challenges, and cross-border architectural coordination. 
-            From minimalist villas to high-rise mixed-use developments, our architecture design company in 
-            Dubai is equipped to deliver excellence.
-          </p>
+          <div 
+            className={`transition-all duration-1000 ease-out ${
+              scrollValue > 2500 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#041533] mb-6">
+              Working With Merka
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
+            
+            <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+              We serve clients across Dubai and the UAE, and collaborate internationally. Our team is experienced 
+              in navigating local approvals, site challenges, and cross-border architectural coordination. 
+              From minimalist villas to high-rise mixed-use developments, our architecture design company in 
+              Dubai is equipped to deliver excellence.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -570,32 +672,38 @@ export default function Contact() {
       >
         <div className="absolute inset-0">
           <div 
-            className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-white/5 to-secondary-300/10 rounded-full blur-3xl"
-            style={{ transform: `translateY(${scrollY * 0.03}px)` }}
+            className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-white/5 to-[#877051]/10 rounded-full blur-3xl"
+            style={{ transform: mounted ? `translateY(${scrollValue * 0.03}px)` : 'translateY(0px)' }}
           ></div>
           <div 
-            className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-primary-300/10 to-white/5 rounded-full blur-2xl"
-            style={{ transform: `translateY(${scrollY * -0.05}px)` }}
+            className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-[#041533]/10 to-white/5 rounded-full blur-2xl"
+            style={{ transform: mounted ? `translateY(${scrollValue * -0.05}px)` : 'translateY(0px)' }}
           ></div>
         </div>
 
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
-            Let's Begin
-          </h2>
-          <p className="text-xl text-gray-200 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Every project starts with a spark. If you're ready to design with intention, 
-            contact us — and let's build something remarkable together.
-          </p>
-          
-          <Link href="/projects">
-            <button className="bg-white text-primary-900 px-10 py-5 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden group">
-              <span className="absolute inset-0 bg-gradient-to-r from-secondary-600 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-500">
-                Start Your Project →
-              </span>
-            </button>
-          </Link>
+          <div 
+            className={`transition-all duration-1000 ease-out ${
+              scrollValue > 3000 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6">
+              Let's Begin
+            </h2>
+            <p className="text-xl text-gray-200 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Every project starts with a spark. If you're ready to design with intention, 
+              contact us — and let's build something remarkable together.
+            </p>
+            
+            <Link href="/projects">
+              <button className="bg-white text-[#041533] px-10 py-5 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden group">
+                <span className="absolute inset-0 bg-gradient-to-r from-[#877051] to-[#041533] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                <span className="relative z-10 group-hover:text-white transition-colors duration-500">
+                  Start Your Project →
+                </span>
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
