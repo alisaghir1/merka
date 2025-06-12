@@ -202,7 +202,7 @@ export default function BlogPage() {
           }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80"
+            src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&q=80"
             alt="Modern Architecture and Insights"
             fill
             className="object-cover"

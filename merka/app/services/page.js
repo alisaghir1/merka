@@ -128,7 +128,7 @@ export default function Services() {
           }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80"
+            src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=1920&q=80"
             alt="Architectural Services and Design Process"
             fill
             className="object-cover"
