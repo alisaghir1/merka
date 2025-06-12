@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function About() {
   const [scrollY, setScrollY] = useState(0)
@@ -548,12 +549,12 @@ export default function About() {
               Let&apos;s discuss your architectural project and create something extraordinary together
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center px-4">
-              <a href="/contact" className="bg-white text-[#041533] px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+              <Link href="/contact" className="bg-white text-[#041533] px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300">
                 Start Your Project
-              </a>
-              <a href="/projects" className="border-2 border-white text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
+              </Link>
+              <Link href="/projects" className="border-2 border-white text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
                 View Our Work
-              </a>
+              </Link>
             </div>
           </div>
         </div>

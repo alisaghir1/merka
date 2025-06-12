@@ -125,13 +125,23 @@ export default function BlogPage() {
   const [mounted, setMounted] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState("All Posts")
+  const [isLoaded, setIsLoaded] = useState(false)
   const heroRef = useRef(null)
 
   useEffect(() => {
     setMounted(true)
+    // Trigger entrance animation after component mounts
+    const timer = setTimeout(() => {
+      setIsLoaded(true)
+    }, 100)
+
     const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      clearTimeout(timer)
+    }
   }, [])
 
   const scrollValue = mounted ? scrollY : 0
@@ -144,111 +154,141 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      {/* Hero Section */}
+      {/* Loading Curtain Animation */}
+      <div 
+        className={`fixed inset-0 z-50 transition-all duration-1500 ease-out ${
+          isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
+      >
+        <div className="relative w-full h-full bg-gradient-to-br from-[#041533] to-[#877051]">
+          {/* Curtain Effect */}
+          <div 
+            className={`absolute inset-0 bg-gradient-to-br from-[#041533] to-[#877051] transition-transform duration-1500 ease-out ${
+              isLoaded ? 'transform translate-y-full' : 'transform translate-y-0'
+            }`}
+          />
+          <div 
+            className={`absolute inset-0 bg-gradient-to-br from-[#877051] to-[#041533] transition-transform duration-1500 ease-out delay-300 ${
+              isLoaded ? 'transform -translate-y-full' : 'transform translate-y-0'
+            }`}
+          />
+          
+          {/* Loading Logo */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className={`transition-all duration-1000 ${isLoaded ? 'opacity-0 scale-50' : 'opacity-100 scale-100'}`}>
+              <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-4">
+                <span className="text-[#041533] text-2xl">📝</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-serif font-bold text-white text-center">
+                INSIGHTS
+              </h1>
+              <div className="w-32 h-1 bg-white mx-auto mt-4 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Hero Section with Image Parallax */}
       <section 
         ref={heroRef}
         className="relative h-screen flex items-center justify-center overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, #041533 0%, #2f3541 50%, #877051 100%)`,
-        }}
       >
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          {/* Geometric shapes */}
-          <div 
-            className="absolute top-20 left-20 w-64 h-64 border-2 border-white/20 rotate-45"
-            style={{ 
-              transform: mounted 
-                ? `translateY(${scrollValue * 0.3}px) rotate(${45 + scrollValue * 0.1}deg)` 
-                : 'translateY(0px) rotate(45deg)',
-              transition: 'transform 0.1s ease-out'
-            }}
-          ></div>
-          <div 
-            className="absolute bottom-20 right-20 w-48 h-48 border-2 border-white/20 rounded-full"
-            style={{ 
-              transform: mounted 
-                ? `translateY(${scrollValue * -0.2}px) scale(${1 + scrollValue * 0.0005})` 
-                : 'translateY(0px) scale(1)',
-              transition: 'transform 0.1s ease-out'
-            }}
-          ></div>
-          
-          {/* Grid pattern */}
-          <div 
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
-              backgroundSize: '50px 50px',
-              transform: mounted ? `translateY(${scrollValue * 0.1}px)` : 'translateY(0px)',
-              transition: 'transform 0.1s ease-out'
-            }}
-          ></div>
-          
-          {/* Floating blobs */}
-          <div 
-            className="absolute top-1/4 right-1/3 w-96 h-96 bg-gradient-to-r from-[#877051]/10 to-[#041533]/10 rounded-full blur-3xl"
-            style={{ 
-              transform: mounted ? `translateY(${scrollValue * -0.3}px)` : 'translateY(0px)',
-              transition: 'transform 0.1s ease-out'
-            }}
-          ></div>
-          <div 
-            className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-[#041533]/10 to-[#877051]/10 rounded-full blur-2xl"
-            style={{ 
-              transform: mounted ? `translateY(${scrollValue * 0.4}px)` : 'translateY(0px)',
-              transition: 'transform 0.1s ease-out'
-            }}
-          ></div>
-        </div>
-
+        {/* Parallax Background Image */}
         <div 
-          className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
-          style={{ 
-            transform: mounted ? `translateY(${scrollValue * 0.2}px)` : 'translateY(0px)',
-            opacity: mounted ? Math.max(0, 1 - scrollValue * 0.002) : 1
+          className="absolute inset-0 scale-110"
+          style={{
+            transform: mounted ? `translateY(${scrollValue * 0.5}px)` : 'translateY(0px)',
+            transition: mounted ? 'none' : 'transform 0.1s ease-out'
           }}
         >
+          <Image
+            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80"
+            alt="Modern Architecture and Insights"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+        </div>
+
+        {/* Content with entrance animation */}
+        <div 
+          className={`relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-1000 ease-out ${
+            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+          }`}
+          style={{ transitionDelay: '800ms' }}
+        >
           <div className="mb-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-[#877051] to-[#041533] rounded-2xl flex items-center justify-center mx-auto mb-6 hover:scale-110 transition-transform duration-300">
+            <div 
+              className={`w-16 h-16 bg-gradient-to-r from-[#877051] to-[#041533] rounded-2xl flex items-center justify-center mx-auto mb-6 transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+              }`}
+              style={{ transitionDelay: '1000ms' }}
+            >
               <span className="text-white text-2xl">📝</span>
             </div>
           </div>
 
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-white mb-6 leading-tight">
-            <span className="inline-block hover:scale-110 transition-transform duration-500">INSIGHTS</span>
-            <span className="block text-[#877051] hover:text-white transition-colors duration-500">&</span>
-            <span className="block hover:scale-110 transition-transform duration-500">EXPERTISE</span>
+            <span 
+              className={`inline-block transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+              }`}
+              style={{ transitionDelay: '1200ms' }}
+            >
+              INSIGHTS
+            </span>
+            <span 
+              className={`block text-[#877051] transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '1400ms' }}
+            >
+              &
+            </span>
+            <span 
+              className={`block transition-all duration-1000 ease-out ${
+                isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+              }`}
+              style={{ transitionDelay: '1600ms' }}
+            >
+              EXPERTISE
+            </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed hover:text-white transition-colors duration-500">
+          <p 
+            className={`text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed transition-all duration-1000 ease-out ${
+              isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '1800ms' }}
+          >
             Explore architectural knowledge, industry insights, and expert perspectives on designing for the UAE's unique environment.
           </p>
         </div>
 
+        {/* Scroll indicator */}
         <div 
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
           style={{ opacity: mounted ? Math.max(0, 1 - scrollValue * 0.01) : 1 }}
         >
-          <div className="flex flex-col items-center">
-            <span className="text-sm mb-2 animate-pulse">Discover Our Insights</span>
-            <div className="animate-bounce">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+          <div className="flex flex-col items-center animate-bounce">
+            <span className="text-sm mb-2">Discover Our Insights</span>
+            <div className="w-6 h-10 border-2 border-white rounded-full relative">
+              <div className="w-1 h-3 bg-white rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-bounce"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Transition */}
-      <div className="relative h-32 bg-gradient-to-b from-[#041533] to-white"></div>
-
       {/* Featured Post Section */}
       {featuredPost && (
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
+            <div 
+              className={`text-center mb-16 transition-all duration-1000 ease-out ${
+                scrollValue > 500 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+              }`}
+            >
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#041533] mb-6">
                 Featured Article
               </h2>
@@ -256,7 +296,11 @@ export default function BlogPage() {
             </div>
 
             <Link href={`/blog/${featuredPost.slug}`} className="block">
-              <div className="group cursor-pointer">
+              <div 
+                className={`group cursor-pointer transition-all duration-1000 ease-out ${
+                  scrollValue > 700 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+              >
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                   <div className="relative h-96 lg:h-[500px] bg-gray-200 rounded-2xl overflow-hidden">
                     <Image
@@ -305,7 +349,11 @@ export default function BlogPage() {
       {/* Category Filter */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-4">
+          <div 
+            className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 ease-out ${
+              scrollValue > 1000 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
             {categories.map((category) => (
               <button
                 key={category}
@@ -329,7 +377,12 @@ export default function BlogPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post, index) => (
               <Link key={post.id} href={`/blog/${post.slug}`} className="block">
-                <article className="group cursor-pointer">
+                <article 
+                  className={`group cursor-pointer transition-all duration-1000 ease-out ${
+                    scrollValue > 1200 + index * 100 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
                   <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
                     <div className="relative h-64 bg-gray-200">
                       <Image
@@ -379,22 +432,28 @@ export default function BlogPage() {
       {/* Newsletter Section */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#041533] mb-6">
-            Stay Updated with Our Latest Insights
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Get the latest architectural trends, project insights, and industry expertise delivered to your inbox.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#041533] focus:border-transparent"
-            />
-            <button className="bg-[#041533] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#877051] hover:scale-105 transition-all duration-300 whitespace-nowrap">
-              Subscribe
-            </button>
+          <div 
+            className={`transition-all duration-1000 ease-out ${
+              scrollValue > 2000 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#041533] mb-6">
+              Stay Updated with Our Latest Insights
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Get the latest architectural trends, project insights, and industry expertise delivered to your inbox.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#041533] focus:border-transparent"
+              />
+              <button className="bg-[#041533] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#877051] hover:scale-105 transition-all duration-300 whitespace-nowrap">
+                Subscribe
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -418,24 +477,30 @@ export default function BlogPage() {
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 hover:scale-105 transition-transform duration-300">
-            Ready to Start Your Project?
-          </h2>
-          <p className="text-xl text-gray-200 mb-8 hover:text-white transition-colors duration-300">
-            Let our expertise guide your architectural vision from concept to completion.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact">
-              <button className="bg-white text-[#041533] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
-                Start Your Project
-              </button>
-            </Link>
-            <Link href="/projects">
-              <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
-                View Our Work
-              </button>
-            </Link>
+          <div 
+            className={`transition-all duration-1000 ease-out ${
+              scrollValue > 2500 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 hover:scale-105 transition-transform duration-300">
+              Ready to Start Your Project?
+            </h2>
+            <p className="text-xl text-gray-200 mb-8 hover:text-white transition-colors duration-300">
+              Let our expertise guide your architectural vision from concept to completion.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <button className="bg-white text-[#041533] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
+                  Start Your Project
+                </button>
+              </Link>
+              <Link href="/projects">
+                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
+                  View Our Work
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
