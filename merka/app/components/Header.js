@@ -69,23 +69,23 @@ const Header = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-[#041533] to-[#877051] opacity-0 group-hover:opacity-100 transition-all duration-500 scale-0 group-hover:scale-100 rounded-2xl"></div>
             
             {/* Menu Lines */}
-            <div className="relative z-10 flex flex-col justify-center items-center w-full h-full space-y-1">
-              <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
-                isScrolled ? 'bg-[#041533]' : 'bg-white'
-              } group-hover:bg-white ${
-                isMenuOpen ? 'rotate-45 translate-y-2' : ''
-              }`}></span>
-              <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
-                isScrolled ? 'bg-[#041533]' : 'bg-white'
-              } group-hover:bg-white ${
-                isMenuOpen ? 'opacity-0 scale-0' : ''
-              }`}></span>
-              <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
-                isScrolled ? 'bg-[#041533]' : 'bg-white'
-              } group-hover:bg-white ${
-                isMenuOpen ? '-rotate-45 -translate-y-2' : ''
-              }`}></span>
-            </div>
+<div className="relative z-10 flex flex-col justify-center items-center w-full h-full space-y-1">
+  <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
+    isScrolled ? 'bg-[#041533]' : 'bg-[#041533]'
+  } group-hover:bg-white ${
+    isMenuOpen ? 'rotate-45 translate-y-2' : ''
+  }`}></span>
+  <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
+    isScrolled ? 'bg-[#041533]' : 'bg-[#041533]'
+  } group-hover:bg-white ${
+    isMenuOpen ? 'opacity-0 scale-0' : ''
+  }`}></span>
+  <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
+    isScrolled ? 'bg-[#041533]' : 'bg-[#041533]'
+  } group-hover:bg-white ${
+    isMenuOpen ? '-rotate-45 -translate-y-2' : ''
+  }`}></span>
+</div>
 
             {/* Ripple Effect */}
             <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700">
@@ -121,13 +121,13 @@ const Header = () => {
                   <Link 
                     key={item.name}
                     href={item.href} 
-                    className={`flex items-center space-x-4 text-lg font-medium text-[#041533] hover:text-white py-4 px-6 rounded-2xl transition-all duration-500 hover:bg-gradient-to-r hover:from-[#041533] hover:to-[#877051] hover:shadow-lg hover:scale-105 transform group ${
+                    className={`flex items-center space-x-4 text-lg font-medium text-[#041533] hover:text-white py-4 px-6 rounded-2xl transition-all duration-500 hover:bg-gradient-to-r hover:from-[#041533] hover:to-[#877051] hover:shadow-lg  transform group ${
                       isMenuOpen ? 'animate-slideInLeft' : ''
                     }`}
                     style={{ animationDelay: `${index * 100}ms` }}
                     onClick={closeMenu}
                   >
-                    <span className="text-2xl group-hover:scale-125 transition-transform duration-300">
+                    <span className="text-2xl group-hover:scale-105 transition-transform duration-300">
                       {item.icon}
                     </span>
                     <span className="group-hover:translate-x-2 transition-transform duration-300">
