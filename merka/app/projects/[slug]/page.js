@@ -3,7 +3,8 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { featuredProjects } from '../../data/projects.js'
+import { featuredProjects as staticProjects } from '../../data/projects.js'
+import { getProjectBySlug, getProjects } from '@/lib/data'
 
 export default function ProjectDetail() {
   const params = useParams()
@@ -11,14 +12,48 @@ export default function ProjectDetail() {
   const [scrollY, setScrollY] = useState(0)
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [showImageModal, setShowImageModal] = useState(false)
-
-  const project = featuredProjects.find(p => p.slug === params.slug)
+  const [project, setProject] = useState(null)
+  const [allProjects, setAllProjects] = useState(staticProjects)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        // Try fetching from Supabase first
+        const data = await getProjectBySlug(params.slug)
+        if (data) {
+          setProject(data)
+          const allData = await getProjects({ published: true })
+          if (allData && allData.length > 0) {
+            setAllProjects(allData)
+          }
+        } else {
+          // Fall back to static data
+          const staticProject = staticProjects.find(p => p.slug === params.slug)
+          setProject(staticProject || null)
+        }
+      } catch (error) {
+        console.log('Using static project data:', error)
+        const staticProject = staticProjects.find(p => p.slug === params.slug)
+        setProject(staticProject || null)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchProject()
+    
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [params.slug])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#041533]"></div>
+      </div>
+    )
+  }
 
   if (!project) {
     return (
@@ -43,8 +78,8 @@ export default function ProjectDetail() {
     }
   }
 
-  const nextProject = featuredProjects.find(p => p.id === project.id + 1) || featuredProjects[0]
-  const prevProject = featuredProjects.find(p => p.id === project.id - 1) || featuredProjects[featuredProjects.length - 1]
+  const nextProject = allProjects.find(p => p.id === project.id + 1) || allProjects[0]
+  const prevProject = allProjects.find(p => p.id === project.id - 1) || allProjects[allProjects.length - 1]
 
   return (
     <div className="min-h-screen bg-white">

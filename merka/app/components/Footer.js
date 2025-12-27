@@ -1,7 +1,60 @@
+'use client'
+import { useState, useEffect } from 'react'
 import { FaLinkedinIn, FaInstagram, FaTwitter, FaWhatsapp, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
 import Link from 'next/link'
+import Image from 'next/image'
+import { getSiteSettings, getServices } from '@/lib/data'
+
+// Default fallback values
+const defaultContact = {
+  email: 'hello@merka.ae',
+  phone: '+971 4 123 4567',
+  address: 'Dubai Design District, Building 6, Ground Floor, Dubai, UAE',
+  whatsapp: '+971501234567'
+}
+
+const defaultSocial = {
+  linkedin: 'https://linkedin.com/company/merka-architecture',
+  instagram: 'https://instagram.com/merka.architecture',
+  twitter: 'https://twitter.com/merka_arch'
+}
+
+const defaultServices = [
+  { title: 'Conceptual Design', slug: 'conceptual-design' },
+  { title: 'Schematic Design', slug: 'schematic-design' },
+  { title: 'Design Development', slug: 'design-development' },
+  { title: 'Construction Drawings', slug: 'construction-drawings' },
+  { title: 'Tender Documentation', slug: 'tender-documentation' },
+  { title: 'Authority Approvals', slug: 'authority-approvals' }
+]
 
 export default function Footer() {
+  const [contact, setContact] = useState(defaultContact)
+  const [social, setSocial] = useState(defaultSocial)
+  const [company, setCompany] = useState({ description: "Dubai's premier architectural studio crafting iconic designs that blend innovation, culture, and sustainability. Creating spaces that inspire and endure for generations." })
+  const [services, setServices] = useState(defaultServices)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch site settings
+        const settings = await getSiteSettings()
+        if (settings.contact) setContact({ ...defaultContact, ...settings.contact })
+        if (settings.social) setSocial({ ...defaultSocial, ...settings.social })
+        if (settings.company) setCompany(settings.company)
+
+        // Fetch services
+        const servicesData = await getServices({ published: true })
+        if (servicesData && servicesData.length > 0) {
+          setServices(servicesData.slice(0, 6))
+        }
+      } catch (error) {
+        console.log('Using default footer data:', error)
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <footer className="relative bg-gradient-to-br from-[#041533] via-[#2f3541] to-[#877051] text-white overflow-hidden">
       {/* Animated Background Elements */}
@@ -26,13 +79,17 @@ export default function Footer() {
             <div className="lg:col-span-2">
               <div className="mb-8">
                 <Link href="/" className="block">
-                  <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 bg-gradient-to-r from-white to-[#877051] bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-pointer">
-                    MERKA
-                  </h2>
+                  <Image
+                    src="/logo.svg"
+                    alt="Merka Architecture"
+                    width={200}
+                    height={55}
+                    className="hover:scale-105 transition-transform duration-300 cursor-pointer mb-4"
+                  />
                 </Link>
                 <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mb-6"></div>
                 <p className="text-lg text-gray-200 leading-relaxed max-w-md">
-                  Dubai&apos;s premier architectural studio crafting iconic designs that blend innovation, culture, and sustainability. Creating spaces that inspire and endure for generations.
+                  {company.description || "Dubai's premier architectural studio crafting iconic designs that blend innovation, culture, and sustainability. Creating spaces that inspire and endure for generations."}
                 </p>
               </div>
               
@@ -43,30 +100,30 @@ export default function Footer() {
                     <FaMapMarkerAlt className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">Dubai Design District</p>
-                    <p className="text-gray-300 text-sm">Building 6, Ground Floor, Dubai, UAE</p>
+                    <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">{contact.address?.split(',')[0] || 'Dubai Design District'}</p>
+                    <p className="text-gray-300 text-sm">{contact.address?.split(',').slice(1).join(',').trim() || 'Building 6, Ground Floor, Dubai, UAE'}</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center group cursor-pointer">
+                <a href={`tel:${contact.phone}`} className="flex items-center group cursor-pointer">
                   <div className="w-12 h-12 bg-gradient-to-r from-[#877051] to-[#041533] rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                     <FaPhone className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">+971 4 123 4567</p>
+                    <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">{contact.phone}</p>
                     <p className="text-gray-300 text-sm">Monday - Friday, 9AM - 6PM</p>
                   </div>
-                </div>
+                </a>
                 
-                <div className="flex items-center group cursor-pointer">
+                <a href={`mailto:${contact.email}`} className="flex items-center group cursor-pointer">
                   <div className="w-12 h-12 bg-gradient-to-r from-[#877051] to-[#041533] rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                     <FaEnvelope className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">hello@merka.ae</p>
+                    <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">{contact.email}</p>
                     <p className="text-gray-300 text-sm">Get in touch for consultations</p>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
             
@@ -74,18 +131,11 @@ export default function Footer() {
             <div>
               <h3 className="text-xl font-serif font-bold mb-6 text-white">Our Services</h3>
               <ul className="space-y-3">
-                {[
-                  { name: 'Conceptual Design', link: '/services/conceptual-design' },
-                  { name: 'Schematic Design', link: '/services/schematic-design' },
-                  { name: 'Design Development', link: '/services/design-development' },
-                  { name: 'Construction Drawings', link: '/services/construction-drawings' },
-                  { name: 'Tender Documentation', link: '/services/tender-documentation' },
-                  { name: 'Authority Approvals', link: '/services/authority-approvals' }
-                ].map((service, index) => (
-                  <li key={index}>
-                    <Link href={service.link} className="text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group">
+                {services.map((service, index) => (
+                  <li key={service.id || index}>
+                    <Link href={`/services/${service.slug}`} className="text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group">
                       <span className="w-2 h-2 bg-[#877051] rounded-full mr-3 group-hover:scale-150 transition-transform duration-300"></span>
-                      {service.name}
+                      {service.title}
                     </Link>
                   </li>
                 ))}
@@ -117,22 +167,46 @@ export default function Footer() {
               <div>
                 <h4 className="text-lg font-semibold mb-4 text-white">Follow Us</h4>
                 <div className="flex gap-4">
-                  {[
-                    { Icon: FaLinkedinIn, link: 'https://linkedin.com/company/merka-architecture', color: 'hover:bg-blue-600' },
-                    { Icon: FaInstagram, link: 'https://instagram.com/merka.architecture', color: 'hover:bg-pink-600' },
-                    { Icon: FaTwitter, link: 'https://twitter.com/merka_arch', color: 'hover:bg-blue-400' },
-                    { Icon: FaWhatsapp, link: 'https://wa.me/971501234567', color: 'hover:bg-green-600' }
-                  ].map(({ Icon, link, color }, index) => (
+                  {social.linkedin && (
                     <a 
-                      key={index}
-                      href={link}
+                      href={social.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 group ${color}`}
+                      className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 group hover:bg-blue-600"
                     >
-                      <Icon className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors duration-300" />
+                      <FaLinkedinIn className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors duration-300" />
                     </a>
-                  ))}
+                  )}
+                  {social.instagram && (
+                    <a 
+                      href={social.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 group hover:bg-pink-600"
+                    >
+                      <FaInstagram className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors duration-300" />
+                    </a>
+                  )}
+                  {social.twitter && (
+                    <a 
+                      href={social.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 group hover:bg-blue-400"
+                    >
+                      <FaTwitter className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors duration-300" />
+                    </a>
+                  )}
+                  {contact.whatsapp && (
+                    <a 
+                      href={`https://wa.me/${contact.whatsapp.replace(/[^0-9]/g, '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-1 group hover:bg-green-600"
+                    >
+                      <FaWhatsapp className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors duration-300" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -145,7 +219,7 @@ export default function Footer() {
             <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
               <div className="text-center lg:text-left">
                 <p className="text-gray-300 text-sm">
-                  © 2024 MERKA Architecture. All rights reserved.
+                  © {new Date().getFullYear()} MERKA Architecture. All rights reserved.
                 </p>
                 <p className="text-gray-400 text-xs mt-1">
                   Crafting architectural masterpieces in Dubai since 2015

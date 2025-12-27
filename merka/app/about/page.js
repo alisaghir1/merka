@@ -170,11 +170,13 @@ export default function About() {
                 Merka was established in Dubai to address a growing gap in architectural delivery: the disconnect between visual ambition and practical execution.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#founding-story" className="bg-[#041533] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#877051] hover:scale-105 transition-all duration-300">
+                <a href="#founding-story" className="group bg-[#041533] text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:bg-[#877051] hover:scale-105 hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2">
                   Read Our Story
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
-                <a href="#team" className="border-2 border-[#041533] text-[#041533] px-6 py-3 rounded-lg font-medium hover:bg-[#041533] hover:text-white hover:scale-105 transition-all duration-300">
+                <a href="#team" className="group border-2 border-[#041533] text-[#041533] px-8 py-4 rounded-2xl font-semibold backdrop-blur-sm hover:bg-[#041533] hover:text-white hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2">
                   Meet The Team
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
               </div>
             </div>
@@ -282,10 +284,10 @@ export default function About() {
                 scrollValue > 2000 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
             >
-              <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500">
+              <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-gray-100 hover:border-[#877051]/30">
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                    <span className="text-white text-2xl">👁️</span>
+                  <div className="w-20 h-20 bg-gradient-to-r from-[#041533] to-[#877051] rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
+                    <span className="text-white text-3xl">👁️</span>
                   </div>
                   <h3 className="text-3xl font-serif font-bold text-[#041533] group-hover:text-[#877051] transition-colors duration-300">Vision</h3>
                 </div>
@@ -310,10 +312,10 @@ export default function About() {
               }`}
               style={{ transitionDelay: '200ms' }}
             >
-              <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500">
+              <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-gray-100 hover:border-[#877051]/30">
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#877051] to-[#041533] rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                    <span className="text-white text-2xl">🎯</span>
+                  <div className="w-20 h-20 bg-gradient-to-r from-[#877051] to-[#041533] rounded-2xl flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg">
+                    <span className="text-white text-3xl">🎯</span>
                   </div>
                   <h3 className="text-3xl font-serif font-bold text-[#041533] group-hover:text-[#877051] transition-colors duration-300">Mission</h3>
                 </div>
@@ -400,10 +402,10 @@ export default function About() {
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
-                <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-6 transition-all duration-500">
+                <div className="bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-6 transition-all duration-500 border border-gray-100 hover:border-[#877051]/30">
                   <div className="text-center">
-                    <div className={`w-16 h-16 bg-gradient-to-r ${item.gradient} rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500`}>
-                      <span className="text-white text-2xl group-hover:text-3xl transition-all duration-300">{item.icon}</span>
+                    <div className={`w-20 h-20 bg-gradient-to-r ${item.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
+                      <span className="text-white text-3xl group-hover:text-4xl transition-all duration-300">{item.icon}</span>
                     </div>
                     <h3 className="text-xl font-serif font-bold text-[#041533] mb-3 group-hover:text-[#877051] transition-colors duration-300">{item.title}</h3>
                     <p className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">{item.desc}</p>
@@ -455,8 +457,9 @@ export default function About() {
               <p className="text-xl text-gray-200 mb-8 leading-relaxed">
                 Dubai presents unique challenges for architectural practice. Each master-planned community has its own set of codes, FAR restrictions, material allowances, and infrastructure connections.
               </p>
-              <a href="#dubai-expertise" className="bg-white text-[#041533] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+              <a href="#dubai-expertise" className="group inline-flex items-center gap-2 bg-white text-[#041533] px-10 py-5 rounded-2xl font-semibold text-lg shadow-xl hover:bg-gray-50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                 Learn More
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </a>
             </div>
           </div>
@@ -549,11 +552,13 @@ export default function About() {
               Let&apos;s discuss your architectural project and create something extraordinary together
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center px-4">
-              <Link href="/contact" className="bg-white text-[#041533] px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+              <Link href="/contact" className="group inline-flex items-center justify-center gap-2 bg-white text-[#041533] px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-semibold text-base sm:text-lg shadow-xl hover:bg-gray-50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                 Start Your Project
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </Link>
-              <Link href="/projects" className="border-2 border-white text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
+              <Link href="/projects" className="group inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-semibold text-base sm:text-lg backdrop-blur-sm hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
                 View Our Work
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </Link>
             </div>
           </div>

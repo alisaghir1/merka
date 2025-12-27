@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { featuredProjects, projectCategories } from '../data/projects.js'
+import { featuredProjects as staticProjects, projectCategories as staticCategories } from '../data/projects.js'
+import { getProjects } from '@/lib/data'
 
 export default function Projects() {
   const [mounted, setMounted] = useState(false)
@@ -10,10 +11,29 @@ export default function Projects() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
   const [hoveredProject, setHoveredProject] = useState(null)
+  const [projects, setProjects] = useState(staticProjects)
+  const [categories, setCategories] = useState(staticCategories)
   const heroRef = useRef(null)
 
   useEffect(() => {
     setMounted(true)
+    
+    // Fetch projects from Supabase
+    const fetchProjects = async () => {
+      try {
+        const data = await getProjects({ published: true })
+        if (data && data.length > 0) {
+          setProjects(data)
+          // Extract unique categories from fetched data
+          const uniqueCategories = [...new Set(data.map(p => p.category).filter(Boolean))]
+          setCategories(uniqueCategories)
+        }
+      } catch (error) {
+        console.log('Using static project data:', error)
+      }
+    }
+    fetchProjects()
+    
     // Trigger entrance animation after component mounts
     const timer = setTimeout(() => {
       setIsLoaded(true)
@@ -31,8 +51,8 @@ export default function Projects() {
   const scrollValue = mounted ? scrollY : 0
 
   const filteredProjects = activeFilter === 'all' 
-    ? featuredProjects 
-    : featuredProjects.filter(project => project.category === activeFilter)
+    ? projects 
+    : projects.filter(project => project.category === activeFilter)
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -178,14 +198,17 @@ export default function Projects() {
             }`}
             style={{ transitionDelay: '1800ms' }}
           >
-            <button className="group bg-white text-[#041533] px-10 py-5 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden">
+            <button className="group bg-white text-[#041533] px-10 py-5 rounded-2xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden flex items-center gap-3 justify-center">
               <span className="absolute inset-0 bg-gradient-to-r from-[#877051] to-[#041533] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
               <span className="relative z-10 group-hover:text-white transition-colors duration-500">
                 Explore All Projects
               </span>
+              <svg className="relative z-10 w-5 h-5 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </button>
             <Link href="/contact">
-              <button className="group border-2 border-white text-white px-10 py-5 rounded-xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden">
+              <button className="group border-2 border-white text-white px-10 py-5 rounded-2xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden backdrop-blur-sm bg-white/10">
                 <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                 <span className="relative z-10 group-hover:text-[#041533] transition-colors duration-500">
                   Start Your Project
@@ -232,14 +255,20 @@ export default function Projects() {
               scrollValue > 700 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            {projectCategories.map((category) => (
+            {[{ id: 'all', name: 'All Projects', count: projects.length }, ...categories
+              .filter(cat => (cat.id || cat) !== 'all') // Exclude any 'all' category to avoid duplicate keys
+              .map(cat => ({
+                id: cat.id || cat,
+                name: cat.name || cat.charAt(0).toUpperCase() + cat.slice(1),
+                count: projects.filter(p => p.category === (cat.id || cat)).length
+              }))].map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveFilter(category.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
                   activeFilter === category.id
-                    ? 'bg-gradient-to-r from-[#041533] to-[#877051] text-white shadow-lg scale-105'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105'
+                    ? 'bg-gradient-to-r from-[#041533] to-[#877051] text-white shadow-xl scale-105'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 hover:scale-105 border border-gray-200 hover:border-[#877051]/30'
                 }`}
               >
                 {category.name}
@@ -257,7 +286,7 @@ export default function Projects() {
             {filteredProjects.map((project, index) => (
               <div
                 key={project.id}
-                className={`group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-1000 ease-out overflow-hidden hover:-translate-y-2 ${
+                className={`group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 ease-out overflow-hidden hover:-translate-y-3 border border-gray-100 hover:border-[#877051]/30 ${
                   scrollValue > 900 + index * 100 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}

@@ -2,16 +2,39 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { stylesData, typologiesData } from '../data/styles-typologies'
+import { stylesData as staticStylesData, typologiesData as staticTypologiesData } from '../data/styles-typologies'
+import { getStyles, getTypologies } from '@/lib/data'
 
 export default function StylesAndTypologies() {
   const [mounted, setMounted] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [styles, setStyles] = useState(staticStylesData)
+  const [typologies, setTypologies] = useState(staticTypologiesData)
   const heroRef = useRef(null)
 
   useEffect(() => {
     setMounted(true)
+    
+    // Fetch styles and typologies from Supabase
+    const fetchData = async () => {
+      try {
+        const [stylesData, typologiesData] = await Promise.all([
+          getStyles({ published: true }),
+          getTypologies({ published: true })
+        ])
+        if (stylesData && stylesData.length > 0) {
+          setStyles(stylesData)
+        }
+        if (typologiesData && typologiesData.length > 0) {
+          setTypologies(typologiesData)
+        }
+      } catch (error) {
+        console.log('Using static styles/typologies data:', error)
+      }
+    }
+    fetchData()
+    
     // Trigger entrance animation after component mounts
     const timer = setTimeout(() => {
       setIsLoaded(true)
@@ -196,8 +219,8 @@ export default function StylesAndTypologies() {
           </div>
 
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {stylesData.map((style, index) => (
-              <Link key={style.id} href={`/styles-and-typologies/styles/${style.slug}`} className="block">
+            {styles.map((style, index) => (
+              <Link key={style.id || index} href={`/styles-and-typologies/styles/${style.slug}`} className="block">
                 <div 
                   className={`group relative cursor-pointer transition-all duration-1000 ease-out ${
                     scrollValue > 700 + index * 100 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -206,9 +229,14 @@ export default function StylesAndTypologies() {
                 >
                   <div className={`absolute inset-0 bg-gradient-to-r ${style.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
                   
-                  <div className="relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-gray-100 group-hover:border-[#041533]/20">
-                    <div className={`w-16 h-16 bg-gradient-to-r ${style.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
-                      <span className="text-white text-2xl">{style.icon}</span>
+                  <div className="relative bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-gray-100 group-hover:border-[#877051]/30 overflow-hidden">
+                    {/* Background Number */}
+                    <div className="absolute -right-4 -top-4 text-[8rem] font-black text-gray-100/50 pointer-events-none select-none group-hover:text-[#877051]/10 transition-colors duration-500">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    
+                    <div className={`relative w-20 h-20 bg-gradient-to-r ${style.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                      <span className="text-white text-3xl">{style.icon}</span>
                     </div>
                     
                     <h3 className="text-2xl font-serif font-bold text-[#041533] mb-4 group-hover:text-[#877051] transition-colors duration-300">
@@ -228,7 +256,7 @@ export default function StylesAndTypologies() {
                       ))}
                     </ul>
                     
-                    <div className="flex items-center text-[#041533] font-medium group-hover:text-[#877051] transition-colors duration-300">
+                    <div className="flex items-center text-[#877051] font-semibold group-hover:text-[#041533] transition-colors duration-300">
                       <span className="group-hover:translate-x-1 transition-transform duration-300">Explore Style</span>
                       <svg className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -260,8 +288,8 @@ export default function StylesAndTypologies() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            {typologiesData.map((typology, index) => (
-              <Link key={typology.id} href={`/styles-and-typologies/typologies/${typology.slug}`} className="block">
+            {typologies.map((typology, index) => (
+              <Link key={typology.id || index} href={`/styles-and-typologies/typologies/${typology.slug}`} className="block">
                 <div 
                   className={`group relative cursor-pointer transition-all duration-1000 ease-out ${
                     scrollValue > 1600 + index * 200 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -270,8 +298,13 @@ export default function StylesAndTypologies() {
                 >
                   <div className={`absolute inset-0 bg-gradient-to-r ${typology.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
                   
-                  <div className="relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-gray-100 group-hover:border-[#041533]/20">
-                    <div className={`w-20 h-20 bg-gradient-to-r ${typology.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                  <div className="relative bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-4 transition-all duration-500 border border-gray-100 group-hover:border-[#877051]/30 overflow-hidden">
+                    {/* Background Number */}
+                    <div className="absolute -right-4 -top-4 text-[8rem] font-black text-gray-100/50 pointer-events-none select-none group-hover:text-[#877051]/10 transition-colors duration-500">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    
+                    <div className={`relative w-20 h-20 bg-gradient-to-r ${typology.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
                       <span className="text-white text-3xl">{typology.icon}</span>
                     </div>
                     
@@ -284,7 +317,7 @@ export default function StylesAndTypologies() {
                     </p>
                     
                     <div className="grid grid-cols-2 gap-4 mb-6">
-                      {typology.subtypes.map((subtype, subtypeIndex) => (
+                      {(typology.subtypes || []).map((subtype, subtypeIndex) => (
                         <div key={subtypeIndex} className="flex items-center text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
                           <div className="w-2 h-2 bg-[#877051] rounded-full mr-3 group-hover:scale-150 group-hover:bg-[#041533] transition-all duration-300"></div>
                           <span className="group-hover:translate-x-1 transition-transform duration-300">{subtype}</span>
@@ -292,7 +325,7 @@ export default function StylesAndTypologies() {
                       ))}
                     </div>
                     
-                    <div className="flex items-center text-[#041533] font-medium group-hover:text-[#877051] transition-colors duration-300">
+                    <div className="flex items-center text-[#877051] font-semibold group-hover:text-[#041533] transition-colors duration-300">
                       <span className="group-hover:translate-x-1 transition-transform duration-300">Explore Typology</span>
                       <svg className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -345,13 +378,13 @@ export default function StylesAndTypologies() {
             ].map((benefit, index) => (
               <div 
                 key={index} 
-                className={`text-center group transition-all duration-1000 ease-out ${
+                className={`text-center group transition-all duration-1000 ease-out p-6 rounded-3xl hover:bg-gray-50 hover:shadow-xl border border-transparent hover:border-gray-100 ${
                   scrollValue > 2400 + index * 200 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <span className="text-white text-2xl">{benefit.icon}</span>
+                <div className="w-20 h-20 bg-gradient-to-r from-[#041533] to-[#877051] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-lg">
+                  <span className="text-white text-3xl">{benefit.icon}</span>
                 </div>
                 <h3 className="text-xl font-serif font-bold text-[#041533] mb-3 group-hover:text-[#877051] transition-colors duration-300">
                   {benefit.title}
@@ -398,19 +431,21 @@ export default function StylesAndTypologies() {
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link href="/contact">
-                <button className="group bg-white text-[#041533] px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden">
+                <button className="group bg-white text-[#041533] px-10 py-5 rounded-2xl font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden flex items-center gap-2">
                   <span className="absolute inset-0 bg-gradient-to-r from-[#877051] to-[#041533] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                   <span className="relative z-10 group-hover:text-white transition-colors duration-500">
                     Start Your Project
                   </span>
+                  <svg className="relative z-10 w-5 h-5 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </button>
               </Link>
               <Link href="/projects">
-                <button className="group border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden">
+                <button className="group border-2 border-white text-white px-10 py-5 rounded-2xl font-semibold backdrop-blur-sm hover:shadow-2xl hover:scale-105 transition-all duration-500 relative overflow-hidden flex items-center gap-2">
                   <span className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
                   <span className="relative z-10 group-hover:text-[#041533] transition-colors duration-500">
                     View Our Portfolio
                   </span>
+                  <svg className="relative z-10 w-5 h-5 group-hover:text-[#041533] group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </button>
               </Link>
             </div>

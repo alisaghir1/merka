@@ -2,6 +2,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from './components/Footer'
+import { headers } from 'next/headers'
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,15 +20,19 @@ export const metadata = {
   keywords: "architecture Dubai, architectural design, residential architecture, commercial architecture, Dubai architects",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const headersList = await headers()
+  const pathname = headersList.get('x-pathname') || ''
+  const isAdminRoute = pathname.startsWith('/admin')
+
   return (
     <html lang="en">
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
-        <Header />
-        <main className="pt-20">
+        {!isAdminRoute && <Header />}
+        <main className={!isAdminRoute ? "pt-20" : ""}>
           {children}
         </main>
-        <Footer />
+        {!isAdminRoute && <Footer />}
       </body>
     </html>
   );

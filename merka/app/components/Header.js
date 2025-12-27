@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,24 +36,15 @@ const Header = () => {
           {/* Enhanced Logo */}
           <Link href="/" className="flex items-center space-x-3 group" onClick={closeMenu}>
             <div className="relative">
-              {/* Animated Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#041533] via-[#2f3541] to-[#877051] rounded-2xl blur-sm opacity-70 group-hover:blur-md group-hover:scale-110 transition-all duration-500"></div>
-              {/* Logo Container */}
-              <div className="relative w-14 h-14 bg-gradient-to-br from-[#041533] via-[#2f3541] to-[#877051] rounded-2xl flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 border-2 border-white/20">
-                <span className="text-white font-bold text-2xl group-hover:text-3xl transition-all duration-500 drop-shadow-lg">M</span>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className={`font-serif font-bold transition-all duration-500 text-2xl ${
-                isScrolled ? 'text-[#041533]' : 'text-white drop-shadow-lg'
-              } group-hover:text-[#877051]`}>
-                Merka
-              </span>
-              <span className={`-mt-1 tracking-[0.2em] text-xs font-medium transition-all duration-500 ${
-                isScrolled ? 'text-[#877051]' : 'text-gray-200 drop-shadow-md'
-              } group-hover:text-[#041533] group-hover:tracking-[0.3em]`}>
-                ARCHITECTURE
-              </span>
+              {/* Logo Image */}
+              <Image
+                src="/logo.svg"
+                alt="Merka Architecture"
+                width={180}
+                height={50}
+                className="transition-all duration-500 group-hover:scale-105"
+                priority
+              />
             </div>
           </Link>
 

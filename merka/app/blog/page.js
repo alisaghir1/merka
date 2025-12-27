@@ -2,8 +2,10 @@
 import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getBlogs } from '@/lib/data'
 
-const blogPosts = [
+// Fallback static data (used when Supabase is not configured)
+const staticBlogPosts = [
   {
     id: 1,
     title: "2025 Architectural Trends Shaping the UAE's Built Environment",
@@ -107,7 +109,7 @@ const blogPosts = [
   }
 ]
 
-const categories = [
+const staticCategories = [
   "All Posts",
   "Trends & Innovation", 
   "Site Planning",
@@ -126,10 +128,49 @@ export default function BlogPage() {
   const [scrollY, setScrollY] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState("All Posts")
   const [isLoaded, setIsLoaded] = useState(false)
+  const [blogPosts, setBlogPosts] = useState(staticBlogPosts)
+  const [categories, setCategories] = useState(staticCategories)
+  const [currentPage, setCurrentPage] = useState(1)
   const heroRef = useRef(null)
+  
+  const POSTS_PER_PAGE = 6
+
+  // Format date helper
+  const formatDate = (dateString) => {
+    if (!dateString) return ''
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    })
+  }
 
   useEffect(() => {
     setMounted(true)
+    
+    // Fetch blogs from Supabase
+    const fetchBlogs = async () => {
+      try {
+        const data = await getBlogs({ published: true })
+        if (data && data.length > 0) {
+          // Normalize field names from Supabase
+          const normalizedData = data.map(post => ({
+            ...post,
+            readTime: post.read_time || post.readTime,
+            date: formatDate(post.date) || post.date,
+          }))
+          setBlogPosts(normalizedData)
+          // Extract unique categories from fetched data
+          const uniqueCategories = ['All Posts', ...new Set(data.map(p => p.category).filter(Boolean))]
+          setCategories(uniqueCategories)
+        }
+      } catch (error) {
+        console.log('Using static blog data:', error)
+      }
+    }
+    fetchBlogs()
+    
     // Trigger entrance animation after component mounts
     const timer = setTimeout(() => {
       setIsLoaded(true)
@@ -151,6 +192,23 @@ export default function BlogPage() {
   const filteredPosts = selectedCategory === "All Posts" 
     ? regularPosts 
     : regularPosts.filter(post => post.category === selectedCategory)
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE
+  const endIndex = startIndex + POSTS_PER_PAGE
+  const paginatedPosts = filteredPosts.slice(startIndex, endIndex)
+
+  // Reset to page 1 when category changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategory])
+
+  const goToPage = (page) => {
+    setCurrentPage(page)
+    // Scroll to blog grid section
+    window.scrollTo({ top: 800, behavior: 'smooth' })
+  }
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
@@ -302,16 +360,22 @@ export default function BlogPage() {
                 }`}
               >
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative h-96 lg:h-[500px] bg-gray-200 rounded-2xl overflow-hidden">
-                    <Image
-                      src={featuredPost.image}
-                      alt={featuredPost.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
+                  <div className="relative h-96 lg:h-[500px] bg-gradient-to-br from-[#041533] to-[#877051] rounded-3xl overflow-hidden shadow-2xl">
+                    {featuredPost.image ? (
+                      <Image
+                        src={featuredPost.image}
+                        alt={featuredPost.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-8xl opacity-30">📝</span>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent group-hover:from-black/20 transition-colors duration-300"></div>
                     <div className="absolute top-6 left-6">
-                      <span className="bg-[#877051] text-white px-4 py-2 rounded-full text-sm font-medium">
+                      <span className="bg-[#877051] text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
                         {featuredPost.category}
                       </span>
                     </div>
@@ -332,7 +396,7 @@ export default function BlogPage() {
                       {featuredPost.excerpt}
                     </p>
 
-                    <div className="flex items-center text-[#041533] font-medium group-hover:text-[#877051] transition-colors duration-300">
+                    <div className="flex items-center text-[#877051] font-semibold group-hover:text-[#041533] transition-colors duration-300">
                       <span className="group-hover:translate-x-1 transition-transform duration-300">Read Full Article</span>
                       <svg className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -358,10 +422,10 @@ export default function BlogPage() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-6 py-3 rounded-2xl text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category
-                    ? 'bg-[#041533] text-white shadow-lg scale-105'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 hover:text-[#041533] hover:scale-105'
+                    ? 'bg-gradient-to-r from-[#041533] to-[#877051] text-white shadow-xl scale-105'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 hover:text-[#041533] hover:scale-105 border border-gray-200 hover:border-[#877051]/30'
                 }`}
               >
                 {category}
@@ -375,7 +439,7 @@ export default function BlogPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map((post, index) => (
+            {paginatedPosts.map((post, index) => (
               <Link key={post.id} href={`/blog/${post.slug}`} className="block">
                 <article 
                   className={`group cursor-pointer transition-all duration-1000 ease-out ${
@@ -383,14 +447,20 @@ export default function BlogPage() {
                   }`}
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
-                    <div className="relative h-64 bg-gray-200">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
+                  <div className="bg-white rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 overflow-hidden border border-gray-100 hover:border-[#877051]/30">
+                    <div className="relative h-64 bg-gradient-to-br from-[#041533] to-[#877051]">
+                      {post.image ? (
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-6xl opacity-30">📝</span>
+                        </div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                       <div className="absolute top-4 left-4">
                         <span className="bg-white/90 backdrop-blur-sm text-[#041533] px-3 py-1 rounded-full text-xs font-medium">
@@ -426,6 +496,63 @@ export default function BlogPage() {
               </Link>
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center mt-16 gap-3">
+              {/* Previous Button */}
+              <button
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-4 py-3 rounded-2xl font-medium transition-all duration-300 ${
+                  currentPage === 1
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : 'bg-white text-[#041533] hover:bg-[#041533] hover:text-white shadow-lg hover:shadow-xl border border-gray-200 hover:border-[#041533]'
+                }`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+
+              {/* Page Numbers */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => goToPage(page)}
+                  className={`w-12 h-12 rounded-2xl font-semibold transition-all duration-300 ${
+                    currentPage === page
+                      ? 'bg-gradient-to-r from-[#041533] to-[#877051] text-white shadow-xl scale-110'
+                      : 'bg-white text-[#041533] hover:bg-gray-100 shadow-lg border border-gray-200 hover:border-[#877051]/30'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              {/* Next Button */}
+              <button
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className={`px-4 py-3 rounded-2xl font-medium transition-all duration-300 ${
+                  currentPage === totalPages
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : 'bg-white text-[#041533] hover:bg-[#041533] hover:text-white shadow-lg hover:shadow-xl border border-gray-200 hover:border-[#041533]'
+                }`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          )}
+
+          {/* Showing info */}
+          {filteredPosts.length > 0 && (
+            <p className="text-center text-gray-500 mt-6">
+              Showing {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} of {filteredPosts.length} articles
+            </p>
+          )}
         </div>
       </section>
 
@@ -444,14 +571,17 @@ export default function BlogPage() {
               Get the latest architectural trends, project insights, and industry expertise delivered to your inbox.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#041533] focus:border-transparent"
+                className="flex-1 px-6 py-4 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#877051] focus:border-transparent shadow-sm"
               />
-              <button className="bg-[#041533] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#877051] hover:scale-105 transition-all duration-300 whitespace-nowrap">
+              <button className="group bg-gradient-to-r from-[#041533] to-[#877051] text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 whitespace-nowrap flex items-center gap-2 justify-center">
                 Subscribe
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </button>
             </div>
           </div>
@@ -491,12 +621,15 @@ export default function BlogPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
-                <button className="bg-white text-[#041533] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg">
+                <button className="group bg-white text-[#041533] px-8 py-4 rounded-2xl font-semibold hover:bg-[#877051] hover:text-white hover:scale-105 transition-all duration-300 shadow-xl flex items-center gap-2 justify-center">
                   Start Your Project
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </button>
               </Link>
               <Link href="/projects">
-                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
+                <button className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300 backdrop-blur-sm bg-white/10">
                   View Our Work
                 </button>
               </Link>

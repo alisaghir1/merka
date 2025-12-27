@@ -7,6 +7,3 @@ Disallow: /_next/
 
 # Host
 Host: https://merka.ae
-
-# Sitemaps
-Sitemap: https://merka.ae/sitemap.xml

@@ -3,11 +3,29 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import emailjs from '@emailjs/browser'
+import { submitContactForm, subscribeNewsletter, getSiteSettings } from '@/lib/data'
+
+// Default fallback values
+const defaultContact = {
+  email: 'hello@merka-architecture.com',
+  phone: '+971 4 123 4567',
+  address: 'Dubai, United Arab Emirates',
+  addressDetail: 'Business Bay, Plot No. 123, Office Tower, Floor 15',
+  whatsapp: '+971412345678'
+}
+
+const defaultSocial = {
+  instagram: '#',
+  linkedin: '#',
+  pinterest: '#'
+}
 
 export default function Contact() {
   const [mounted, setMounted] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [contact, setContact] = useState(defaultContact)
+  const [social, setSocial] = useState(defaultSocial)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,6 +54,18 @@ export default function Contact() {
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll, { passive: true })
     
+    // Fetch site settings
+    const fetchSettings = async () => {
+      try {
+        const settings = await getSiteSettings()
+        if (settings.contact) setContact({ ...defaultContact, ...settings.contact })
+        if (settings.social) setSocial({ ...defaultSocial, ...settings.social })
+      } catch (error) {
+        console.log('Using default contact data:', error)
+      }
+    }
+    fetchSettings()
+    
     return () => {
       window.removeEventListener('scroll', handleScroll)
       clearTimeout(timer)
@@ -58,6 +88,9 @@ export default function Contact() {
     setError('')
 
     try {
+      // Save to Supabase (non-blocking)
+      submitContactForm(formData).catch(err => console.log('Supabase save:', err))
+      
       // Send main contact form via EmailJS
       await emailjs.sendForm(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
@@ -89,6 +122,9 @@ export default function Contact() {
     setError('')
 
     try {
+      // Save to Supabase (non-blocking)
+      subscribeNewsletter(subscriptionEmail).catch(err => console.log('Supabase subscription:', err))
+      
       // Send subscription via EmailJS
       await emailjs.sendForm(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
@@ -271,16 +307,16 @@ export default function Contact() {
             <div className="lg:col-span-1 space-y-8">
               {/* Office Location */}
               <div 
-                className={`bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-1000 ease-out group ${
+                className={`bg-gray-50 rounded-3xl p-8 hover:shadow-xl transition-all duration-1000 ease-out group border border-gray-100 hover:border-[#877051]/30 ${
                   scrollValue > 700 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 bg-gradient-to-r from-[#041533] to-[#877051] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-lg">
                   <span className="text-white text-xl">📍</span>
                 </div>
                 <h3 className="text-xl font-serif font-bold text-[#041533] mb-4">Merka Architecture</h3>
-                <p className="text-gray-700 mb-2">Dubai, United Arab Emirates</p>
-                <p className="text-gray-600 text-sm mb-4">[Business Bay, Plot No. 123, Office Tower, Floor 15]</p>
+                <p className="text-gray-700 mb-2">{contact.address}</p>
+                <p className="text-gray-600 text-sm mb-4">{contact.addressDetail || ''}</p>
                 <p className="text-sm text-gray-600">
                   <span className="font-semibold">Open:</span> Monday to Friday — 9:00 AM to 6:00 PM
                 </p>
@@ -288,27 +324,27 @@ export default function Contact() {
 
               {/* Contact Details */}
               <div 
-                className={`bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-1000 ease-out group ${
+                className={`bg-gray-50 rounded-3xl p-8 hover:shadow-xl transition-all duration-1000 ease-out group border border-gray-100 hover:border-[#877051]/30 ${
                   scrollValue > 900 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: '200ms' }}
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 bg-gradient-to-r from-[#041533] to-[#877051] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-lg">
                   <span className="text-white text-xl">📱</span>
                 </div>
                 <h3 className="text-xl font-serif font-bold text-[#041533] mb-4">Get in Touch</h3>
                 <div className="space-y-3">
                   <div>
                     <span className="text-gray-500 text-sm">Phone:</span>
-                    <p className="text-gray-900 font-semibold">+971 4 123 4567</p>
+                    <a href={`tel:${contact.phone}`} className="block text-gray-900 font-semibold hover:text-[#877051] transition-colors">{contact.phone}</a>
                   </div>
                   <div>
                     <span className="text-gray-500 text-sm">Email:</span>
-                    <p className="text-gray-900 font-semibold">hello@merka-architecture.com</p>
+                    <a href={`mailto:${contact.email}`} className="block text-gray-900 font-semibold hover:text-[#877051] transition-colors">{contact.email}</a>
                   </div>
                   <div>
                     <span className="text-gray-500 text-sm">WhatsApp:</span>
-                    <a href="https://wa.me/971412345678" className="text-[#041533] hover:text-[#877051] font-semibold transition-colors">
+                    <a href={`https://wa.me/${contact.whatsapp?.replace(/[^0-9]/g, '')}`} className="text-[#041533] hover:text-[#877051] font-semibold transition-colors">
                       Click to Chat
                     </a>
                   </div>
@@ -317,12 +353,12 @@ export default function Contact() {
 
               {/* Social Media */}
               <div 
-                className={`bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-1000 ease-out group ${
+                className={`bg-gray-50 rounded-3xl p-8 hover:shadow-xl transition-all duration-1000 ease-out group border border-gray-100 hover:border-[#877051]/30 ${
                   scrollValue > 1100 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: '400ms' }}
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-[#041533] to-[#877051] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-14 h-14 bg-gradient-to-r from-[#041533] to-[#877051] rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-lg">
                   <span className="text-white text-xl">🌐</span>
                 </div>
                 <h3 className="text-xl font-serif font-bold text-[#041533] mb-4">Stay Connected</h3>
@@ -330,15 +366,21 @@ export default function Contact() {
                   Follow our design stories, project progress, and studio life.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-[#041533]/5 transition-colors text-sm">
-                    <span className="mr-2">📷</span> Instagram
-                  </a>
-                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-[#041533]/5 transition-colors text-sm">
-                    <span className="mr-2">💼</span> LinkedIn
-                  </a>
-                  <a href="#" className="flex items-center px-3 py-2 bg-white rounded-lg hover:bg-[#041533]/5 transition-colors text-sm">
-                    <span className="mr-2">📌</span> Pinterest
-                  </a>
+                  {social.instagram && (
+                    <a href={social.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-3 bg-white rounded-xl hover:bg-[#041533] hover:text-white transition-all duration-300 text-sm shadow-sm hover:shadow-md group">
+                      <span className="mr-2">📷</span> <span className="group-hover:translate-x-1 transition-transform duration-300">Instagram</span>
+                    </a>
+                  )}
+                  {social.linkedin && (
+                    <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-3 bg-white rounded-xl hover:bg-[#041533] hover:text-white transition-all duration-300 text-sm shadow-sm hover:shadow-md group">
+                      <span className="mr-2">💼</span> <span className="group-hover:translate-x-1 transition-transform duration-300">LinkedIn</span>
+                    </a>
+                  )}
+                  {social.pinterest && (
+                    <a href={social.pinterest} target="_blank" rel="noopener noreferrer" className="flex items-center px-4 py-3 bg-white rounded-xl hover:bg-[#041533] hover:text-white transition-all duration-300 text-sm shadow-sm hover:shadow-md group">
+                      <span className="mr-2">📌</span> <span className="group-hover:translate-x-1 transition-transform duration-300">Pinterest</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -346,7 +388,7 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="lg:col-span-2" id="contact-form">
               <div 
-                className={`bg-white border border-gray-200 rounded-2xl p-8 shadow-lg transition-all duration-1000 ease-out ${
+                className={`bg-white border border-gray-200 rounded-3xl p-10 shadow-xl hover:shadow-2xl transition-all duration-1000 ease-out ${
                   scrollValue > 700 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: '300ms' }}
@@ -487,7 +529,7 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-[#041533] to-[#877051] text-white py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="w-full bg-gradient-to-r from-[#041533] to-[#877051] text-white py-5 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center justify-center">
@@ -498,7 +540,10 @@ export default function Contact() {
                           Sending...
                         </span>
                       ) : (
-                        'Send Message'
+                        <span className="flex items-center justify-center gap-2">
+                          Send Message
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </span>
                       )}
                     </button>
                   </form>

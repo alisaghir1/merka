@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { stylesData } from '../../../data/styles-typologies'
+import { stylesData as staticStylesData } from '../../../data/styles-typologies'
+import { getStyleBySlug } from '@/lib/data'
 
 export default function StyleDetail() {
   const params = useParams()
   const [mounted, setMounted] = useState(false)
   const [scrollY, setScrollY] = useState(0)
+  const [style, setStyle] = useState(null)
+  const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     setMounted(true)
@@ -17,7 +20,39 @@ export default function StyleDetail() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const style = stylesData.find(s => s.slug === params.slug)
+  useEffect(() => {
+    const fetchStyle = async () => {
+      try {
+        // Try fetching from Supabase first
+        const data = await getStyleBySlug(params.slug)
+        if (data) {
+          setStyle(data)
+        } else {
+          // Fall back to static data
+          const staticStyle = staticStylesData.find(s => s.slug === params.slug)
+          setStyle(staticStyle || null)
+        }
+      } catch (error) {
+        console.log('Using static style data:', error)
+        const staticStyle = staticStylesData.find(s => s.slug === params.slug)
+        setStyle(staticStyle || null)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchStyle()
+  }, [params.slug])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-[#877051] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading style...</p>
+        </div>
+      </div>
+    )
+  }
   
   if (!style) {
     return (
@@ -34,6 +69,12 @@ export default function StyleDetail() {
 
   const scrollValue = mounted ? scrollY : 0
 
+  // Handle both database format (images as JSON) and static format
+  const heroImage = style.images?.hero || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80'
+  const galleryImages = style.images?.gallery || []
+  const featuredImage = style.images?.featured || heroImage
+  const applicationsImage = style.images?.applications || heroImage
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -46,7 +87,7 @@ export default function StyleDetail() {
         {/* Hero Background Image */}
         <div className="absolute inset-0">
           <Image
-            src={style.images.hero}
+            src={heroImage}
             alt={`${style.title} hero`}
             fill
             className="object-cover opacity-20"
@@ -131,18 +172,18 @@ export default function StyleDetail() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {style.images.gallery.map((image, index) => (
+            {galleryImages.map((image, index) => (
               <div key={index} className="group cursor-pointer">
                 <div className="relative h-64 bg-gray-200 rounded-2xl overflow-hidden">
                   <Image
-                    src={image.url}
-                    alt={image.caption}
+                    src={image.url || image}
+                    alt={image.caption || `${style.title} ${index + 1}`}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                 </div>
-                <p className="text-gray-600 text-sm mt-3">{image.caption}</p>
+                <p className="text-gray-600 text-sm mt-3">{image.caption || ''}</p>
               </div>
             ))}
           </div>
@@ -171,7 +212,7 @@ export default function StyleDetail() {
               <div className="mt-12">
                 <div className="relative h-96 bg-gray-200 rounded-2xl overflow-hidden">
                   <Image
-                    src={style.images.featured}
+                    src={featuredImage}
                     alt={`${style.title} featured project`}
                     fill
                     className="object-cover"
@@ -286,7 +327,7 @@ export default function StyleDetail() {
             <div>
               <div className="relative h-96 bg-gray-200 rounded-2xl overflow-hidden mb-6">
                 <Image
-                  src={style.images.applications}
+                  src={applicationsImage}
                   alt="Application example"
                   fill
                   className="object-cover"

@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { typologiesData } from '../../../data/styles-typologies'
+import { typologiesData as staticTypologiesData } from '../../../data/styles-typologies'
+import { getTypologyBySlug } from '@/lib/data'
 
 export default function TypologyDetail() {
   const params = useParams()
   const [mounted, setMounted] = useState(false)
   const [scrollY, setScrollY] = useState(0)
+  const [typology, setTypology] = useState(null)
+  const [loading, setLoading] = useState(true)
   
   useEffect(() => {
     setMounted(true)
@@ -17,8 +20,40 @@ export default function TypologyDetail() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const typology = typologiesData.find(t => t.slug === params.slug)
-  
+  useEffect(() => {
+    const fetchTypology = async () => {
+      try {
+        // Try fetching from Supabase first
+        const data = await getTypologyBySlug(params.slug)
+        if (data) {
+          setTypology(data)
+        } else {
+          // Fall back to static data
+          const staticTypology = staticTypologiesData.find(t => t.slug === params.slug)
+          setTypology(staticTypology || null)
+        }
+      } catch (error) {
+        console.log('Using static typology data:', error)
+        const staticTypology = staticTypologiesData.find(t => t.slug === params.slug)
+        setTypology(staticTypology || null)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchTypology()
+  }, [params.slug])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-[#877051] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading typology...</p>
+        </div>
+      </div>
+    )
+  }
+
   if (!typology) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -34,6 +69,18 @@ export default function TypologyDetail() {
 
   const scrollValue = mounted ? scrollY : 0
 
+  // Handle both database format (images as JSON) and static format
+  const heroImage = typology.images?.hero || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80'
+  const projectImages = typology.images?.projects || []
+  const featuredImage = typology.images?.featured || heroImage
+  const servicesImage = typology.images?.services || heroImage
+  
+  // Handle features array - could be 'features' or 'keyFeatures'
+  const keyFeatures = typology.features || typology.keyFeatures || []
+  
+  // Handle considerations/regulations as they might have different names
+  const regulations = typology.regulations || typology.authorityCompliance || []
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -46,7 +93,7 @@ export default function TypologyDetail() {
         {/* Hero Background Image */}
         <div className="absolute inset-0">
           <Image
-            src={typology.images.hero}
+            src={heroImage}
             alt={`${typology.title} hero`}
             fill
             className="object-cover opacity-20"
@@ -141,7 +188,7 @@ export default function TypologyDetail() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {typology.images.projects.map((project, index) => (
+            {projectImages.map((project, index) => (
               <div key={index} className="group cursor-pointer">
                 <div className="relative h-80 bg-gray-200 rounded-2xl overflow-hidden">
                   <Image
@@ -173,7 +220,7 @@ export default function TypologyDetail() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {typology.subtypes.map((subtype, index) => (
+            {(typology.subtypes || []).map((subtype, index) => (
               <div 
                 key={index} 
                 className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 group text-center"
@@ -211,7 +258,7 @@ export default function TypologyDetail() {
               <div className="mt-12">
                 <div className="relative h-96 bg-gray-200 rounded-2xl overflow-hidden">
                   <Image
-                    src={typology.images.featured}
+                    src={featuredImage}
                     alt={`${typology.title} featured project`}
                     fill
                     className="object-cover"
@@ -242,17 +289,17 @@ export default function TypologyDetail() {
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Subtypes</h4>
-                    <p className="text-sm text-gray-600">{typology.subtypes.length} specialized categories</p>
+                    <p className="text-sm text-gray-600">{(typology.subtypes || []).length} specialized categories</p>
                   </div>
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Key Features</h4>
-                    <p className="text-sm text-gray-600">{typology.keyFeatures.length} design considerations</p>
+                    <p className="text-sm text-gray-600">{keyFeatures.length} design considerations</p>
                   </div>
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Services</h4>
-                    <p className="text-sm text-gray-600">{typology.services.length} specialized services</p>
+                    <p className="text-sm text-gray-600">{(typology.services || []).length} specialized services</p>
                   </div>
                 </div>
 
@@ -283,7 +330,7 @@ export default function TypologyDetail() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {typology.keyFeatures.map((feature, index) => (
+            {keyFeatures.map((feature, index) => (
               <div 
                 key={index} 
                 className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 group"
@@ -312,7 +359,7 @@ export default function TypologyDetail() {
               </p>
               
               <div className="space-y-4">
-                {typology.services.map((service, index) => (
+                {(typology.services || []).map((service, index) => (
                   <div key={index} className="flex items-start">
                     <div className="w-6 h-6 bg-gradient-to-r from-[#041533] to-[#877051] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <span className="text-white text-xs">✓</span>
@@ -326,7 +373,7 @@ export default function TypologyDetail() {
             <div>
               <div className="relative h-96 bg-gray-200 rounded-2xl overflow-hidden mb-6">
                 <Image
-                  src={typology.images.services}
+                  src={servicesImage}
                   alt="Services illustration"
                   fill
                   className="object-cover"
@@ -339,7 +386,7 @@ export default function TypologyDetail() {
               </h3>
               
               <div className="space-y-3">
-                {typology.locations.map((location, index) => (
+                {(typology.locations || []).map((location, index) => (
                   <div 
                     key={index} 
                     className="bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors duration-300"
@@ -369,7 +416,7 @@ export default function TypologyDetail() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {typology.authorityCompliance.map((item, index) => (
+            {regulations.map((item, index) => (
               <div 
                 key={index} 
                 className="bg-white p-6 rounded-xl shadow-sm text-center hover:shadow-lg transition-shadow duration-300"

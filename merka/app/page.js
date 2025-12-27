@@ -2,11 +2,13 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getServices } from '@/lib/data'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [services, setServices] = useState([])
 
   useEffect(() => {
     setMounted(true)
@@ -17,6 +19,26 @@ export default function Home() {
 
     const handleScroll = () => setScrollY(window.scrollY)
     window.addEventListener('scroll', handleScroll, { passive: true })
+    
+    // Fetch services from database
+    const fetchServices = async () => {
+      try {
+        const data = await getServices()
+        setServices(data || [])
+      } catch (error) {
+        console.log('Using fallback services:', error)
+        // Fallback to hardcoded services if database fails
+        setServices([
+          { title: "Conceptual Design", description: "Initial design concepts and feasibility studies", icon: "💡", slug: "conceptual-design" },
+          { title: "Schematic Design", description: "Detailed schematic drawings that translate concepts", icon: "📐", slug: "schematic-design" },
+          { title: "Design Development", description: "Comprehensive design with detailed specifications", icon: "🏗️", slug: "design-development" },
+          { title: "Construction Drawings", description: "Precise technical drawings for construction", icon: "📋", slug: "construction-drawings" },
+          { title: "Tender Documentation", description: "Complete tender packages for contractor bidding", icon: "📄", slug: "tender-documentation" },
+          { title: "Authority Approvals", description: "Expert guidance through approval processes", icon: "✅", slug: "authority-approvals" }
+        ])
+      }
+    }
+    fetchServices()
     
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -129,12 +151,15 @@ export default function Home() {
             style={{ transitionDelay: '1800ms' }}
           >
             <Link href="/projects">
-              <button className="bg-white text-[#041533] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300 shadow-lg transform">
+              <button className="group bg-white text-[#041533] px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-[#877051] hover:text-white hover:scale-105 transition-all duration-500 shadow-xl hover:shadow-2xl flex items-center gap-2 mx-auto sm:mx-0">
                 Explore Portfolio
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </button>
             </Link>
             <Link href="/contact">
-              <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300 transform">
+              <button className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-500 backdrop-blur-sm bg-white/10">
                 Book Consultation
               </button>
             </Link>
@@ -237,16 +262,16 @@ export default function Home() {
             ].map((item, index) => (
               <div 
                 key={index}
-                className={`text-center p-8 bg-gray-50 rounded-2xl hover:bg-[#041533]/5 hover:shadow-xl hover:-translate-y-2 transition-all duration-500 ${
+                className={`group text-center p-8 bg-white rounded-3xl border border-gray-100 hover:border-[#877051]/30 hover:shadow-2xl hover:-translate-y-3 transition-all duration-500 ${
                   scrollValue > 1200 + index * 200 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
-                <div className="w-20 h-20 bg-gradient-to-br from-[#041533] to-[#877051] rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg">
+                <div className="w-20 h-20 bg-gradient-to-br from-[#041533] to-[#877051] rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
                   <span className="text-white text-3xl">{item.icon}</span>
                 </div>
-                <h3 className="text-2xl font-serif font-bold text-[#041533] mb-4">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+                <h3 className="text-2xl font-serif font-bold text-[#041533] mb-4 group-hover:text-[#877051] transition-colors duration-300">{item.title}</h3>
+                <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -321,37 +346,36 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: "Conceptual Design", desc: "Initial design concepts and feasibility studies", icon: "💡", link: "/services/conceptual-design" },
-              { title: "Schematic Design", desc: "Detailed schematic drawings that translate concepts", icon: "📐", link: "/services/schematic-design" },
-              { title: "Design Development", desc: "Comprehensive design with detailed specifications", icon: "🏗️", link: "/services/design-development" },
-              { title: "Construction Drawings", desc: "Precise technical drawings for construction", icon: "📋", link: "/services/construction-drawings" },
-              { title: "Tender Documentation", desc: "Complete tender packages for contractor bidding", icon: "📄", link: "/services/tender-documentation" },
-              { title: "Authority Approvals", desc: "Expert guidance through approval processes", icon: "✅", link: "/services/authority-approvals" }
-            ].map((service, index) => (
+            {services.slice(0, 6).map((service, index) => (
               <Link 
-                key={index} 
-                href={service.link}
-                className={`group bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-300 block ${
+                key={service.id || index} 
+                href={`/services/${service.slug}`}
+                className={`group bg-white p-8 rounded-3xl shadow-lg border border-gray-100 hover:shadow-2xl hover:-translate-y-3 hover:border-[#877051]/30 transition-all duration-500 block relative overflow-hidden ${
                   scrollValue > 2700 + index * 100 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
+                {/* Background number */}
+                <div className="absolute -top-4 -right-4 text-8xl font-bold text-gray-100 group-hover:text-[#877051]/10 transition-colors duration-500 select-none">
+                  {String(index + 1).padStart(2, '0')}
                 </div>
-                <h3 className="text-xl font-serif font-bold text-[#041533] mb-3 group-hover:text-[#877051] transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300 mb-4">
-                  {service.desc}
-                </p>
-                
-                <div className="flex items-center text-[#041533] group-hover:text-[#877051] transition-colors duration-300">
-                  <span className="text-sm font-semibold mr-2">Learn More</span>
-                  <svg className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#041533] to-[#877051] rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+                    <span className="text-white text-2xl">{service.icon || '🏛️'}</span>
+                  </div>
+                  <h3 className="text-xl font-serif font-bold text-[#041533] mb-3 group-hover:text-[#877051] transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300 mb-6 line-clamp-2">
+                    {service.short_description || service.description}
+                  </p>
+                  
+                  <div className="flex items-center text-[#877051] font-semibold">
+                    <span className="text-sm mr-2">Explore Service</span>
+                    <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -363,8 +387,11 @@ export default function Home() {
             }`}
           >
             <Link href="/services">
-              <button className="bg-gradient-to-r from-[#041533] to-[#877051] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg hover:scale-105 transition-all duration-300">
-                View All Services →
+              <button className="group bg-gradient-to-r from-[#041533] to-[#877051] text-white px-10 py-5 rounded-2xl font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-500 flex items-center gap-3 mx-auto">
+                View All Services
+                <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </button>
             </Link>
           </div>
@@ -387,12 +414,15 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center px-4">
               <Link href="/contact">
-                <button className="bg-white text-[#041533] px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300">
+                <button className="group bg-white text-[#041533] px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-[#041533] hover:text-white hover:scale-105 transition-all duration-500 shadow-xl hover:shadow-2xl flex items-center gap-2 justify-center">
                   Book Free Consultation
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </button>
               </Link>
               <Link href="/projects">
-                <button className="border-2 border-white text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-white hover:text-[#041533] hover:scale-105 transition-all duration-300">
+                <button className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#877051] hover:scale-105 transition-all duration-500 backdrop-blur-sm bg-white/10">
                   View Complete Portfolio
                 </button>
               </Link>
