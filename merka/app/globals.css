@@ -1,35 +1,6 @@
-@import "tailwindcss";
-
-@source "../**/*.{js,jsx,ts,tsx}";
-
-@theme {
-  --color-primary-50: #f0f4f8;
-  --color-primary-100: #d9e2ec;
-  --color-primary-200: #bcccdc;
-  --color-primary-300: #9fb3c8;
-  --color-primary-400: #829ab1;
-  --color-primary-500: #6b7f95;
-  --color-primary-600: #56657a;
-  --color-primary-700: #434d5e;
-  --color-primary-800: #2f3541;
-  --color-primary-900: #041533;
-  --color-primary-950: #031124;
-  
-  --color-secondary-50: #faf9f7;
-  --color-secondary-100: #f3f1ec;
-  --color-secondary-200: #e8e3d8;
-  --color-secondary-300: #ddd4c4;
-  --color-secondary-400: #d2c5b0;
-  --color-secondary-500: #c7b69c;
-  --color-secondary-600: #b8a488;
-  --color-secondary-700: #a99274;
-  --color-secondary-800: #998160;
-  --color-secondary-900: #877051;
-  --color-secondary-950: #6b5a40;
-  
-  --font-family-sans: system-ui, sans-serif;
-  --font-family-serif: Georgia, serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -47,4 +18,96 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Basic utility classes to replace common Tailwind classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.text-white {
+  color: white;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.m-4 {
+  margin: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
 }
