@@ -38,7 +38,7 @@ const Header = () => {
             <div className="relative">
               {/* Logo Image */}
               <Image
-                src="/logo.svg"
+                src="/Logo.svg"
                 alt="Merka Architecture"
                 width={180}
                 height={50}

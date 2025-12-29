@@ -80,7 +80,7 @@ export default function Footer() {
               <div className="mb-8">
                 <Link href="/" className="block">
                   <Image
-                    src="/logo.svg"
+                    src="/Logo.svg"
                     alt="Merka Architecture"
                     width={200}
                     height={55}
