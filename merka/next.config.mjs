@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.unsplash.com', 'uhzrqymbhkutbsvvtlwb.supabase.co'],
-    // Or use the newer remotePatterns for more control:
+    // Remove deprecated domains, use only remotePatterns
     remotePatterns: [
       {
         protocol: 'https',
