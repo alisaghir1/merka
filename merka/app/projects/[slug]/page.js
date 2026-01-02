@@ -3,7 +3,6 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { featuredProjects as staticProjects } from '../../data/projects.js'
 import { getProjectBySlug, getProjects } from '@/lib/data'
 
 export default function ProjectDetail() {
@@ -13,7 +12,7 @@ export default function ProjectDetail() {
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [showImageModal, setShowImageModal] = useState(false)
   const [project, setProject] = useState(null)
-  const [allProjects, setAllProjects] = useState(staticProjects)
+  const [allProjects, setAllProjects] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -28,14 +27,12 @@ export default function ProjectDetail() {
             setAllProjects(allData)
           }
         } else {
-          // Fall back to static data
-          const staticProject = staticProjects.find(p => p.slug === params.slug)
-          setProject(staticProject || null)
+          // No project found
+          setProject(null)
         }
       } catch (error) {
-        console.log('Using static project data:', error)
-        const staticProject = staticProjects.find(p => p.slug === params.slug)
-        setProject(staticProject || null)
+        console.log('Error fetching project:', error)
+        setProject(null)
       } finally {
         setLoading(false)
       }

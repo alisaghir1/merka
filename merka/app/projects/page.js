@@ -2,8 +2,10 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { featuredProjects as staticProjects, projectCategories as staticCategories } from '../data/projects.js'
 import { getProjects } from '@/lib/data'
+
+// Default categories for projects
+const defaultCategories = ['commercial', 'residential', 'hospitality', 'mixed-use', 'institutional']
 
 export default function Projects() {
   const [mounted, setMounted] = useState(false)
@@ -11,8 +13,8 @@ export default function Projects() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [activeFilter, setActiveFilter] = useState('all')
   const [hoveredProject, setHoveredProject] = useState(null)
-  const [projects, setProjects] = useState(staticProjects)
-  const [categories, setCategories] = useState(staticCategories)
+  const [projects, setProjects] = useState([])
+  const [categories, setCategories] = useState(defaultCategories)
   const heroRef = useRef(null)
 
   useEffect(() => {
