@@ -59,6 +59,8 @@ export async function getProjects(options = {}) {
   const supabase = createClient()
   const { published = true, limit, featured, category } = options
   
+  console.log('getProjects called with options:', options)
+  
   let query = supabase
     .from('projects')
     .select('*')
@@ -87,6 +89,7 @@ export async function getProjects(options = {}) {
     return []
   }
   
+  console.log('Projects fetched:', data?.length, 'items')
   return data || []
 }
 

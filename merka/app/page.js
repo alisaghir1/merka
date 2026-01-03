@@ -44,10 +44,11 @@ export default function Home() {
     // Fetch featured projects from database
     const fetchFeaturedProjects = async () => {
       try {
-        const data = await getProjects({ featured: true, limit: 6 })
+        const data = await getProjects({ featured: true, published: true, limit: 6 })
+        console.log('Featured projects fetched:', data)
         setFeaturedProjects(data || [])
       } catch (error) {
-        console.log('Error fetching featured projects:', error)
+        console.error('Error fetching featured projects:', error)
         setFeaturedProjects([])
       }
     }

@@ -3,10 +3,16 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  
+  // Pages that should use the light/dark logo switching (dark hero backgrounds)
+  const darkHeroPages = ['/', '/about'];
+  const hasDarkHero = darkHeroPages.includes(pathname);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -25,47 +31,56 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Determine which logo to show
+  // - On home/about: light logo when not scrolled, dark logo when scrolled
+  // - On other pages: always dark logo
+  const showLightLogo = hasDarkHero && !isScrolled;
+
   return (
     <header className={`fixed w-full top-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/30' 
-        : 'bg-transparent'
+        ? 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/30 py-2' 
+        : hasDarkHero ? 'bg-transparent py-4' : 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/30 py-2'
     }`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Enhanced Logo with Dark/Light variants */}
+        <div className={`flex items-center justify-between transition-all duration-500 ${
+          isScrolled ? 'h-16' : 'h-24'
+        }`}>
+          {/* Logo with Dark/Light variants */}
           <Link href="/" className="flex items-center space-x-3 group" onClick={closeMenu}>
-            <div className="relative">
-              {/* Light Logo - shown when navbar is transparent (on dark backgrounds) */}
+            <div className={`relative transition-all duration-500 ${
+              isScrolled ? 'w-[150px] h-[42px]' : 'w-[200px] h-[56px]'
+            }`}>
+              {/* Light Logo - only shown on home/about when not scrolled */}
               <Image
                 src="/logo-light.svg"
                 alt="Merka Architecture"
-                width={180}
-                height={50}
-                className={`transition-all duration-500 group-hover:scale-105 absolute top-0 left-0 ${
-                  isScrolled ? 'opacity-0' : 'opacity-100'
+                fill
+                className={`transition-all duration-500 group-hover:scale-105 object-contain ${
+                  showLightLogo ? 'opacity-100' : 'opacity-0'
                 }`}
                 priority
               />
-              {/* Dark Logo - shown when navbar has white background */}
+              {/* Dark Logo - shown on all other pages and when scrolled */}
               <Image
                 src="/logo-dark.svg"
                 alt="Merka Architecture"
-                width={180}
-                height={50}
-                className={`transition-all duration-500 group-hover:scale-105 ${
-                  isScrolled ? 'opacity-100' : 'opacity-0'
+                fill
+                className={`transition-all duration-500 group-hover:scale-105 object-contain ${
+                  showLightLogo ? 'opacity-0' : 'opacity-100'
                 }`}
                 priority
               />
             </div>
           </Link>
 
-          {/* Unique Burger Menu Button */}
+          {/* Burger Menu Button */}
           <button
             onClick={toggleMenu}
-            className={`relative w-14 h-14 rounded-2xl transition-all duration-500 group overflow-hidden shadow-xl border-2 ${
-              isScrolled 
+            className={`relative rounded-2xl transition-all duration-500 group overflow-hidden shadow-xl border-2 ${
+              isScrolled ? 'w-12 h-12' : 'w-14 h-14'
+            } ${
+              isScrolled || !hasDarkHero
                 ? 'bg-gradient-to-br from-[#041533]/10 to-[#877051]/10 border-[#041533]/20 hover:from-[#041533]/20 hover:to-[#877051]/20' 
                 : 'bg-white/10 backdrop-blur-md border-white/30 hover:bg-white/20'
             }`}
@@ -74,23 +89,23 @@ const Header = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-[#041533] to-[#877051] opacity-0 group-hover:opacity-100 transition-all duration-500 scale-0 group-hover:scale-100 rounded-2xl"></div>
             
             {/* Menu Lines */}
-<div className="relative z-10 flex flex-col justify-center items-center w-full h-full space-y-1">
-  <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
-    isScrolled ? 'bg-[#041533]' : 'bg-[#041533]'
-  } group-hover:bg-white ${
-    isMenuOpen ? 'rotate-45 translate-y-2' : ''
-  }`}></span>
-  <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
-    isScrolled ? 'bg-[#041533]' : 'bg-[#041533]'
-  } group-hover:bg-white ${
-    isMenuOpen ? 'opacity-0 scale-0' : ''
-  }`}></span>
-  <span className={`w-6 h-0.5 rounded-full transition-all duration-500 ${
-    isScrolled ? 'bg-[#041533]' : 'bg-[#041533]'
-  } group-hover:bg-white ${
-    isMenuOpen ? '-rotate-45 -translate-y-2' : ''
-  }`}></span>
-</div>
+            <div className="relative z-10 flex flex-col justify-center items-center w-full h-full space-y-1.5">
+              <span className={`w-5 h-0.5 rounded-full transition-all duration-500 ${
+                isScrolled || !hasDarkHero ? 'bg-[#041533]' : 'bg-white'
+              } group-hover:bg-white ${
+                isMenuOpen ? 'rotate-45 translate-y-2' : ''
+              }`}></span>
+              <span className={`w-5 h-0.5 rounded-full transition-all duration-500 ${
+                isScrolled || !hasDarkHero ? 'bg-[#041533]' : 'bg-white'
+              } group-hover:bg-white ${
+                isMenuOpen ? 'opacity-0 scale-0' : ''
+              }`}></span>
+              <span className={`w-5 h-0.5 rounded-full transition-all duration-500 ${
+                isScrolled || !hasDarkHero ? 'bg-[#041533]' : 'bg-white'
+              } group-hover:bg-white ${
+                isMenuOpen ? '-rotate-45 -translate-y-2' : ''
+              }`}></span>
+            </div>
 
             {/* Ripple Effect */}
             <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700">
