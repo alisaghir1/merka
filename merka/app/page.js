@@ -2,13 +2,14 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getServices } from '@/lib/data'
+import { getServices, getProjects } from '@/lib/data'
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [services, setServices] = useState([])
+  const [featuredProjects, setFeaturedProjects] = useState([])
 
   useEffect(() => {
     setMounted(true)
@@ -39,6 +40,18 @@ export default function Home() {
       }
     }
     fetchServices()
+    
+    // Fetch featured projects from database
+    const fetchFeaturedProjects = async () => {
+      try {
+        const data = await getProjects({ featured: true, limit: 6 })
+        setFeaturedProjects(data || [])
+      } catch (error) {
+        console.log('Error fetching featured projects:', error)
+        setFeaturedProjects([])
+      }
+    }
+    fetchFeaturedProjects()
     
     return () => {
       window.removeEventListener('scroll', handleScroll)
@@ -397,6 +410,143 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured Projects Section */}
+      {featuredProjects.length > 0 && (
+        <section className="py-24 bg-white relative z-30 overflow-hidden">
+          {/* Background Decorative Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-[#877051]/5 to-[#041533]/5 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-[#041533]/5 to-[#877051]/5 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Section Header */}
+            <div 
+              className={`text-center mb-16 transition-all duration-1000 ease-out ${
+                scrollValue > 3400 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+              }`}
+            >
+              <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#041533]/10 to-[#877051]/10 rounded-full text-sm font-semibold text-[#877051] mb-4">
+                Featured Work
+              </span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[#041533] mb-6">
+                Our Signature Projects
+              </h2>
+              <div className="w-32 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Discover our most celebrated architectural achievements that define Dubai&apos;s evolving skyline
+              </p>
+            </div>
+
+            {/* Projects Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredProjects.slice(0, 6).map((project, index) => (
+                <Link 
+                  key={project.id || index}
+                  href={`/projects/${project.slug}`}
+                  className={`group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-700 transform hover:-translate-y-3 ${
+                    scrollValue > 3600 + index * 150 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  {/* Project Image */}
+                  <div className="relative h-72 overflow-hidden">
+                    <Image
+                      src={project.image || project.cover_image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    {/* Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#041533]/90 via-[#041533]/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    
+                    {/* Category Badge */}
+                    {project.category && (
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-[#041533] text-xs font-semibold rounded-full">
+                          {project.category}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Featured Badge */}
+                    <div className="absolute top-4 right-4 z-10">
+                      <div className="w-10 h-10 bg-gradient-to-br from-[#877051] to-[#041533] rounded-full flex items-center justify-center shadow-lg">
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Hover Overlay Content */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
+                      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-2xl transform scale-50 group-hover:scale-100 transition-transform duration-500">
+                        <svg className="w-6 h-6 text-[#041533]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Project Info */}
+                  <div className="p-6 relative">
+                    {/* Decorative Line */}
+                    <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#877051]/30 to-transparent"></div>
+                    
+                    <h3 className="text-xl font-serif font-bold text-[#041533] mb-2 group-hover:text-[#877051] transition-colors duration-300 line-clamp-1">
+                      {project.title}
+                    </h3>
+                    
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+                      {project.short_description || project.description}
+                    </p>
+
+                    {/* Project Meta */}
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center text-gray-500">
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span>{project.location || 'Dubai, UAE'}</span>
+                      </div>
+                      
+                      <div className="flex items-center text-[#877051] font-semibold group-hover:translate-x-1 transition-transform duration-300">
+                        <span className="mr-1">View</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* View All Projects Button */}
+            <div 
+              className={`text-center mt-16 transition-all duration-1000 ease-out ${
+                scrollValue > 4200 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+            >
+              <Link href="/projects">
+                <button className="group relative overflow-hidden bg-gradient-to-r from-[#041533] to-[#877051] text-white px-12 py-5 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                  {/* Animated Background */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#877051] to-[#041533] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <span className="relative z-10 flex items-center gap-3">
+                    Explore All Projects
+                    <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-[#877051] to-[#041533] relative z-30">

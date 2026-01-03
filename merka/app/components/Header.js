@@ -33,16 +33,29 @@ const Header = () => {
     }`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Enhanced Logo */}
+          {/* Enhanced Logo with Dark/Light variants */}
           <Link href="/" className="flex items-center space-x-3 group" onClick={closeMenu}>
             <div className="relative">
-              {/* Logo Image */}
+              {/* Light Logo - shown when navbar is transparent (on dark backgrounds) */}
               <Image
-                src="/Logo.svg"
+                src="/logo-light.svg"
                 alt="Merka Architecture"
                 width={180}
                 height={50}
-                className="transition-all duration-500 group-hover:scale-105"
+                className={`transition-all duration-500 group-hover:scale-105 absolute top-0 left-0 ${
+                  isScrolled ? 'opacity-0' : 'opacity-100'
+                }`}
+                priority
+              />
+              {/* Dark Logo - shown when navbar has white background */}
+              <Image
+                src="/logo-dark.svg"
+                alt="Merka Architecture"
+                width={180}
+                height={50}
+                className={`transition-all duration-500 group-hover:scale-105 ${
+                  isScrolled ? 'opacity-100' : 'opacity-0'
+                }`}
                 priority
               />
             </div>
