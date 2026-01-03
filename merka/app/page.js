@@ -263,7 +263,7 @@ export default function Home() {
               Our Design Philosophy
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto">
               We believe architecture should tell a story, create experiences, and enhance lives while respecting cultural heritage.
             </p>
           </div>
@@ -285,7 +285,7 @@ export default function Home() {
                   <span className="text-white text-3xl">{item.icon}</span>
                 </div>
                 <h3 className="text-2xl font-serif font-bold text-[#041533] mb-4 group-hover:text-[#877051] transition-colors duration-300">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">{item.desc}</p>
+                <p className="text-gray-800 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -354,7 +354,7 @@ export default function Home() {
               Our Services
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto">
               Comprehensive architectural solutions from concept to completion
             </p>
           </div>
@@ -380,7 +380,7 @@ export default function Home() {
                   <h3 className="text-xl font-serif font-bold text-[#041533] mb-3 group-hover:text-[#877051] transition-colors duration-300">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300 mb-6 line-clamp-2">
+                  <p className="text-gray-800 group-hover:text-gray-900 transition-colors duration-300 mb-6 line-clamp-2">
                     {service.short_description || service.description}
                   </p>
                   
@@ -435,7 +435,7 @@ export default function Home() {
                 Our Signature Projects
               </h2>
               <div className="w-32 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
                 Discover our most celebrated architectural achievements that define Dubai&apos;s evolving skyline
               </p>
             </div>
@@ -499,7 +499,7 @@ export default function Home() {
                       {project.title}
                     </h3>
                     
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+                    <p className="text-gray-800 text-sm mb-4 line-clamp-2 leading-relaxed">
                       {project.short_description || project.description}
                     </p>
 

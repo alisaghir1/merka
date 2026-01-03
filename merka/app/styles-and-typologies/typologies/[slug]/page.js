@@ -229,7 +229,7 @@ export default function TypologyDetail() {
                   <span className="text-white text-2xl">{typology.icon}</span>
                 </div>
                 <h3 className="text-xl font-bold text-[#041533] mb-4">{subtype}</h3>
-                <p className="text-gray-600 text-sm">Specialized design solutions for this building type</p>
+                <p className="text-gray-800 text-sm">Specialized design solutions for this building type</p>
               </div>
             ))}
           </div>
@@ -289,24 +289,24 @@ export default function TypologyDetail() {
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Subtypes</h4>
-                    <p className="text-sm text-gray-600">{(typology.subtypes || []).length} specialized categories</p>
+                    <p className="text-sm text-gray-800">{(typology.subtypes || []).length} specialized categories</p>
                   </div>
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Key Features</h4>
-                    <p className="text-sm text-gray-600">{keyFeatures.length} design considerations</p>
+                    <p className="text-sm text-gray-800">{keyFeatures.length} design considerations</p>
                   </div>
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Services</h4>
-                    <p className="text-sm text-gray-600">{(typology.services || []).length} specialized services</p>
+                    <p className="text-sm text-gray-800">{(typology.services || []).length} specialized services</p>
                   </div>
                 </div>
 
                 {/* Quick Contact */}
                 <div className="mt-8 p-4 bg-gray-50 rounded-lg">
                   <h4 className="font-semibold text-[#041533] mb-2">Need this building type?</h4>
-                  <p className="text-sm text-gray-600 mb-3">Get expert consultation</p>
+                  <p className="text-sm text-gray-800 mb-3">Get expert consultation</p>
                   <Link href="/contact">
                     <button className="w-full bg-[#041533] text-white py-2 px-4 rounded-lg text-sm hover:bg-[#877051] transition-colors duration-300">
                       Contact Specialists
@@ -410,7 +410,7 @@ export default function TypologyDetail() {
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#041533] mb-6">
               Authority Compliance
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto">
               All {typology.title.toLowerCase()} projects comply with relevant UAE regulations and standards
             </p>
           </div>

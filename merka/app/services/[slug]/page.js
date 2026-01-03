@@ -133,7 +133,7 @@ export default function ServicePage({ params }) {
 
             {/* Description */}
             {service.description && (
-              <p className="text-lg sm:text-xl text-gray-600 leading-relaxed mb-10 max-w-xl">
+              <p className="text-lg sm:text-xl text-gray-800 leading-relaxed mb-10 max-w-xl">
                 {service.description}
               </p>
             )}
@@ -269,10 +269,10 @@ export default function ServicePage({ params }) {
                   prose-headings:font-serif prose-headings:text-[#041533] prose-headings:font-bold
                   prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
                   prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                  prose-p:text-gray-600 prose-p:leading-relaxed
+                  prose-p:text-gray-800 prose-p:leading-relaxed
                   prose-a:text-[#877051] prose-a:font-medium prose-a:no-underline hover:prose-a:underline
                   prose-strong:text-[#041533]
-                  prose-ul:my-6 prose-li:text-gray-600"
+                  prose-ul:my-6 prose-li:text-gray-800"
                 dangerouslySetInnerHTML={{ __html: service.full_description }}
               />
             </div>
@@ -310,7 +310,7 @@ export default function ServicePage({ params }) {
                     )}
                     {section.content && (
                       <div 
-                        className="prose prose-lg max-w-none prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-[#877051]"
+                        className="prose prose-lg max-w-none prose-p:text-gray-800 prose-p:leading-relaxed prose-a:text-[#877051]"
                         dangerouslySetInnerHTML={{ __html: section.content }}
                       />
                     )}
@@ -436,7 +436,7 @@ export default function ServicePage({ params }) {
                         </div>
                         <h3 className="text-xl sm:text-2xl font-bold text-[#041533] mb-3">{step.title}</h3>
                         {step.description && (
-                          <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                          <p className="text-gray-800 leading-relaxed">{step.description}</p>
                         )}
                       </div>
                     </div>
@@ -518,7 +518,7 @@ export default function ServicePage({ params }) {
 
                     {/* Description */}
                     {otherService.description && (
-                      <p className="text-gray-600 group-hover:text-gray-200 transition-colors line-clamp-2 mb-6">
+                      <p className="text-gray-800 group-hover:text-gray-200 transition-colors line-clamp-2 mb-6">
                         {otherService.description}
                       </p>
                     )}

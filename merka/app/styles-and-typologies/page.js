@@ -213,7 +213,7 @@ export default function StylesAndTypologies() {
               Architectural Styles
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto"></div>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto mt-6">
+            <p className="text-xl text-gray-800 max-w-4xl mx-auto mt-6">
               Six distinct architectural approaches that define our design philosophy and aesthetic vision.
             </p>
           </div>
@@ -243,13 +243,13 @@ export default function StylesAndTypologies() {
                       {style.title}
                     </h3>
                     
-                    <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                    <p className="text-gray-800 mb-6 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
                       {style.shortDescription}
                     </p>
                     
                     <ul className="space-y-2 mb-6">
                       {style.features.slice(0, 3).map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                        <li key={featureIndex} className="flex items-center text-sm text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                           <div className="w-2 h-2 bg-[#877051] rounded-full mr-3 group-hover:scale-150 group-hover:bg-[#041533] transition-all duration-300"></div>
                           <span className="group-hover:translate-x-1 transition-transform duration-300">{feature}</span>
                         </li>
@@ -282,7 +282,7 @@ export default function StylesAndTypologies() {
               Building Typologies
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto"></div>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto mt-6">
+            <p className="text-xl text-gray-800 max-w-4xl mx-auto mt-6">
               Four specialized building types where we excel in creating functional, beautiful, and compliant architecture.
             </p>
           </div>
@@ -312,13 +312,13 @@ export default function StylesAndTypologies() {
                       {typology.title}
                     </h3>
                     
-                    <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                    <p className="text-gray-800 mb-6 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
                       {typology.shortDescription}
                     </p>
                     
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       {(typology.subtypes || []).map((subtype, subtypeIndex) => (
-                        <div key={subtypeIndex} className="flex items-center text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                        <div key={subtypeIndex} className="flex items-center text-sm text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                           <div className="w-2 h-2 bg-[#877051] rounded-full mr-3 group-hover:scale-150 group-hover:bg-[#041533] transition-all duration-300"></div>
                           <span className="group-hover:translate-x-1 transition-transform duration-300">{subtype}</span>
                         </div>
@@ -389,7 +389,7 @@ export default function StylesAndTypologies() {
                 <h3 className="text-xl font-serif font-bold text-[#041533] mb-3 group-hover:text-[#877051] transition-colors duration-300">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                <p className="text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                   {benefit.description}
                 </p>
               </div>

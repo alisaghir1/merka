@@ -183,7 +183,7 @@ export default function StyleDetail() {
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                 </div>
-                <p className="text-gray-600 text-sm mt-3">{image.caption || ''}</p>
+                <p className="text-gray-800 text-sm mt-3">{image.caption || ''}</p>
               </div>
             ))}
           </div>
@@ -243,24 +243,24 @@ export default function StyleDetail() {
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Key Features</h4>
-                    <p className="text-sm text-gray-600">{style.features.length} defining characteristics</p>
+                    <p className="text-sm text-gray-800">{style.features.length} defining characteristics</p>
                   </div>
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Applications</h4>
-                    <p className="text-sm text-gray-600">{style.applications.length} project types</p>
+                    <p className="text-sm text-gray-800">{style.applications.length} project types</p>
                   </div>
                   
                   <div>
                     <h4 className="font-semibold text-[#041533] mb-2">Materials</h4>
-                    <p className="text-sm text-gray-600">{style.materials.length} material categories</p>
+                    <p className="text-sm text-gray-800">{style.materials.length} material categories</p>
                   </div>
                 </div>
 
                 {/* Quick Contact */}
                 <div className="mt-8 p-4 bg-gray-50 rounded-lg">
                   <h4 className="font-semibold text-[#041533] mb-2">Interested in this style?</h4>
-                  <p className="text-sm text-gray-600 mb-3">Get a consultation for your project</p>
+                  <p className="text-sm text-gray-800 mb-3">Get a consultation for your project</p>
                   <Link href="/contact">
                     <button className="w-full bg-[#041533] text-white py-2 px-4 rounded-lg text-sm hover:bg-[#877051] transition-colors duration-300">
                       Contact Us
@@ -364,7 +364,7 @@ export default function StyleDetail() {
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#041533] mb-6">
               Regulatory Compliance
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto">
               All implementations of this style adhere to UAE building regulations and authority requirements
             </p>
           </div>

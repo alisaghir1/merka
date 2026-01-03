@@ -57,7 +57,7 @@ export default function ProjectDetail() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Project Not Found</h1>
-          <p className="text-gray-600 mb-8">The project you're looking for doesn't exist.</p>
+          <p className="text-gray-800 mb-8">The project you're looking for doesn't exist.</p>
           <Link href="/projects" className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors">
             Back to Projects
           </Link>
@@ -282,7 +282,7 @@ export default function ProjectDetail() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-serif font-bold text-primary-900 mb-4">More Projects</h2>
-            <p className="text-gray-600">Explore our other architectural achievements</p>
+            <p className="text-gray-800">Explore our other architectural achievements</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -307,7 +307,7 @@ export default function ProjectDetail() {
                   <h3 className="text-xl font-serif font-bold text-primary-900 mb-2 group-hover:text-secondary-800 transition-colors">
                     {prevProject.title}
                   </h3>
-                  <p className="text-gray-600 text-sm">{prevProject.location}</p>
+                  <p className="text-gray-800 text-sm">{prevProject.location}</p>
                 </div>
               </div>
             </Link>
@@ -333,7 +333,7 @@ export default function ProjectDetail() {
                   <h3 className="text-xl font-serif font-bold text-primary-900 mb-2 group-hover:text-secondary-800 transition-colors">
                     {nextProject.title}
                   </h3>
-                  <p className="text-gray-600 text-sm">{nextProject.location}</p>
+                  <p className="text-gray-800 text-sm">{nextProject.location}</p>
                 </div>
               </div>
             </Link>

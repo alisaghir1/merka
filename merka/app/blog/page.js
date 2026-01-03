@@ -392,7 +392,7 @@ export default function BlogPage() {
                       {featuredPost.title}
                     </h3>
 
-                    <p className="text-lg text-gray-600 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                    <p className="text-lg text-gray-800 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
                       {featuredPost.excerpt}
                     </p>
 
@@ -480,7 +480,7 @@ export default function BlogPage() {
                         {post.title}
                       </h3>
 
-                      <p className="text-gray-600 text-sm leading-relaxed mb-6 group-hover:text-gray-800 transition-colors duration-300">
+                      <p className="text-gray-800 text-sm leading-relaxed mb-6 group-hover:text-gray-900 transition-colors duration-300">
                         {post.excerpt}
                       </p>
 
@@ -567,7 +567,7 @@ export default function BlogPage() {
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#041533] mb-6">
               Stay Updated with Our Latest Insights
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-800 mb-8">
               Get the latest architectural trends, project insights, and industry expertise delivered to your inbox.
             </p>
             

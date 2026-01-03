@@ -246,7 +246,7 @@ export default function Projects() {
               Featured Portfolio
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto">
               Explore our diverse range of architectural projects spanning residential, commercial, and hospitality sectors
             </p>
           </div>
@@ -346,11 +346,11 @@ export default function Projects() {
                   </div>
                   
                   <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-sm text-gray-600">
+                    <div className="flex items-center text-sm text-gray-800">
                       <span className="mr-2">📍</span>
                       {project.location}
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
+                    <div className="flex items-center text-sm text-gray-800">
                       <span className="mr-2">📐</span>
                       {project.area}
                     </div>
@@ -420,7 +420,7 @@ export default function Projects() {
                 <div className="text-4xl md:text-5xl font-bold text-[#041533] mb-2 group-hover:text-[#877051] transition-colors duration-300">
                   {stat.number}
                 </div>
-                <div className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                <div className="text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                   {stat.label}
                 </div>
               </div>

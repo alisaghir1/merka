@@ -256,7 +256,7 @@ export default function Services() {
               Architectural Services
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-xl text-gray-800 max-w-4xl mx-auto">
               From conceptual design to authority approvals, we provide end-to-end architectural services tailored to Dubai's unique requirements.
             </p>
           </div>
@@ -293,14 +293,14 @@ export default function Services() {
                   </h3>
                   
                   {/* Service description */}
-                  <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                  <p className="text-gray-800 mb-6 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
                     {service.description}
                   </p>
                   
                   {/* Features list */}
                   <ul className="space-y-2 mb-6">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                      <li key={featureIndex} className="flex items-center text-sm text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                         <div className="w-2 h-2 bg-[#877051] rounded-full mr-3 group-hover:scale-150 group-hover:bg-[#041533] transition-all duration-300"></div>
                         <span className="group-hover:translate-x-1 transition-transform duration-300">{feature}</span>
                       </li>
@@ -362,7 +362,7 @@ export default function Services() {
                 <h3 className="text-lg font-serif font-bold text-[#041533] mb-2 group-hover:text-[#877051] transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                <p className="text-sm text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                   {service.description.split('.')[0]}.
                 </p>
               </div>
@@ -416,7 +416,7 @@ export default function Services() {
                 <h3 className="text-xl font-serif font-bold text-[#041533] mb-4 group-hover:text-[#877051] transition-colors duration-300">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                <p className="text-gray-800 leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
                   {feature.description}
                 </p>
               </div>

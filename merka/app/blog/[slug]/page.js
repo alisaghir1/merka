@@ -74,7 +74,7 @@ export default function BlogPost({ params }) {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-[#877051] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading article...</p>
+          <p className="text-gray-800">Loading article...</p>
         </div>
       </div>
     )
@@ -85,7 +85,7 @@ export default function BlogPost({ params }) {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-serif font-bold text-[#041533] mb-4">Article Not Found</h1>
-          <p className="text-gray-600 mb-8">The article you're looking for doesn't exist or has been removed.</p>
+          <p className="text-gray-800 mb-8">The article you're looking for doesn't exist or has been removed.</p>
           <Link 
             href="/blog"
             className="inline-flex items-center gap-2 bg-[#041533] text-white px-6 py-3 rounded-lg hover:bg-[#877051] transition-colors"
@@ -367,7 +367,7 @@ export default function BlogPost({ params }) {
                         {relatedPost.title}
                       </h3>
                       {relatedPost.excerpt && (
-                        <p className="text-gray-600 text-sm line-clamp-2 mb-4">
+                        <p className="text-gray-800 text-sm line-clamp-2 mb-4">
                           {relatedPost.excerpt}
                         </p>
                       )}

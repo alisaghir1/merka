@@ -394,7 +394,7 @@ export default function Contact() {
                 style={{ transitionDelay: '300ms' }}
               >
                 <h3 className="text-2xl font-serif font-bold text-[#041533] mb-2">Quick Inquiry Form</h3>
-                <p className="text-gray-600 mb-8">Have a quick question or need more info? We typically respond within 24 hours.</p>
+                <p className="text-gray-800 mb-8">Have a quick question or need more info? We typically respond within 24 hours.</p>
                 
                 {error && (
                   <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
@@ -408,7 +408,7 @@ export default function Contact() {
                       <span className="text-green-600 text-2xl">✓</span>
                     </div>
                     <h4 className="text-xl font-bold text-gray-900 mb-2">Message Sent!</h4>
-                    <p className="text-gray-600">Thank you for your inquiry. We'll get back to you within 24 hours.</p>
+                    <p className="text-gray-800">Thank you for your inquiry. We'll get back to you within 24 hours.</p>
                     <button 
                       onClick={() => setSubmitted(false)}
                       className="mt-4 text-[#041533] hover:text-[#877051] font-semibold"
@@ -654,7 +654,7 @@ export default function Contact() {
                     <span className="text-white text-2xl">💭</span>
                   </div>
                   <h4 className="font-bold text-gray-900 mb-2">Site Review</h4>
-                  <p className="text-gray-600 text-sm">Analyze your location and constraints</p>
+                  <p className="text-gray-800 text-sm">Analyze your location and constraints</p>
                 </div>
                 
                 <div className="text-center">
@@ -662,7 +662,7 @@ export default function Contact() {
                     <span className="text-white text-2xl">🎯</span>
                   </div>
                   <h4 className="font-bold text-gray-900 mb-2">Goal Setting</h4>
-                  <p className="text-gray-600 text-sm">Define your vision and objectives</p>
+                  <p className="text-gray-800 text-sm">Define your vision and objectives</p>
                 </div>
                 
                 <div className="text-center">
@@ -670,7 +670,7 @@ export default function Contact() {
                     <span className="text-white text-2xl">📐</span>
                   </div>
                   <h4 className="font-bold text-gray-900 mb-2">Design Direction</h4>
-                  <p className="text-gray-600 text-sm">Create a clear architectural roadmap</p>
+                  <p className="text-gray-800 text-sm">Create a clear architectural roadmap</p>
                 </div>
               </div>
               

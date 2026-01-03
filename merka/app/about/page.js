@@ -196,7 +196,7 @@ export default function About() {
               About Merka
             </h2>
             <div className="w-32 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mx-auto mb-8"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 max-w-3xl mx-auto">
               We specialize in comprehensive architectural solutions across residential, commercial, hospitality, and institutional sectors.
             </p>
           </div>
@@ -408,7 +408,7 @@ export default function About() {
                       <span className="text-white text-3xl group-hover:text-4xl transition-all duration-300">{item.icon}</span>
                     </div>
                     <h3 className="text-xl font-serif font-bold text-[#041533] mb-3 group-hover:text-[#877051] transition-colors duration-300">{item.title}</h3>
-                    <p className="text-gray-600 group-hover:text-gray-800 transition-colors duration-300">{item.desc}</p>
+                    <p className="text-gray-800 group-hover:text-gray-900 transition-colors duration-300">{item.desc}</p>
                   </div>
                 </div>
               </div>
