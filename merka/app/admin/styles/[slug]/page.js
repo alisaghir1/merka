@@ -14,14 +14,15 @@ export default function EditStylePage({ params }) {
   const supabase = createClient()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState('en')
   const [formData, setFormData] = useState({
-    title: '', slug: '', icon: '🏛️', gradient: 'from-slate-600 to-slate-800',
-    short_description: '', description: '', extended_description: '',
-    features: [], applications: [], materials: [], compliance: [],
+    title: '', title_ar: '', slug: '', icon: '🏛️', gradient: 'from-slate-600 to-slate-800',
+    short_description: '', short_description_ar: '', description: '', description_ar: '', extended_description: '', extended_description_ar: '',
+    features: [], features_ar: [], applications: [], applications_ar: [], materials: [], materials_ar: [], compliance: [], compliance_ar: [],
     images: { hero: '', gallery: [], featured: '' },
     display_order: 0, published: false, meta_title: '', meta_description: ''
   })
-  const [inputValues, setInputValues] = useState({ features: '', applications: '', materials: '', compliance: '', gallery: '' })
+  const [inputValues, setInputValues] = useState({ features: '', applications: '', materials: '', compliance: '', gallery: '', features_ar: '', applications_ar: '', materials_ar: '', compliance_ar: '' })
 
   useEffect(() => {
     fetchStyle()
@@ -139,48 +140,88 @@ export default function EditStylePage({ params }) {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Language Tabs */}
+        <div className="bg-white rounded-xl shadow-sm border p-4">
+          <div className="flex gap-2">
+            <button type="button" onClick={() => setActiveTab('en')} className={`px-6 py-3 rounded-lg font-medium transition-all ${activeTab === 'en' ? 'bg-[#041533] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>🇬🇧 English</button>
+            <button type="button" onClick={() => setActiveTab('ar')} className={`px-6 py-3 rounded-lg font-medium transition-all ${activeTab === 'ar' ? 'bg-[#041533] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>🇸🇦 العربية</button>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">{activeTab === 'en' ? 'Enter content in English' : 'أدخل المحتوى بالعربية'}</p>
+        </div>
+
         {/* Basic Info */}
         <div className="bg-white rounded-xl shadow-sm border p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-gray-900">Basic Information</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{activeTab === 'en' ? 'Basic Information' : 'المعلومات الأساسية'}</h2>
           
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
-              <input type="text" value={formData.title} onChange={handleTitleChange} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
-              <input type="text" value={formData.slug} onChange={(e) => setFormData({...formData, slug: e.target.value})} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
-            </div>
-          </div>
+          {activeTab === 'en' ? (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Title (English) *</label>
+                  <input type="text" value={formData.title} onChange={handleTitleChange} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                  <input type="text" value={formData.slug} onChange={(e) => setFormData({...formData, slug: e.target.value})} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
+                </div>
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Icon</label>
-            <div className="flex gap-2 flex-wrap">
-              {icons.map(i => (
-                <button key={i} type="button" onClick={() => setFormData({...formData, icon: i})} className={`text-2xl p-2 rounded-lg border-2 ${formData.icon === i ? 'border-[#877051] bg-[#877051]/10' : 'border-gray-200'}`}>{i}</button>
-              ))}
-            </div>
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Icon</label>
+                <div className="flex gap-2 flex-wrap">
+                  {icons.map(i => (
+                    <button key={i} type="button" onClick={() => setFormData({...formData, icon: i})} className={`text-2xl p-2 rounded-lg border-2 ${formData.icon === i ? 'border-[#877051] bg-[#877051]/10' : 'border-gray-200'}`}>{i}</button>
+                  ))}
+                </div>
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Short Description</label>
-            <textarea value={formData.short_description} onChange={(e) => setFormData({...formData, short_description: e.target.value})} rows={2} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Short Description (English)</label>
+                <textarea value={formData.short_description} onChange={(e) => setFormData({...formData, short_description: e.target.value})} rows={2} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-            <textarea value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} rows={3} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Description (English)</label>
+                <textarea value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} rows={3} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#877051]" />
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Extended Description (Rich Text)</label>
-            <RichTextEditor
-              content={formData.extended_description}
-              onChange={handleContentChange}
-              placeholder="Detailed style description..."
-            />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Extended Description (English)</label>
+                <RichTextEditor
+                  content={formData.extended_description}
+                  onChange={handleContentChange}
+                  placeholder="Detailed style description..."
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">العنوان (بالعربية)</label>
+                <input type="text" value={formData.title_ar || ''} onChange={(e) => setFormData({...formData, title_ar: e.target.value})} dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" placeholder="عنوان النمط" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوصف المختصر (بالعربية)</label>
+                <textarea value={formData.short_description_ar || ''} onChange={(e) => setFormData({...formData, short_description_ar: e.target.value})} rows={2} dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" placeholder="وصف مختصر" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوصف (بالعربية)</label>
+                <textarea value={formData.description_ar || ''} onChange={(e) => setFormData({...formData, description_ar: e.target.value})} rows={3} dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" placeholder="الوصف" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوصف المفصل (بالعربية)</label>
+                <RichTextEditor
+                  content={formData.extended_description_ar || ''}
+                  onChange={(c) => setFormData({...formData, extended_description_ar: c})}
+                  placeholder="وصف مفصل للنمط..."
+                  dir="rtl"
+                />
+              </div>
+            </>
+          )}
         </div>
 
         {/* Images */}

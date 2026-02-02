@@ -14,24 +14,34 @@ export default function EditBlogPage({ params }) {
   const supabase = createClient()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState('en') // 'en' or 'ar'
   const [formData, setFormData] = useState({
     title: '',
+    title_ar: '',
     slug: '',
     excerpt: '',
+    excerpt_ar: '',
     content: '',
+    content_ar: '',
     sections: [],
+    sections_ar: [],
     category: '',
+    category_ar: '',
     read_time: '',
+    read_time_ar: '',
     date: '',
     author: '',
+    author_ar: '',
     featured: false,
     published: false,
     tags: [],
+    tags_ar: [],
     image: '',
     meta_title: '',
     meta_description: '',
   })
   const [tagInput, setTagInput] = useState('')
+  const [tagInputAr, setTagInputAr] = useState('')
   const [uploadingImage, setUploadingImage] = useState(false)
   const fileInputRef = useRef(null)
 
@@ -82,7 +92,15 @@ export default function EditBlogPage({ params }) {
         ...data,
         date: data.date ? new Date(data.date).toISOString().split('T')[0] : '',
         tags: data.tags || [],
+        tags_ar: data.tags_ar || [],
         sections: data.sections || [],
+        sections_ar: data.sections_ar || [],
+        title_ar: data.title_ar || '',
+        excerpt_ar: data.excerpt_ar || '',
+        content_ar: data.content_ar || '',
+        category_ar: data.category_ar || '',
+        author_ar: data.author_ar || '',
+        read_time_ar: data.read_time_ar || '',
       })
     } catch (error) {
       console.error('Error fetching blog:', error)
@@ -123,6 +141,10 @@ export default function EditBlogPage({ params }) {
     setFormData({ ...formData, content })
   }
 
+  const handleContentArChange = (content_ar) => {
+    setFormData({ ...formData, content_ar })
+  }
+
   const addTag = () => {
     if (tagInput.trim() && !formData.tags.includes(tagInput.trim())) {
       setFormData({
@@ -137,6 +159,44 @@ export default function EditBlogPage({ params }) {
     setFormData({
       ...formData,
       tags: formData.tags.filter((tag) => tag !== tagToRemove),
+    })
+  }
+
+  const addTagAr = () => {
+    if (tagInputAr.trim() && !formData.tags_ar.includes(tagInputAr.trim())) {
+      setFormData({
+        ...formData,
+        tags_ar: [...formData.tags_ar, tagInputAr.trim()],
+      })
+      setTagInputAr('')
+    }
+  }
+
+  const removeTagAr = (tagToRemove) => {
+    setFormData({
+      ...formData,
+      tags_ar: formData.tags_ar.filter((tag) => tag !== tagToRemove),
+    })
+  }
+
+  // Categories with English and Arabic
+  const categoriesWithArabic = [
+    { en: 'Trends & Innovation', ar: 'الاتجاهات والابتكار' },
+    { en: 'Site Planning', ar: 'تخطيط الموقع' },
+    { en: 'Religious Architecture', ar: 'العمارة الدينية' },
+    { en: 'Regulations & Compliance', ar: 'اللوائح والامتثال' },
+    { en: 'Technology & Innovation', ar: 'التكنولوجيا والابتكار' },
+    { en: 'Design Process', ar: 'عملية التصميم' },
+    { en: 'Sustainability', ar: 'الاستدامة' },
+    { en: 'Project Showcase', ar: 'عرض المشاريع' },
+  ]
+
+  const handleCategoryChange = (e) => {
+    const selectedCategory = categoriesWithArabic.find(cat => cat.en === e.target.value)
+    setFormData({
+      ...formData,
+      category: selectedCategory?.en || '',
+      category_ar: selectedCategory?.ar || '',
     })
   }
 
@@ -160,17 +220,6 @@ export default function EditBlogPage({ params }) {
       setSaving(false)
     }
   }
-
-  const categories = [
-    'Trends & Innovation',
-    'Site Planning',
-    'Religious Architecture',
-    'Regulations & Compliance',
-    'Technology & Innovation',
-    'Design Process',
-    'Sustainability',
-    'Project Showcase',
-  ]
 
   if (loading) {
     return (
@@ -200,64 +249,153 @@ export default function EditBlogPage({ params }) {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Language Tabs */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTab('en')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                activeTab === 'en'
+                  ? 'bg-[#041533] text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              🇬🇧 English
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('ar')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                activeTab === 'ar'
+                  ? 'bg-[#041533] text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              🇸🇦 العربية
+            </button>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            {activeTab === 'en' ? 'Enter content in English' : 'أدخل المحتوى بالعربية'}
+          </p>
+        </div>
+
         {/* Main Content */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleTitleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="Enter blog title"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
-              <input
-                type="text"
-                name="slug"
-                value={formData.slug}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="blog-post-url-slug"
-              />
-            </div>
-          </div>
+          {/* English Content */}
+          {activeTab === 'en' && (
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Title (English) *</label>
+                  <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleTitleChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="Enter blog title"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                  <input
+                    type="text"
+                    name="slug"
+                    value={formData.slug}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="blog-post-url-slug"
+                  />
+                </div>
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Excerpt</label>
-            <textarea
-              name="excerpt"
-              value={formData.excerpt}
-              onChange={handleChange}
-              rows={3}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-              placeholder="Brief description of the blog post"
-            />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Excerpt (English)</label>
+                <textarea
+                  name="excerpt"
+                  value={formData.excerpt}
+                  onChange={handleChange}
+                  rows={3}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                  placeholder="Brief description of the blog post"
+                />
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Introduction / Main Content</label>
-            <RichTextEditor
-              content={formData.content}
-              onChange={handleContentChange}
-              placeholder="Write your blog introduction or main content here..."
-            />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Content (English)</label>
+                <RichTextEditor
+                  content={formData.content}
+                  onChange={handleContentChange}
+                  placeholder="Write your blog introduction or main content here..."
+                />
+              </div>
+            </>
+          )}
+
+          {/* Arabic Content */}
+          {activeTab === 'ar' && (
+            <>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">العنوان (بالعربية)</label>
+                <input
+                  type="text"
+                  name="title_ar"
+                  value={formData.title_ar}
+                  onChange={handleChange}
+                  dir="rtl"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                  placeholder="أدخل عنوان المقال"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الملخص (بالعربية)</label>
+                <textarea
+                  name="excerpt_ar"
+                  value={formData.excerpt_ar}
+                  onChange={handleChange}
+                  rows={3}
+                  dir="rtl"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                  placeholder="وصف مختصر للمقال"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">المحتوى (بالعربية)</label>
+                <RichTextEditor
+                  content={formData.content_ar}
+                  onChange={handleContentArChange}
+                  placeholder="اكتب المحتوى بالعربية هنا..."
+                  dir="rtl"
+                />
+              </div>
+            </>
+          )}
         </div>
 
         {/* Content Sections */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <SectionsEditor
-            sections={formData.sections}
-            onChange={(sections) => setFormData({ ...formData, sections })}
-            folder="blogs/sections"
-          />
+          {activeTab === 'en' ? (
+            <SectionsEditor
+              sections={formData.sections}
+              onChange={(sections) => setFormData({ ...formData, sections })}
+              folder="blogs/sections"
+            />
+          ) : (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-right">أقسام المحتوى (بالعربية)</h3>
+              <SectionsEditor
+                sections={formData.sections_ar || []}
+                onChange={(sections_ar) => setFormData({ ...formData, sections_ar })}
+                folder="blogs/sections"
+                dir="rtl"
+              />
+            </>
+          )}
         </div>
 
         {/* Sidebar Info */}
@@ -267,21 +405,21 @@ export default function EditBlogPage({ params }) {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Category / التصنيف</label>
                 <select
                   name="category"
                   value={formData.category}
-                  onChange={handleChange}
+                  onChange={handleCategoryChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
                 >
-                  <option value="">Select category</option>
-                  {categories.map((cat) => (
-                    <option key={cat} value={cat}>{cat}</option>
+                  <option value="">Select category / اختر التصنيف</option>
+                  {categoriesWithArabic.map((cat) => (
+                    <option key={cat.en} value={cat.en}>{cat.en} / {cat.ar}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Read Time</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Read Time (English)</label>
                 <input
                   type="text"
                   name="read_time"
@@ -289,6 +427,18 @@ export default function EditBlogPage({ params }) {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
                   placeholder="5 min read"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">وقت القراءة (بالعربية)</label>
+                <input
+                  type="text"
+                  name="read_time_ar"
+                  value={formData.read_time_ar}
+                  onChange={handleChange}
+                  dir="rtl"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                  placeholder="٥ دقائق للقراءة"
                 />
               </div>
               <div>
@@ -302,7 +452,7 @@ export default function EditBlogPage({ params }) {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Author</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Author (English)</label>
                 <input
                   type="text"
                   name="author"
@@ -310,6 +460,18 @@ export default function EditBlogPage({ params }) {
                   onChange={handleChange}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
                   placeholder="Author name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">المؤلف (بالعربية)</label>
+                <input
+                  type="text"
+                  name="author_ar"
+                  value={formData.author_ar}
+                  onChange={handleChange}
+                  dir="rtl"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                  placeholder="اسم المؤلف"
                 />
               </div>
             </div>
@@ -363,7 +525,7 @@ export default function EditBlogPage({ params }) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Tags</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Tags (English)</label>
               <div className="flex gap-2 mb-2 flex-wrap">
                 {formData.tags.map((tag) => (
                   <span
@@ -397,6 +559,45 @@ export default function EditBlogPage({ params }) {
                 >
                   Add
                 </button>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوسوم (بالعربية)</label>
+              <div className="flex gap-2 mb-2 flex-wrap justify-end">
+                {formData.tags_ar.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-[#041533] text-white"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => removeTagAr(tag)}
+                      className="mr-2 hover:text-gray-200"
+                    >
+                      ×
+                    </button>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="flex gap-2 flex-row-reverse">
+                <button
+                  type="button"
+                  onClick={addTagAr}
+                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                >
+                  إضافة
+                </button>
+                <input
+                  type="text"
+                  value={tagInputAr}
+                  onChange={(e) => setTagInputAr(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTagAr())}
+                  dir="rtl"
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                  placeholder="أضف وسم"
+                />
               </div>
             </div>
           </div>

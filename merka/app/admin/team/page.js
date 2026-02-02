@@ -9,8 +9,9 @@ export default function TeamPage() {
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const [editingMember, setEditingMember] = useState(null)
+  const [activeTab, setActiveTab] = useState('en')
   const [formData, setFormData] = useState({
-    name: '', position: '', bio: '', image: '', linkedin: '', email: '', display_order: 0, published: true
+    name: '', name_ar: '', position: '', position_ar: '', bio: '', bio_ar: '', image: '', linkedin: '', email: '', display_order: 0, published: true
   })
   const supabase = createClient()
   const fileInputRef = useRef(null)
@@ -62,7 +63,7 @@ export default function TeamPage() {
         await supabase.from('team_members').insert([formData])
       }
       setEditingMember(null)
-      setFormData({ name: '', position: '', bio: '', image: '', linkedin: '', email: '', display_order: 0, published: true })
+      setFormData({ name: '', name_ar: '', position: '', position_ar: '', bio: '', bio_ar: '', image: '', linkedin: '', email: '', display_order: 0, published: true })
       fetchTeam()
     } catch (error) {
       console.error('Error:', error)
@@ -95,10 +96,45 @@ export default function TeamPage() {
         {/* Form */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h2 className="text-lg font-semibold mb-4">{editingMember ? 'Edit Member' : 'Add Member'}</h2>
+          
+          {/* Language Tabs */}
+          <div className="flex gap-2 mb-4">
+            <button type="button" onClick={() => setActiveTab('en')} className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${activeTab === 'en' ? 'bg-[#041533] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>🇬🇧 English</button>
+            <button type="button" onClick={() => setActiveTab('ar')} className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${activeTab === 'ar' ? 'bg-[#041533] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>🇸🇦 العربية</button>
+          </div>
+          
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="Name *" required className="w-full px-4 py-2 border rounded-lg" />
-            <input type="text" value={formData.position} onChange={(e) => setFormData({...formData, position: e.target.value})} placeholder="Position" className="w-full px-4 py-2 border rounded-lg" />
-            <textarea value={formData.bio} onChange={(e) => setFormData({...formData, bio: e.target.value})} placeholder="Bio" rows={3} className="w-full px-4 py-2 border rounded-lg" />
+            {activeTab === 'en' ? (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Name (English) *</label>
+                  <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="Name" required className="w-full px-4 py-2 border rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Position (English)</label>
+                  <input type="text" value={formData.position} onChange={(e) => setFormData({...formData, position: e.target.value})} placeholder="Position" className="w-full px-4 py-2 border rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Bio (English)</label>
+                  <textarea value={formData.bio} onChange={(e) => setFormData({...formData, bio: e.target.value})} placeholder="Bio" rows={3} className="w-full px-4 py-2 border rounded-lg" />
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 text-right">الاسم (بالعربية)</label>
+                  <input type="text" value={formData.name_ar || ''} onChange={(e) => setFormData({...formData, name_ar: e.target.value})} placeholder="الاسم" dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 text-right">المنصب (بالعربية)</label>
+                  <input type="text" value={formData.position_ar || ''} onChange={(e) => setFormData({...formData, position_ar: e.target.value})} placeholder="المنصب" dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 text-right">السيرة الذاتية (بالعربية)</label>
+                  <textarea value={formData.bio_ar || ''} onChange={(e) => setFormData({...formData, bio_ar: e.target.value})} placeholder="السيرة الذاتية" rows={3} dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" />
+                </div>
+              </>
+            )}
             
             {/* Image Upload */}
             <div>
@@ -136,7 +172,7 @@ export default function TeamPage() {
                 {editingMember ? 'Update' : 'Add'}
               </button>
               {editingMember && (
-                <button type="button" onClick={() => { setEditingMember(null); setFormData({ name: '', position: '', bio: '', image: '', linkedin: '', email: '', display_order: 0, published: true }) }} className="px-4 py-2 bg-gray-200 rounded-lg">Cancel</button>
+                <button type="button" onClick={() => { setEditingMember(null); setFormData({ name: '', name_ar: '', position: '', position_ar: '', bio: '', bio_ar: '', image: '', linkedin: '', email: '', display_order: 0, published: true }) }} className="px-4 py-2 bg-gray-200 rounded-lg">Cancel</button>
               )}
             </div>
           </form>

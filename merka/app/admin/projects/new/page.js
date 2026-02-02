@@ -13,22 +13,33 @@ export default function NewProjectPage() {
   const router = useRouter()
   const supabase = createClient()
   const [saving, setSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState('en')
   const [formData, setFormData] = useState({
     title: '',
+    title_ar: '',
     slug: '',
     category: '',
+    category_ar: '',
     location: '',
+    location_ar: '',
     area: '',
     year: new Date().getFullYear().toString(),
     status: 'In Design',
+    status_ar: 'قيد التصميم',
     image: '',
     description: '',
+    description_ar: '',
     full_description: '',
+    full_description_ar: '',
     sections: [],
+    sections_ar: [],
     services: [],
+    services_ar: [],
     tags: [],
+    tags_ar: [],
     gallery: [],
     features: [],
+    features_ar: [],
     client: '',
     budget: '',
     timeline: '',
@@ -39,8 +50,11 @@ export default function NewProjectPage() {
     meta_description: '',
   })
   const [tagInput, setTagInput] = useState('')
+  const [tagInputAr, setTagInputAr] = useState('')
   const [serviceInput, setServiceInput] = useState('')
+  const [serviceInputAr, setServiceInputAr] = useState('')
   const [featureInput, setFeatureInput] = useState('')
+  const [featureInputAr, setFeatureInputAr] = useState('')
 
   const generateSlug = (title) => {
     return title
@@ -70,6 +84,37 @@ export default function NewProjectPage() {
 
   const handleContentChange = (content) => {
     setFormData({ ...formData, full_description: content })
+  }
+
+  const handleContentArChange = (content) => {
+    setFormData({ ...formData, full_description_ar: content })
+  }
+
+  // Sync sections structure between languages
+  const handleSectionsChange = (sections) => {
+    const newSectionsAr = sections.map((section, index) => {
+      const existingArSection = formData.sections_ar[index] || {}
+      return {
+        ...section,
+        title: existingArSection.title || '',
+        content: existingArSection.content || '',
+        image: section.image,
+        type: section.type,
+      }
+    })
+    setFormData({ ...formData, sections, sections_ar: newSectionsAr })
+  }
+
+  const handleSectionsArChange = (sections_ar) => {
+    const syncedSectionsAr = sections_ar.map((section, index) => {
+      const enSection = formData.sections[index] || {}
+      return {
+        ...section,
+        image: enSection.image || section.image,
+        type: enSection.type || section.type,
+      }
+    })
+    setFormData({ ...formData, sections_ar: syncedSectionsAr })
   }
 
   const addToArray = (field, inputValue, setInputValue) => {
@@ -110,8 +155,38 @@ export default function NewProjectPage() {
     }
   }
 
-  const categories = ['residential', 'commercial', 'hospitality', 'mixed-use', 'institutional', 'cultural']
-  const statuses = ['In Design', 'Under Construction', 'Completed', 'On Hold']
+  const categories = [
+    { en: 'residential', ar: 'سكني' },
+    { en: 'commercial', ar: 'تجاري' },
+    { en: 'hospitality', ar: 'ضيافة' },
+    { en: 'mixed-use', ar: 'متعدد الاستخدامات' },
+    { en: 'institutional', ar: 'مؤسسي' },
+    { en: 'cultural', ar: 'ثقافي' },
+  ]
+  const statuses = [
+    { en: 'In Design', ar: 'قيد التصميم' },
+    { en: 'Under Construction', ar: 'قيد البناء' },
+    { en: 'Completed', ar: 'مكتمل' },
+    { en: 'On Hold', ar: 'معلق' },
+  ]
+
+  const handleCategoryChange = (e) => {
+    const selectedCategory = categories.find(cat => cat.en === e.target.value)
+    setFormData({
+      ...formData,
+      category: selectedCategory?.en || '',
+      category_ar: selectedCategory?.ar || '',
+    })
+  }
+
+  const handleStatusChange = (e) => {
+    const selectedStatus = statuses.find(s => s.en === e.target.value)
+    setFormData({
+      ...formData,
+      status: selectedStatus?.en || '',
+      status_ar: selectedStatus?.ar || '',
+    })
+  }
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
@@ -133,160 +208,319 @@ export default function NewProjectPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Language Tabs */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTab('en')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                activeTab === 'en'
+                  ? 'bg-[#041533] text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              🇬🇧 English
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('ar')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                activeTab === 'ar'
+                  ? 'bg-[#041533] text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              🇸🇦 العربية
+            </button>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            {activeTab === 'en' ? 'Enter content in English' : 'أدخل المحتوى بالعربية'}
+          </p>
+        </div>
+
         {/* Basic Info */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
-          <h2 className="text-lg font-semibold text-gray-900">Basic Information</h2>
+          <h2 className="text-lg font-semibold text-gray-900">
+            {activeTab === 'en' ? 'Basic Information' : 'المعلومات الأساسية'}
+          </h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleTitleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="Project title"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
-              <input
-                type="text"
-                name="slug"
-                value={formData.slug}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="project-url-slug"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Category *</label>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-              >
-                <option value="">Select category</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat} className="capitalize">{cat}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-              >
-                {statuses.map((status) => (
-                  <option key={status} value={status}>{status}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="Dubai, UAE"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Area</label>
-              <input
-                type="text"
-                name="area"
-                value={formData.area}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="10,000 sq ft"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
-              <input
-                type="text"
-                name="year"
-                value={formData.year}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="2024"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Client</label>
-              <input
-                type="text"
-                name="client"
-                value={formData.client}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="Client name"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Budget</label>
-              <input
-                type="text"
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="$1M - $2M"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Timeline</label>
-              <input
-                type="text"
-                name="timeline"
-                value={formData.timeline}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-                placeholder="18 months"
-              />
-            </div>
-          </div>
+          {activeTab === 'en' ? (
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* ...existing English fields... */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Title (English) *</label>
+                  <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleTitleChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="Project title"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                  <input
+                    type="text"
+                    name="slug"
+                    value={formData.slug}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="project-url-slug"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Category / التصنيف *</label>
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleCategoryChange}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                  >
+                    <option value="">Select category / اختر التصنيف</option>
+                    {categories.map((cat) => (
+                      <option key={cat.en} value={cat.en} className="capitalize">{cat.en} / {cat.ar}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Status / الحالة</label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleStatusChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                  >
+                    {statuses.map((status) => (
+                      <option key={status.en} value={status.en}>{status.en} / {status.ar}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Location (English)</label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="Dubai, UAE"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Area</label>
+                  <input
+                    type="text"
+                    name="area"
+                    value={formData.area}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="10,000 sq ft"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+                  <input
+                    type="text"
+                    name="year"
+                    value={formData.year}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="2024"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Client</label>
+                  <input
+                    type="text"
+                    name="client"
+                    value={formData.client}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="Client name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Budget</label>
+                  <input
+                    type="text"
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="$1M - $2M"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Timeline</label>
+                  <input
+                    type="text"
+                    name="timeline"
+                    value={formData.timeline}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                    placeholder="18 months"
+                  />
+                </div>
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Short Description</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              rows={2}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
-              placeholder="Brief project description"
-            />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Short Description (English)</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  rows={2}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent"
+                  placeholder="Brief project description"
+                />
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Full Description</label>
-            <RichTextEditor
-              content={formData.full_description}
-              onChange={handleContentChange}
-              placeholder="Detailed project description..."
-            />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Full Description (English)</label>
+                <RichTextEditor
+                  content={formData.full_description}
+                  onChange={handleContentChange}
+                  placeholder="Detailed project description..."
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right">العنوان (بالعربية)</label>
+                  <input
+                    type="text"
+                    name="title_ar"
+                    value={formData.title_ar}
+                    onChange={handleChange}
+                    dir="rtl"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                    placeholder="عنوان المشروع"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الموقع (بالعربية)</label>
+                  <input
+                    type="text"
+                    name="location_ar"
+                    value={formData.location_ar}
+                    onChange={handleChange}
+                    dir="rtl"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                    placeholder="دبي، الإمارات"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right">المساحة (بالعربية)</label>
+                  <input
+                    type="text"
+                    name="area_ar"
+                    value={formData.area_ar || ''}
+                    onChange={handleChange}
+                    dir="rtl"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                    placeholder="١٦٬٠٠٠ - ٢٠٬٠٠٠ متر مربع"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right">العميل (بالعربية)</label>
+                  <input
+                    type="text"
+                    name="client_ar"
+                    value={formData.client_ar || ''}
+                    onChange={handleChange}
+                    dir="rtl"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                    placeholder="اسم العميل"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الميزانية (بالعربية)</label>
+                  <input
+                    type="text"
+                    name="budget_ar"
+                    value={formData.budget_ar || ''}
+                    onChange={handleChange}
+                    dir="rtl"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                    placeholder="٤٨٬٠٠٠٬٠٠٠ - ٦٢٬٠٠٠٬٠٠٠ دولار أمريكي"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الجدول الزمني (بالعربية)</label>
+                  <input
+                    type="text"
+                    name="timeline_ar"
+                    value={formData.timeline_ar || ''}
+                    onChange={handleChange}
+                    dir="rtl"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                    placeholder="٢٢ إلى ٢٦ شهرًا"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوصف المختصر (بالعربية)</label>
+                <textarea
+                  name="description_ar"
+                  value={formData.description_ar}
+                  onChange={handleChange}
+                  rows={2}
+                  dir="rtl"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right"
+                  placeholder="وصف مختصر للمشروع"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوصف الكامل (بالعربية)</label>
+                <RichTextEditor
+                  content={formData.full_description_ar}
+                  onChange={handleContentArChange}
+                  placeholder="وصف تفصيلي للمشروع..."
+                  dir="rtl"
+                />
+              </div>
+            </>
+          )}
         </div>
 
         {/* Content Sections */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <SectionsEditor
-            sections={formData.sections}
-            onChange={(sections) => setFormData({ ...formData, sections })}
-            folder="projects/sections"
-          />
+          {activeTab === 'en' ? (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Sections (English)</h3>
+              <p className="text-sm text-gray-500 mb-4">Sections are synced between languages - structure and images are shared, only text content differs.</p>
+              <SectionsEditor
+                sections={formData.sections}
+                onChange={handleSectionsChange}
+                folder="projects/sections"
+              />
+            </>
+          ) : (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-right">أقسام المحتوى (بالعربية)</h3>
+              <p className="text-sm text-gray-500 mb-4 text-right">الأقسام متزامنة بين اللغتين - الهيكل والصور مشتركة، فقط المحتوى النصي يختلف.</p>
+              {formData.sections.length === 0 ? (
+                <p className="text-amber-600 text-right">يرجى إضافة الأقسام في علامة التبويب الإنجليزية أولاً</p>
+              ) : (
+                <SectionsEditor
+                  sections={formData.sections_ar || []}
+                  onChange={handleSectionsArChange}
+                  folder="projects/sections"
+                  dir="rtl"
+                />
+              )}
+            </>
+          )}
         </div>
 
         {/* Images */}
@@ -308,11 +542,11 @@ export default function NewProjectPage() {
           />
         </div>
 
-        {/* Lists */}
+        {/* Lists - English */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Services */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Services</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Services (English)</h2>
             <div className="flex gap-2 flex-wrap">
               {formData.services.map((service) => (
                 <span
@@ -345,7 +579,7 @@ export default function NewProjectPage() {
 
           {/* Features */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Features</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Features (English)</h2>
             <div className="flex gap-2 flex-wrap">
               {formData.features.map((feature) => (
                 <span
@@ -378,7 +612,7 @@ export default function NewProjectPage() {
 
           {/* Tags */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Tags</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Tags (English)</h2>
             <div className="flex gap-2 flex-wrap">
               {formData.tags.map((tag) => (
                 <span
@@ -406,6 +640,111 @@ export default function NewProjectPage() {
               >
                 Add
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Lists - Arabic */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Services Arabic */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900 text-right">الخدمات (بالعربية)</h2>
+            <div className="flex gap-2 flex-wrap justify-end">
+              {formData.services_ar.map((service) => (
+                <span
+                  key={service}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800"
+                >
+                  <button type="button" onClick={() => removeFromArray('services_ar', service)} className="mr-2">×</button>
+                  {service}
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => addToArray('services_ar', serviceInputAr, setServiceInputAr)}
+                className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-sm"
+              >
+                إضافة
+              </button>
+              <input
+                type="text"
+                value={serviceInputAr}
+                onChange={(e) => setServiceInputAr(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addToArray('services_ar', serviceInputAr, setServiceInputAr))}
+                dir="rtl"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-sm text-right"
+                placeholder="أضف خدمة"
+              />
+            </div>
+          </div>
+
+          {/* Features Arabic */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900 text-right">المميزات (بالعربية)</h2>
+            <div className="flex gap-2 flex-wrap justify-end">
+              {formData.features_ar.map((feature) => (
+                <span
+                  key={feature}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800"
+                >
+                  <button type="button" onClick={() => removeFromArray('features_ar', feature)} className="mr-2">×</button>
+                  {feature}
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => addToArray('features_ar', featureInputAr, setFeatureInputAr)}
+                className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-sm"
+              >
+                إضافة
+              </button>
+              <input
+                type="text"
+                value={featureInputAr}
+                onChange={(e) => setFeatureInputAr(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addToArray('features_ar', featureInputAr, setFeatureInputAr))}
+                dir="rtl"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-sm text-right"
+                placeholder="أضف ميزة"
+              />
+            </div>
+          </div>
+
+          {/* Tags Arabic */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900 text-right">الوسوم (بالعربية)</h2>
+            <div className="flex gap-2 flex-wrap justify-end">
+              {formData.tags_ar.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-[#041533] text-white"
+                >
+                  <button type="button" onClick={() => removeFromArray('tags_ar', tag)} className="mr-2">×</button>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => addToArray('tags_ar', tagInputAr, setTagInputAr)}
+                className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 text-sm"
+              >
+                إضافة
+              </button>
+              <input
+                type="text"
+                value={tagInputAr}
+                onChange={(e) => setTagInputAr(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addToArray('tags_ar', tagInputAr, setTagInputAr))}
+                dir="rtl"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-sm text-right"
+                placeholder="أضف وسم"
+              />
             </div>
           </div>
         </div>

@@ -13,17 +13,25 @@ export default function NewServicePage() {
   const router = useRouter()
   const supabase = createClient()
   const [saving, setSaving] = useState(false)
+  const [activeTab, setActiveTab] = useState('en')
   const [formData, setFormData] = useState({
     title: '',
+    title_ar: '',
     slug: '',
     description: '',
+    description_ar: '',
     full_description: '',
+    full_description_ar: '',
     sections: [],
+    sections_ar: [],
     icon: '⚙️',
     gradient: 'from-[#041533] to-[#877051]',
     features: [],
+    features_ar: [],
     benefits: [],
+    benefits_ar: [],
     process_steps: [],
+    process_steps_ar: [],
     image: '',
     display_order: 0,
     published: false,
@@ -31,9 +39,13 @@ export default function NewServicePage() {
     meta_description: '',
   })
   const [featureInput, setFeatureInput] = useState('')
+  const [featureInputAr, setFeatureInputAr] = useState('')
   const [benefitInput, setBenefitInput] = useState('')
+  const [benefitInputAr, setBenefitInputAr] = useState('')
   const [stepTitle, setStepTitle] = useState('')
   const [stepDesc, setStepDesc] = useState('')
+  const [stepTitleAr, setStepTitleAr] = useState('')
+  const [stepDescAr, setStepDescAr] = useState('')
 
   const generateSlug = (title) => title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim()
 
@@ -58,6 +70,33 @@ export default function NewServicePage() {
     setFormData({ ...formData, [field]: formData[field].filter((i) => i !== item) })
   }
 
+  // Sync sections structure between languages
+  const handleSectionsChange = (sections) => {
+    const newSectionsAr = sections.map((section, index) => {
+      const existingArSection = formData.sections_ar[index] || {}
+      return {
+        ...section,
+        title: existingArSection.title || '',
+        content: existingArSection.content || '',
+        image: section.image,
+        type: section.type,
+      }
+    })
+    setFormData({ ...formData, sections, sections_ar: newSectionsAr })
+  }
+
+  const handleSectionsArChange = (sections_ar) => {
+    const syncedSectionsAr = sections_ar.map((section, index) => {
+      const enSection = formData.sections[index] || {}
+      return {
+        ...section,
+        image: enSection.image || section.image,
+        type: enSection.type || section.type,
+      }
+    })
+    setFormData({ ...formData, sections_ar: syncedSectionsAr })
+  }
+
   const addProcessStep = () => {
     if (stepTitle.trim()) {
       setFormData({
@@ -69,10 +108,28 @@ export default function NewServicePage() {
     }
   }
 
+  const addProcessStepAr = () => {
+    if (stepTitleAr.trim()) {
+      setFormData({
+        ...formData,
+        process_steps_ar: [...formData.process_steps_ar, { title: stepTitleAr, description: stepDescAr }],
+      })
+      setStepTitleAr('')
+      setStepDescAr('')
+    }
+  }
+
   const removeProcessStep = (index) => {
     setFormData({
       ...formData,
       process_steps: formData.process_steps.filter((_, i) => i !== index),
+    })
+  }
+
+  const removeProcessStepAr = (index) => {
+    setFormData({
+      ...formData,
+      process_steps_ar: formData.process_steps_ar.filter((_, i) => i !== index),
     })
   }
 
@@ -106,52 +163,125 @@ export default function NewServicePage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Language Tabs */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTab('en')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                activeTab === 'en'
+                  ? 'bg-[#041533] text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              🇬🇧 English
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('ar')}
+              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                activeTab === 'ar'
+                  ? 'bg-[#041533] text-white'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              🇸🇦 العربية
+            </button>
+          </div>
+          <p className="text-sm text-gray-500 mt-2">
+            {activeTab === 'en' ? 'Enter content in English' : 'أدخل المحتوى بالعربية'}
+          </p>
+        </div>
+
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
-              <input type="text" name="title" value={formData.title} onChange={handleTitleChange} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
-              <input type="text" name="slug" value={formData.slug} onChange={handleChange} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent" />
-            </div>
-          </div>
+          {activeTab === 'en' ? (
+            <>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Title (English) *</label>
+                  <input type="text" name="title" value={formData.title} onChange={handleTitleChange} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                  <input type="text" name="slug" value={formData.slug} onChange={handleChange} required className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent" />
+                </div>
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Icon</label>
-            <div className="flex gap-2 flex-wrap">
-              {icons.map((icon) => (
-                <button
-                  key={icon}
-                  type="button"
-                  onClick={() => setFormData({ ...formData, icon })}
-                  className={`text-2xl p-2 rounded-lg border-2 ${formData.icon === icon ? 'border-[#877051] bg-[#877051]/10' : 'border-gray-200 hover:border-gray-300'}`}
-                >
-                  {icon}
-                </button>
-              ))}
-            </div>
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Icon</label>
+                <div className="flex gap-2 flex-wrap">
+                  {icons.map((icon) => (
+                    <button
+                      key={icon}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, icon })}
+                      className={`text-2xl p-2 rounded-lg border-2 ${formData.icon === icon ? 'border-[#877051] bg-[#877051]/10' : 'border-gray-200 hover:border-gray-300'}`}
+                    >
+                      {icon}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Short Description</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} rows={2} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent" />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Short Description (English)</label>
+                <textarea name="description" value={formData.description} onChange={handleChange} rows={2} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent" />
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Full Description</label>
-            <RichTextEditor content={formData.full_description} onChange={(content) => setFormData({ ...formData, full_description: content })} />
-          </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Full Description (English)</label>
+                <RichTextEditor content={formData.full_description} onChange={(content) => setFormData({ ...formData, full_description: content })} />
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">العنوان (بالعربية)</label>
+                <input type="text" name="title_ar" value={formData.title_ar} onChange={handleChange} dir="rtl" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right" placeholder="عنوان الخدمة" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوصف المختصر (بالعربية)</label>
+                <textarea name="description_ar" value={formData.description_ar} onChange={handleChange} rows={2} dir="rtl" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#877051] focus:border-transparent text-right" placeholder="وصف مختصر للخدمة" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 text-right">الوصف الكامل (بالعربية)</label>
+                <RichTextEditor content={formData.full_description_ar} onChange={(content) => setFormData({ ...formData, full_description_ar: content })} dir="rtl" />
+              </div>
+            </>
+          )}
         </div>
 
         {/* Content Sections */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <SectionsEditor
-            sections={formData.sections}
-            onChange={(sections) => setFormData({ ...formData, sections })}
-            folder="services/sections"
-          />
+          {activeTab === 'en' ? (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Sections (English)</h3>
+              <p className="text-sm text-gray-500 mb-4">Sections are synced between languages - structure and images are shared, only text content differs.</p>
+              <SectionsEditor
+                sections={formData.sections}
+                onChange={handleSectionsChange}
+                folder="services/sections"
+              />
+            </>
+          ) : (
+            <>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-right">أقسام المحتوى (بالعربية)</h3>
+              <p className="text-sm text-gray-500 mb-4 text-right">الأقسام متزامنة بين اللغتين - الهيكل والصور مشتركة، فقط المحتوى النصي يختلف.</p>
+              {formData.sections.length === 0 ? (
+                <p className="text-amber-600 text-right">يرجى إضافة الأقسام في علامة التبويب الإنجليزية أولاً</p>
+              ) : (
+                <SectionsEditor
+                  sections={formData.sections_ar || []}
+                  onChange={handleSectionsArChange}
+                  folder="services/sections"
+                  dir="rtl"
+                />
+              )}
+            </>
+          )}
         </div>
 
         {/* Appearance */}
@@ -168,7 +298,7 @@ export default function NewServicePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Features</h2>
+            <h2 className="text-lg font-semibold text-gray-900">Features (English)</h2>
             <div className="flex gap-2 flex-wrap">
               {formData.features.map((f) => (
                 <span key={f} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
@@ -183,7 +313,24 @@ export default function NewServicePage() {
           </div>
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Benefits</h2>
+            <h2 className="text-lg font-semibold text-gray-900 text-right">المميزات (بالعربية)</h2>
+            <div className="flex gap-2 flex-wrap justify-end">
+              {formData.features_ar.map((f) => (
+                <span key={f} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
+                  <button type="button" onClick={() => removeFromArray('features_ar', f)} className="mr-2">×</button>{f}
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button type="button" onClick={() => addToArray('features_ar', featureInputAr, setFeatureInputAr)} className="px-3 py-2 bg-gray-200 rounded-lg text-sm">إضافة</button>
+              <input type="text" value={featureInputAr} onChange={(e) => setFeatureInputAr(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addToArray('features_ar', featureInputAr, setFeatureInputAr))} dir="rtl" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm text-right" placeholder="أضف ميزة" />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900">Benefits (English)</h2>
             <div className="flex gap-2 flex-wrap">
               {formData.benefits.map((b) => (
                 <span key={b} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
@@ -196,26 +343,64 @@ export default function NewServicePage() {
               <button type="button" onClick={() => addToArray('benefits', benefitInput, setBenefitInput)} className="px-3 py-2 bg-gray-200 rounded-lg text-sm">Add</button>
             </div>
           </div>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900 text-right">الفوائد (بالعربية)</h2>
+            <div className="flex gap-2 flex-wrap justify-end">
+              {formData.benefits_ar.map((b) => (
+                <span key={b} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                  <button type="button" onClick={() => removeFromArray('benefits_ar', b)} className="mr-2">×</button>{b}
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <button type="button" onClick={() => addToArray('benefits_ar', benefitInputAr, setBenefitInputAr)} className="px-3 py-2 bg-gray-200 rounded-lg text-sm">إضافة</button>
+              <input type="text" value={benefitInputAr} onChange={(e) => setBenefitInputAr(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addToArray('benefits_ar', benefitInputAr, setBenefitInputAr))} dir="rtl" className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm text-right" placeholder="أضف فائدة" />
+            </div>
+          </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-gray-900">Process Steps</h2>
-          <div className="space-y-2">
-            {formData.process_steps.map((step, index) => (
-              <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
-                <span className="w-8 h-8 bg-[#041533] text-white rounded-full flex items-center justify-center text-sm font-medium">{index + 1}</span>
-                <div className="flex-1">
-                  <p className="font-medium text-gray-900">{step.title}</p>
-                  <p className="text-sm text-gray-500">{step.description}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900">Process Steps (English)</h2>
+            <div className="space-y-2">
+              {formData.process_steps.map((step, index) => (
+                <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+                  <span className="w-8 h-8 bg-[#041533] text-white rounded-full flex items-center justify-center text-sm font-medium">{index + 1}</span>
+                  <div className="flex-1">
+                    <p className="font-medium text-gray-900">{step.title}</p>
+                    <p className="text-sm text-gray-500">{step.description}</p>
+                  </div>
+                  <button type="button" onClick={() => removeProcessStep(index)} className="text-red-500 hover:text-red-700">×</button>
                 </div>
-                <button type="button" onClick={() => removeProcessStep(index)} className="text-red-500 hover:text-red-700">×</button>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <input type="text" value={stepTitle} onChange={(e) => setStepTitle(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="Step title" />
+              <input type="text" value={stepDesc} onChange={(e) => setStepDesc(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="Step description" />
+              <button type="button" onClick={addProcessStep} className="px-3 py-2 bg-gray-200 rounded-lg text-sm">Add Step</button>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-            <input type="text" value={stepTitle} onChange={(e) => setStepTitle(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="Step title" />
-            <input type="text" value={stepDesc} onChange={(e) => setStepDesc(e.target.value)} className="px-3 py-2 border border-gray-300 rounded-lg text-sm" placeholder="Step description" />
-            <button type="button" onClick={addProcessStep} className="px-3 py-2 bg-gray-200 rounded-lg text-sm">Add Step</button>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+            <h2 className="text-lg font-semibold text-gray-900 text-right">خطوات العملية (بالعربية)</h2>
+            <div className="space-y-2">
+              {formData.process_steps_ar.map((step, index) => (
+                <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg" dir="rtl">
+                  <span className="w-8 h-8 bg-[#877051] text-white rounded-full flex items-center justify-center text-sm font-medium">{index + 1}</span>
+                  <div className="flex-1 text-right">
+                    <p className="font-medium text-gray-900">{step.title}</p>
+                    <p className="text-sm text-gray-500">{step.description}</p>
+                  </div>
+                  <button type="button" onClick={() => removeProcessStepAr(index)} className="text-red-500 hover:text-red-700">×</button>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <button type="button" onClick={addProcessStepAr} className="px-3 py-2 bg-gray-200 rounded-lg text-sm">إضافة خطوة</button>
+              <input type="text" value={stepDescAr} onChange={(e) => setStepDescAr(e.target.value)} dir="rtl" className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-right" placeholder="وصف الخطوة" />
+              <input type="text" value={stepTitleAr} onChange={(e) => setStepTitleAr(e.target.value)} dir="rtl" className="px-3 py-2 border border-gray-300 rounded-lg text-sm text-right" placeholder="عنوان الخطوة" />
+            </div>
           </div>
         </div>
 

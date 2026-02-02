@@ -4,6 +4,7 @@ import { FaLinkedinIn, FaInstagram, FaTwitter, FaWhatsapp, FaMapMarkerAlt, FaPho
 import Link from 'next/link'
 import Image from 'next/image'
 import { getSiteSettings, getServices } from '@/lib/data'
+import { useLanguage } from '@/lib/LanguageContext'
 
 // Default fallback values
 const defaultContact = {
@@ -31,8 +32,9 @@ const defaultServices = [
 export default function Footer() {
   const [contact, setContact] = useState(defaultContact)
   const [social, setSocial] = useState(defaultSocial)
-  const [company, setCompany] = useState({ description: "Dubai's premier architectural studio crafting iconic designs that blend innovation, culture, and sustainability. Creating spaces that inspire and endure for generations." })
+  // Remove static company.description to ensure translation is always used
   const [services, setServices] = useState(defaultServices)
+  const { t, isRTL } = useLanguage()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +75,7 @@ export default function Footer() {
       <div className="relative z-10">
         {/* Main Footer Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
+          <div className={`grid lg:grid-cols-4 md:grid-cols-2 gap-12 ${isRTL ? 'text-right' : ''}`}>
             
             {/* Company Info */}
             <div className="lg:col-span-2">
@@ -89,13 +91,13 @@ export default function Footer() {
                 </Link>
                 <div className="w-24 h-1 bg-gradient-to-r from-[#877051] to-[#041533] rounded-full mb-6"></div>
                 <p className="text-lg text-gray-200 leading-relaxed max-w-md">
-                  {company.description || "Dubai's premier architectural studio crafting iconic designs that blend innovation, culture, and sustainability. Creating spaces that inspire and endure for generations."}
+                  {t('footer.description')}
                 </p>
               </div>
               
               {/* Contact Info */}
               <div className="space-y-4">
-                <div className="flex items-center group cursor-pointer">
+                <div className={`flex items-center group cursor-pointer${isRTL ? ' gap-8' : ''}`} dir="ltr">
                   <div className="w-12 h-12 bg-gradient-to-r from-[#877051] to-[#041533] rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                     <FaMapMarkerAlt className="w-5 h-5 text-white" />
                   </div>
@@ -105,23 +107,23 @@ export default function Footer() {
                   </div>
                 </div>
                 
-                <a href={`tel:${contact.phone}`} className="flex items-center group cursor-pointer">
+                <a href={`tel:${contact.phone}`} className={`flex items-center group cursor-pointer${isRTL ? ' gap-8' : ''}`} dir="ltr">
                   <div className="w-12 h-12 bg-gradient-to-r from-[#877051] to-[#041533] rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                     <FaPhone className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">{contact.phone}</p>
-                    <p className="text-gray-300 text-sm">Monday - Friday, 9AM - 6PM</p>
+                    <p className="text-gray-300 text-sm">{isRTL ? 'الإثنين - الجمعة، 9 صباحاً - 6 مساءً' : 'Monday - Friday, 9AM - 6PM'}</p>
                   </div>
                 </a>
                 
-                <a href={`mailto:${contact.email}`} className="flex items-center group cursor-pointer">
+                <a href={`mailto:${contact.email}`} className={`flex items-center group cursor-pointer${isRTL ? ' gap-8' : ''}`} dir="ltr">
                   <div className="w-12 h-12 bg-gradient-to-r from-[#877051] to-[#041533] rounded-lg flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
                     <FaEnvelope className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-white font-medium group-hover:text-[#877051] transition-colors duration-300">{contact.email}</p>
-                    <p className="text-gray-300 text-sm">Get in touch for consultations</p>
+                    <p className="text-gray-300 text-sm">{isRTL ? 'تواصل معنا للاستشارات' : 'Get in touch for consultations'}</p>
                   </div>
                 </a>
               </div>
@@ -129,13 +131,13 @@ export default function Footer() {
             
             {/* Services */}
             <div>
-              <h3 className="text-xl font-serif font-bold mb-6 text-white">Our Services</h3>
+              <h3 className="text-xl font-serif font-bold mb-6 text-white">{t('footer.services')}</h3>
               <ul className="space-y-3">
                 {services.map((service, index) => (
                   <li key={service.id || index}>
-                    <Link href={`/services/${service.slug}`} className="text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group">
-                      <span className="w-2 h-2 bg-[#877051] rounded-full mr-3 group-hover:scale-150 transition-transform duration-300"></span>
-                      {service.title}
+                    <Link href={`/services/${service.slug}`} className={`text-gray-300 hover:text-white transition-all duration-300 flex items-center group ${isRTL ? 'flex-row-reverse hover:-translate-x-2' : 'hover:translate-x-2'}`}>
+                      <span className={`w-2 h-2 bg-[#877051] rounded-full ${isRTL ? 'ml-3' : 'mr-3'} group-hover:scale-150 transition-transform duration-300`}></span>
+                      {isRTL && service.title_ar ? service.title_ar : service.title}
                     </Link>
                   </li>
                 ))}
@@ -144,19 +146,19 @@ export default function Footer() {
             
             {/* Quick Links */}
             <div>
-              <h3 className="text-xl font-serif font-bold mb-6 text-white">Quick Links</h3>
+              <h3 className="text-xl font-serif font-bold mb-6 text-white">{t('footer.quickLinks')}</h3>
               <ul className="space-y-3 mb-8">
                 {[
-                  { name: 'About Us', link: '/about' },
-                  { name: 'Projects', link: '/projects' },
-                  { name: 'Blog', link: '/blog' },
-                  { name: 'Styles & Typologies', link: '/styles-and-typologies' },
-                  { name: 'Services', link: '/services' },
-                  { name: 'Contact', link: '/contact' }
+                  { name: t('nav.about'), link: '/about' },
+                  { name: t('nav.projects'), link: '/projects' },
+                  { name: t('nav.blog'), link: '/blog' },
+                  { name: t('nav.stylesTypologies'), link: '/styles-and-typologies' },
+                  { name: t('nav.services'), link: '/services' },
+                  { name: t('nav.contact'), link: '/contact' }
                 ].map((link, index) => (
                   <li key={index}>
-                    <Link href={link.link} className="text-gray-300 hover:text-white hover:translate-x-2 transition-all duration-300 flex items-center group">
-                      <span className="w-2 h-2 bg-[#041533] rounded-full mr-3 group-hover:scale-150 transition-transform duration-300"></span>
+                    <Link href={link.link} className={`text-gray-300 hover:text-white transition-all duration-300 flex items-center group ${isRTL ? 'flex-row-reverse hover:-translate-x-2' : 'hover:translate-x-2'}`}>
+                      <span className={`w-2 h-2 bg-[#041533] rounded-full ${isRTL ? 'ml-3' : 'mr-3'} group-hover:scale-150 transition-transform duration-300`}></span>
                       {link.name}
                     </Link>
                   </li>
@@ -165,7 +167,7 @@ export default function Footer() {
               
               {/* Social Media */}
               <div>
-                <h4 className="text-lg font-semibold mb-4 text-white">Follow Us</h4>
+                <h4 className="text-lg font-semibold mb-4 text-white">{t('footer.followUs')}</h4>
                 <div className="flex gap-4">
                   {social.linkedin && (
                     <a 
@@ -216,20 +218,20 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-white/20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
-              <div className="text-center lg:text-left">
+            <div className={`flex flex-col lg:flex-row justify-between items-center gap-4 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
+              <div className={`text-center ${isRTL ? 'lg:text-right' : 'lg:text-left'}`}>
                 <p className="text-gray-300 text-sm">
-                  © {new Date().getFullYear()} MERKA Architecture. All rights reserved.
+                  © {new Date().getFullYear()} MERKA Architecture. {t('footer.rights')}.
                 </p>
                 <p className="text-gray-400 text-xs mt-1">
                   Crafting architectural masterpieces in Dubai since 2015
                 </p>
               </div>
               
-              <div className="flex items-center gap-6 text-sm text-gray-300">
+              <div className={`flex items-center gap-6 text-sm text-gray-300 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Link href="/sitemap.xml" className="hover:text-white hover:scale-105 transition-all duration-300">Sitemap</Link>
                 <Link href="/robots.txt" className="hover:text-white hover:scale-105 transition-all duration-300">Robots</Link>
-                <Link href="/contact" className="hover:text-white hover:scale-105 transition-all duration-300">Contact</Link>
+                <Link href="/contact" className="hover:text-white hover:scale-105 transition-all duration-300">{t('nav.contact')}</Link>
               </div>
             </div>
           </div>

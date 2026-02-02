@@ -8,8 +8,9 @@ export default function HeroSlidesPage() {
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
   const [editingSlide, setEditingSlide] = useState(null)
+  const [activeTab, setActiveTab] = useState('en')
   const [formData, setFormData] = useState({
-    title: '', subtitle: '', image: '', link: '', display_order: 0, published: true
+    title: '', title_ar: '', subtitle: '', subtitle_ar: '', image: '', link: '', display_order: 0, published: true
   })
   const supabase = createClient()
   const fileInputRef = useRef(null)
@@ -61,7 +62,7 @@ export default function HeroSlidesPage() {
         await supabase.from('hero_slides').insert([formData])
       }
       setEditingSlide(null)
-      setFormData({ title: '', subtitle: '', image: '', link: '', display_order: 0, published: true })
+      setFormData({ title: '', title_ar: '', subtitle: '', subtitle_ar: '', image: '', link: '', display_order: 0, published: true })
       fetchSlides()
     } catch (error) {
       console.error('Error:', error)
@@ -88,9 +89,37 @@ export default function HeroSlidesPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h2 className="text-lg font-semibold mb-4">{editingSlide ? 'Edit Slide' : 'Add Slide'}</h2>
+          
+          {/* Language Tabs */}
+          <div className="flex gap-2 mb-4">
+            <button type="button" onClick={() => setActiveTab('en')} className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${activeTab === 'en' ? 'bg-[#041533] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>🇬🇧 English</button>
+            <button type="button" onClick={() => setActiveTab('ar')} className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${activeTab === 'ar' ? 'bg-[#041533] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>🇸🇦 العربية</button>
+          </div>
+          
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="text" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} placeholder="Title" className="w-full px-4 py-2 border rounded-lg" />
-            <input type="text" value={formData.subtitle} onChange={(e) => setFormData({...formData, subtitle: e.target.value})} placeholder="Subtitle" className="w-full px-4 py-2 border rounded-lg" />
+            {activeTab === 'en' ? (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Title (English)</label>
+                  <input type="text" value={formData.title} onChange={(e) => setFormData({...formData, title: e.target.value})} placeholder="Title" className="w-full px-4 py-2 border rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Subtitle (English)</label>
+                  <input type="text" value={formData.subtitle} onChange={(e) => setFormData({...formData, subtitle: e.target.value})} placeholder="Subtitle" className="w-full px-4 py-2 border rounded-lg" />
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 text-right">العنوان (بالعربية)</label>
+                  <input type="text" value={formData.title_ar} onChange={(e) => setFormData({...formData, title_ar: e.target.value})} placeholder="العنوان" dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 text-right">العنوان الفرعي (بالعربية)</label>
+                  <input type="text" value={formData.subtitle_ar} onChange={(e) => setFormData({...formData, subtitle_ar: e.target.value})} placeholder="العنوان الفرعي" dir="rtl" className="w-full px-4 py-2 border rounded-lg text-right" />
+                </div>
+              </>
+            )}
             
             {/* Image Upload */}
             <div>
@@ -127,7 +156,7 @@ export default function HeroSlidesPage() {
                 {editingSlide ? 'Update' : 'Add'}
               </button>
               {editingSlide && (
-                <button type="button" onClick={() => { setEditingSlide(null); setFormData({ title: '', subtitle: '', image: '', link: '', display_order: 0, published: true }) }} className="px-4 py-2 bg-gray-200 rounded-lg">Cancel</button>
+                <button type="button" onClick={() => { setEditingSlide(null); setFormData({ title: '', title_ar: '', subtitle: '', subtitle_ar: '', image: '', link: '', display_order: 0, published: true }) }} className="px-4 py-2 bg-gray-200 rounded-lg">Cancel</button>
               )}
             </div>
           </form>

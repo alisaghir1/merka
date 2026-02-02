@@ -1,0 +1,780 @@
+{
+  "common": {
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "exploreProjects": "Explore Projects",
+    "viewProject": "View Project",
+    "submit": "Submit",
+    "sending": "Sending...",
+    "subscribeNow": "Subscribe Now",
+    "loading": "Loading...",
+    "backToHome": "Back to Home",
+    "scrollDown": "Scroll Down",
+    "discoverStory": "Discover Our Story",
+    "readOurStory": "Read Our Story",
+    "meetTheTeam": "Meet The Team",
+    "discoverProcess": "Discover Our Process",
+    "explorePortfolio": "Explore Our Portfolio"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "stylesTypologies": "Styles & Typologies",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Crafting Tomorrow's",
+      "titleHighlight": "Landmarks",
+      "subtitle": "Where Vision Meets Architecture",
+      "description": "Award-winning architectural design studio in Dubai, creating iconic spaces that blend innovation with cultural heritage."
+    },
+    "services": {
+      "title": "Our Expertise",
+      "subtitle": "Comprehensive architectural services tailored to bring your vision to life"
+    },
+    "projects": {
+      "title": "Featured Projects",
+      "subtitle": "Discover our latest architectural achievements"
+    },
+    "cta": {
+      "title": "Ready to Build Your Vision?",
+      "subtitle": "Let's create something extraordinary together",
+      "button": "Start Your Project"
+    },
+    "inspires": {
+      "title": "Architecture That Inspires",
+      "description": "Every structure tells a story. We craft architectural narratives that blend Dubai's rich heritage with cutting-edge innovation."
+    },
+    "philosophy": {
+      "title": "Our Design Philosophy",
+      "description": "We believe architecture should tell a story, create experiences, and enhance lives while respecting cultural heritage.",
+      "innovation": "Innovation",
+      "innovationDesc": "Cutting-edge design solutions that push architectural boundaries while maintaining functionality.",
+      "sustainability": "Sustainability",
+      "sustainabilityDesc": "Environmentally conscious designs that harmonize with nature and reduce environmental impact.",
+      "culturalFusion": "Cultural Fusion",
+      "culturalFusionDesc": "Blending traditional Emirati elements with contemporary architectural language."
+    },
+    "vision": {
+      "title": "Where Vision Meets Reality",
+      "description": "From concept sketches to architectural marvels, we transform ideas into iconic structures that define Dubai's skyline."
+    },
+    "featuredProjects": {
+      "badge": "Featured Work",
+      "title": "Our Signature Projects",
+      "description": "Discover our most celebrated architectural achievements that define Dubai's evolving skyline",
+      "viewButton": "View",
+      "exploreAll": "Explore All Projects"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About",
+      "titleHighlight": "MERKA",
+      "subtitle": "Shaping Dubai's Architectural Landscape"
+    },
+    "story": {
+      "title": "Our Founding Story",
+      "description": "Merka was established in Dubai to address a growing gap in architectural delivery: the disconnect between visual ambition and practical execution.",
+      "sectionTitle": "Founding Story",
+      "paragraph1": "Merka was established in Dubai to address a growing gap in architectural delivery: the disconnect between visual ambition and practical execution.",
+      "paragraph2": "The founders—architects and planners with backgrounds in high-density developments and civic architecture—recognized a pattern of buildings being produced without due regard for site logic, energy use, or regulatory viability.",
+      "paragraph3": "In early residential projects across Al Barsha South and Nad Al Sheba, the firm adopted a principle of functional hierarchy—starting from climate orientation, site topography, and internal movement.",
+      "paragraph4": "This foundational philosophy continues to define Merka's practice. The studio grew not through aggressive branding but through consistent delivery, word-of-mouth recommendations, and performance-based results."
+    },
+    "team": {
+      "title": "Studio Culture & Team",
+      "subtitle": "Expert architects and designers dedicated to your vision",
+      "multidisciplinary": "Multidisciplinary Team",
+      "multidisciplinaryDesc": "Architects, urban designers, engineers, BIM coordinators, and design technologists from various backgrounds.",
+      "cloudBased": "Cloud-Based Systems",
+      "cloudBasedDesc": "Real-time coordination across Dubai, Abu Dhabi, and Sharjah with international partners integration.",
+      "qualityAssurance": "Quality Assurance",
+      "qualityAssuranceDesc": "Structured review cycles with multiple audits for constructability and code compliance."
+    },
+    "aboutMerka": {
+      "title": "About Merka",
+      "description": "We specialize in comprehensive architectural solutions across residential, commercial, hospitality, and institutional sectors.",
+      "paragraph1": "Merka is an architecture design company headquartered in Dubai, United Arab Emirates. The studio specializes in comprehensive architectural solutions across residential, commercial, hospitality, and institutional sectors.",
+      "paragraph2": "The firm's design approach is grounded in contextual intelligence. Each project begins with a deep understanding of site conditions, user needs, and environmental constraints.",
+      "paragraph3": "In areas such as Downtown Dubai, Business Bay, and Jumeirah, where space, light, and density pose unique challenges, the firm's experience proves invaluable.",
+      "ourDubaiStudio": "Our Dubai Studio",
+      "ourServices": "Our Services",
+      "services": [
+        "Conceptual development to tender-ready documentation",
+        "3D modeling and BIM coordination",
+        "Façade studies and site analysis",
+        "Compliance mapping and regulatory efficiency",
+        "Code-savvy approach with authority approvals",
+        "Technical documentation and working drawings"
+      ]
+    },
+    "visionMission": {
+      "title": "Vision & Mission"
+    },
+    "mission": {
+      "title": "Mission",
+      "description": "To deliver innovative architectural solutions that seamlessly blend functionality, aesthetics, and sustainability.",
+      "paragraph1": "The mission of Merka is to produce architectural solutions that are clear, rational, and responsive. Each project begins with rigorous research.",
+      "paragraph2": "No design element is arbitrary; all components are evaluated for purpose, cost, and buildability. Clients are engaged throughout the project timeline.",
+      "paragraph3": "Merka's objective is to produce work that holds up to technical scrutiny while maintaining spatial intelligence and design clarity."
+    },
+    "vision": {
+      "title": "Vision",
+      "description": "To be the leading architectural firm in the region, recognized for transforming skylines and creating iconic landmarks.",
+      "paragraph1": "Merka envisions a built environment where architecture responds directly to its context, enhances the lives of its users, and remains viable through time.",
+      "paragraph2": "In locations such as Dubai Marina, where density is high and solar exposure is intense, buildings must be planned with passive cooling in mind.",
+      "paragraph3": "Merka's vision is one of restraint, precision, and respect—for the site, for the people who occupy it, and for the city that hosts it."
+    },
+    "values": {
+      "title": "Our Values",
+      "innovation": "Innovation",
+      "innovationDesc": "Pushing boundaries in architectural design",
+      "excellence": "Excellence",
+      "excellenceDesc": "Commitment to quality in every detail",
+      "sustainability": "Sustainability",
+      "sustainabilityDesc": "Creating environmentally responsible designs",
+      "collaboration": "Collaboration",
+      "collaborationDesc": "Working closely with clients and communities"
+    },
+    "stats": {
+      "projects": "Projects Completed",
+      "experience": "Years Experience",
+      "awards": "Design Awards",
+      "clients": "Happy Clients"
+    },
+    "dubaiExpertise": {
+      "title": "Dubai Market Expertise",
+      "description": "Dubai presents unique challenges for architectural practice. Each master-planned community has its own set of codes, FAR restrictions, material allowances, and infrastructure connections.",
+      "learnMore": "Learn More",
+      "specializedAreas": "Specialized Areas",
+      "areas": [
+        { "area": "Emirates Hills & Jumeirah Islands", "focus": "Luxury villa design with integrated landscape" },
+        { "area": "Dubai Marina & JLT", "focus": "Tower typologies with wind dynamics control" },
+        { "area": "Palm Jumeirah & Dubai South", "focus": "Trakhees submissions and document control" },
+        { "area": "Reem Island & Yas Island", "focus": "ADM workflows and infrastructure coordination" }
+      ],
+      "guidanceTitle": "Our Guidance Covers",
+      "guidance": [
+        "Plot potential optimization",
+        "Solar performance analysis",
+        "Traffic impact review integration",
+        "Privacy zoning for cultural sensitivity",
+        "Fast-track approval strategies"
+      ],
+      "quote": "Whether designing a family compound in Al Mizhar or a retail podium in Al Maryah Island, Merka brings not only design knowledge but a deep operational understanding of each local market."
+    },
+    "cta": {
+      "title": "Ready to Work Together?",
+      "description": "Let's discuss your architectural project and create something extraordinary together",
+      "startProject": "Start Your Project",
+      "viewWork": "View Our Work"
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "Our",
+      "titleHighlight": "Services",
+      "subtitle": "Comprehensive architectural solutions from initial concept to final approval, tailored for Dubai's unique regulatory and environmental requirements.",
+      "loading": "SERVICES"
+    },
+    "intro": {
+      "title": "What We Offer",
+      "description": "From initial concept to final construction, we provide end-to-end architectural services tailored to your needs."
+    },
+    "scrollDown": "Explore Our Services",
+    "viewDetails": "View Details",
+    "learnMore": "Learn More",
+    "ourProcess": "Our Process",
+    "keyFeatures": "Key Features",
+    "exploreService": "Explore Service",
+    "grid": {
+      "title": "Architectural Services",
+      "description": "From conceptual design to authority approvals, we provide end-to-end architectural services tailored to Dubai's unique requirements."
+    },
+    "process": {
+      "title": "Our Design Process"
+    },
+    "whyChoose": {
+      "title": "Why Choose Merka?",
+      "features": [
+        {
+          "icon": "🏆",
+          "title": "Expert Team",
+          "description": "Our architects bring years of experience in Dubai's unique architectural landscape and regulatory requirements."
+        },
+        {
+          "icon": "⚡",
+          "title": "Efficient Process",
+          "description": "Streamlined workflows and proven methodologies ensure your project stays on time and within budget."
+        },
+        {
+          "icon": "🎯",
+          "title": "Local Expertise",
+          "description": "Deep understanding of Dubai Municipality requirements and local building codes for smooth approvals."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Start Your Project?",
+      "description": "Let's discuss how our architectural services can bring your vision to life while ensuring full compliance with Dubai's regulations.",
+      "startProject": "Start Your Project",
+      "learnAboutUs": "Learn About Us"
+    },
+    "detail": {
+      "loading": "Loading service details...",
+      "notFound": "Service Not Found",
+      "notFoundDesc": "The service you're looking for doesn't exist or has been removed from our offerings.",
+      "backToServices": "Back to Services",
+      "keyBenefits": "Key Benefits",
+      "keyFeatures": "Key Features",
+      "benefits": "Benefits",
+      "serviceDetails": "Service Details",
+      "whatWeOffer": "What We Offer",
+      "exploreMore": "Explore More",
+      "otherServices": "Other Services",
+      "viewAllServices": "View All Services",
+      "ourApproach": "Our Approach",
+      "getStarted": "Get Started",
+      "consultation": "Get a Consultation",
+      "exploreService": "Explore Service",
+      "readyToStart": "Ready to Start?",
+      "readyToStartDesc": "Let's discuss how this service can transform your project",
+      "howItWorks": "How It Works",
+      "ourProcess": "Our Process",
+      "step": "Step"
+    }
+  },
+  "projects": {
+    "hero": {
+      "title": "Our",
+      "titleHighlight": "Projects",
+      "subtitle": "Discover our portfolio of architectural excellence across Dubai and Abu Dhabi. From luxury residences to commercial landmarks.",
+      "loading": "PROJECTS"
+    },
+    "filter": {
+      "all": "All Projects",
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "hospitality": "Hospitality",
+      "mixed": "Mixed Use",
+      "mixeduse": "Mixed-use",
+      "mixedUse": "Mixed-use",
+      "institutional": "Institutional"
+    },
+    "portfolio": {
+      "title": "Featured Portfolio",
+      "description": "Explore our diverse range of architectural projects spanning residential, commercial, and hospitality sectors"
+    },
+    "viewProjectDetails": "View Project Details",
+    "moreServices": "more",
+    "stats": {
+      "title": "Our Impact",
+      "projectsCompleted": "Projects Completed",
+      "squareFeet": "Square Feet Designed",
+      "clientSatisfaction": "Client Satisfaction",
+      "yearsExperience": "Years Experience"
+    },
+    "cta": {
+      "title": "Ready to Create Your Vision?",
+      "description": "Let's collaborate to bring your architectural dreams to life. From concept to completion, we're here to guide you through every step of the journey.",
+      "startProject": "Start Your Project",
+      "ourServices": "Our Services"
+    },
+    "exploreAll": "Explore All Projects",
+    "startProject": "Start Your Project",
+    "viewProject": "View Project",
+    "detail": {
+      "loading": "Loading project details...",
+      "notFound": "Project Not Found",
+      "notFoundDesc": "The project you're looking for doesn't exist or has been removed from our portfolio.",
+      "backToProjects": "Back to Projects",
+      "overview": "Overview",
+      "gallery": "Gallery",
+      "details": "Details",
+      "location": "Location",
+      "year": "Year",
+      "size": "Size",
+      "status": "Status",
+      "client": "Client",
+      "services": "Services",
+      "relatedProjects": "Related Projects",
+      "viewProject": "View Project"
+    },
+    "location": "Location",
+    "year": "Year",
+    "status": "Status",
+    "completed": "Completed",
+    "underConstruction": "Under Construction",
+    "inDesign": "In Design"
+  },
+  "stylesTypologies": {
+    "hero": {
+      "title": "STYLES",
+      "titleAnd": "&",
+      "titleSecond": "TYPOLOGIES",
+      "subtitle": "Explore our expertise in architectural design, from contemporary minimalism to traditional Arabian styles, across residential and commercial typologies.",
+      "loading": "STYLES & TYPOLOGIES"
+    },
+    "styles": {
+      "title": "Architectural Styles",
+      "subtitle": "Discover the diverse architectural languages we speak",
+      "viewStyle": "View Style",
+      "exploreStyle": "Explore Style",
+      "exploreStyles": "Explore Styles"
+    },
+    "typologies": {
+      "title": "Building Typologies",
+      "subtitle": "From residential villas to commercial complexes",
+      "viewTypology": "View Typology",
+      "exploreTypology": "Explore Typology",
+      "exploreTypologies": "Explore Typologies"
+    },
+    "scrollDown": "Discover Our Expertise",
+    "whyApproach": {
+      "title": "Why Our Approach Matters",
+      "benefits": [
+        {
+          "icon": "🎯",
+          "title": "Purpose-Driven Design",
+          "description": "Every style and typology serves specific functional and aesthetic goals"
+        },
+        {
+          "icon": "🌍",
+          "title": "Climate Responsive",
+          "description": "All designs adapted to UAE's unique environmental conditions"
+        },
+        {
+          "icon": "⚖️",
+          "title": "Authority Compliant",
+          "description": "Full compliance with local regulations and approval processes"
+        },
+        {
+          "icon": "🏆",
+          "title": "Proven Excellence",
+          "description": "Track record of successful projects across all styles and types"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Bring Your Vision to Life?",
+      "description": "Let's discuss which architectural style and building typology best suits your project goals and site requirements.",
+      "startProject": "Start Your Project",
+      "viewPortfolio": "View Our Portfolio"
+    }
+  },
+  "blog": {
+    "hero": {
+      "title": "INSIGHTS",
+      "titleAnd": "&",
+      "titleSecond": "EXPERTISE",
+      "subtitle": "Explore architectural knowledge, industry insights, and expert perspectives on designing for the UAE's unique environment.",
+      "loading": "INSIGHTS"
+    },
+    "readTime": "min read",
+    "readMore": "Read More",
+    "readFullArticle": "Read Full Article",
+    "scrollDown": "Discover Our Insights",
+    "featuredArticle": "Featured Article",
+    "featuredPost": "Featured Post",
+    "latestPosts": "Latest Posts",
+    "latestArticles": "Latest Articles",
+    "allPosts": "All Posts",
+    "showing": "Showing",
+    "of": "of",
+    "articles": "articles",
+    "newsletter": {
+      "title": "Stay Updated with Our Latest Insights",
+      "description": "Get the latest architectural trends, project insights, and industry expertise delivered to your inbox.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    },
+    "cta": {
+      "title": "Ready to Start Your Project?",
+      "description": "Let our expertise guide your architectural vision from concept to completion.",
+      "startProject": "Start Your Project",
+      "viewWork": "View Our Work"
+    },
+    "categories": {
+      "all": "All Posts",
+      "design": "Design",
+      "trends": "Trends",
+      "sustainability": "Sustainability",
+      "technology": "Technology"
+    },
+    "detail": {
+      "loading": "Loading article...",
+      "notFound": "Article Not Found",
+      "notFoundDesc": "The article you're looking for doesn't exist or has been removed.",
+      "backToBlog": "Back to Blog",
+      "relatedPosts": "Related Articles",
+      "shareArticle": "Share This Article",
+      "readNext": "Read Next",
+      "publishedOn": "Published on",
+      "author": "Author"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Let's",
+      "titleHighlight": "Talk",
+      "titleSecond": "Design",
+      "subtitle": "At Merka, we believe every project begins with a conversation. Whether you're planning a new home, a commercial development, or a landmark structure, we're ready to bring your vision to life.",
+      "loading": "CONTACT"
+    },
+    "cta": {
+      "bookConsultation": "Book Consultation",
+      "quickInquiry": "Quick Inquiry"
+    },
+    "scrollDown": "Get In Touch",
+    "infoSection": {
+      "title": "Get in",
+      "titleHighlight": "Touch",
+      "subtitle": "Whether you have a question about our services, want to discuss a project, or simply want to say hello, we'd love to hear from you.",
+      "visitUs": "Visit Our Studio",
+      "callUs": "Call Us",
+      "emailUs": "Email Us",
+      "followUs": "Follow Us",
+      "getDirections": "Get Directions"
+    },
+    "form": {
+      "title": "Start Your",
+      "titleHighlight": "Journey",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "projectType": "Project Type",
+      "selectProjectType": "Select project type",
+      "budget": "Estimated Budget",
+      "selectBudget": "Select budget range",
+      "message": "Your Message",
+      "messagePlaceholder": "Tell us about your project...",
+      "submit": "Send Message",
+      "submitting": "Sending..."
+    },
+    "projectTypes": {
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "hospitality": "Hospitality",
+      "mixedUse": "Mixed Use",
+      "renovation": "Renovation",
+      "interior": "Interior Design",
+      "other": "Other"
+    },
+    "budgets": {
+      "under1m": "Under 1M AED",
+      "1m5m": "1M - 5M AED",
+      "5m10m": "5M - 10M AED",
+      "10m25m": "10M - 25M AED",
+      "above25m": "Above 25M AED"
+    },
+    "success": {
+      "title": "Message Sent!",
+      "description": "Thank you for reaching out. We'll get back to you within 24 hours.",
+      "close": "Close"
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Working Hours",
+      "hoursValue": "Sunday - Thursday: 9AM - 6PM"
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Subscribe to our newsletter for design insights, project updates, and architectural inspiration delivered to your inbox.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe to Newsletter",
+      "subscribing": "Subscribing...",
+      "success": "Successfully Subscribed!",
+      "successDescription": "Thank you for joining our newsletter. You'll receive our latest updates soon.",
+      "privacy": "We respect your privacy. Unsubscribe at any time."
+    },
+    "consultation": {
+      "title": "Book a Consultation",
+      "description": "Have a project in mind? Schedule a one-on-one design consultation with our lead architects. We'll review your site, explore your goals, and help shape a clear architectural direction.",
+      "schedule": "Schedule Consultation",
+      "preferCall": "Or call us directly:",
+      "availability": "Available Sunday - Thursday, 9AM - 6PM",
+      "siteReview": "Site Review",
+      "siteReviewDesc": "Analyze your location and constraints",
+      "goalSetting": "Goal Setting",
+      "goalSettingDesc": "Define your vision and objectives",
+      "designDirection": "Design Direction",
+      "designDirectionDesc": "Create a clear architectural roadmap"
+    },
+    "workingWith": {
+      "title": "Working With Merka",
+      "description": "We serve clients across Dubai and the UAE, and collaborate internationally. Our team is experienced in navigating local approvals, site challenges, and cross-border architectural coordination. From minimalist villas to high-rise mixed-use developments, our architecture design company in Dubai is equipped to deliver excellence."
+    },
+    "finalCta": {
+      "title": "Let's Begin",
+      "description": "Every project starts with a spark. If you're ready to design with intention, contact us — and let's build something remarkable together.",
+      "startProject": "Start Your Project"
+    },
+    "whatsapp": {
+      "title": "Quick Response",
+      "description": "For immediate assistance, reach us on WhatsApp",
+      "chat": "Chat on WhatsApp"
+    },
+    "quickContact": "Quick Contact",
+    "preferToTalk": "Prefer to Talk?",
+    "teamAvailable": "Our team is available to discuss your requirements and provide expert guidance."
+  },
+  "footer": {
+    "description": "Leading architectural design studio in Dubai specializing in residential, commercial, and hospitality projects.",
+    "services": "Our Services",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Subscribe for updates and insights",
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "errors": {
+    "pageNotFound": "Page Not Found",
+    "somethingWrong": "Something went wrong",
+    "tryAgain": "Try Again"
+  },
+  "admin": {
+    "common": {
+      "loading": "Loading...",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "add": "Add",
+      "update": "Update",
+      "search": "Search",
+      "filter": "Filter",
+      "all": "All",
+      "published": "Published",
+      "draft": "Draft",
+      "featured": "Featured",
+      "actions": "Actions",
+      "status": "Status",
+      "date": "Date",
+      "title": "Title",
+      "description": "Description",
+      "image": "Image",
+      "order": "Order",
+      "yes": "Yes",
+      "no": "No",
+      "confirm": "Confirm",
+      "success": "Success",
+      "error": "Error",
+      "viewSite": "View Site",
+      "logout": "Logout",
+      "admin": "Admin",
+      "noResults": "No results found",
+      "uploadImage": "Upload Image",
+      "changeImage": "Change Image",
+      "removeImage": "Remove",
+      "uploading": "Uploading...",
+      "chooseFile": "Choose File",
+      "dragDrop": "or drag and drop",
+      "exportCSV": "Export CSV"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "blogs": "Blogs",
+      "projects": "Projects",
+      "services": "Services",
+      "styles": "Styles",
+      "typologies": "Typologies",
+      "team": "Team",
+      "contactSubmissions": "Contact Submissions",
+      "newsletter": "Newsletter",
+      "heroSlides": "Hero Slides",
+      "mediaLibrary": "Media Library",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome to Merka Architecture Admin Panel",
+      "quickActions": "Quick Actions",
+      "newBlogPost": "New Blog Post",
+      "newProject": "New Project",
+      "editServices": "Edit Services",
+      "siteSettings": "Site Settings",
+      "recentContacts": "Recent Contact Submissions",
+      "viewAll": "View all",
+      "noContacts": "No contact submissions yet",
+      "gettingStarted": "Getting Started",
+      "gettingStartedDesc": "Welcome to your admin panel. Here you can manage all content on your website including blogs, projects, services, and more.",
+      "createFirstBlog": "Create Your First Blog",
+      "configureSettings": "Configure Settings",
+      "contactSubmissions": "Contact Submissions",
+      "newsletterSubscribers": "Newsletter Subscribers"
+    },
+    "login": {
+      "title": "Admin Panel",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "admin@merkaarchitecture.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "signIn": "Sign In",
+      "signingIn": "Signing in...",
+      "locked": "Locked",
+      "backToWebsite": "← Back to website",
+      "secureConnection": "🔒 This connection is secure"
+    },
+    "blogs": {
+      "title": "Blog Posts",
+      "subtitle": "Manage your blog content",
+      "newBlog": "New Blog Post",
+      "searchPlaceholder": "Search blogs...",
+      "noPosts": "No blog posts",
+      "noPostsDesc": "Get started by creating a new blog post.",
+      "category": "Category",
+      "uncategorized": "Uncategorized",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "confirmDelete": "Are you sure you want to delete this blog post?"
+    },
+    "projects": {
+      "title": "Projects",
+      "subtitle": "Manage your portfolio projects",
+      "newProject": "New Project",
+      "searchPlaceholder": "Search projects...",
+      "noProjects": "No projects",
+      "noProjectsDesc": "Get started by creating a new project.",
+      "location": "Location",
+      "year": "Year",
+      "area": "Area",
+      "category": "Category",
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "hospitality": "Hospitality",
+      "mixedUse": "Mixed-use",
+      "completed": "Completed",
+      "underConstruction": "Under Construction",
+      "inDesign": "In Design",
+      "confirmDelete": "Are you sure you want to delete this project?"
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "Manage your architectural services",
+      "newService": "New Service",
+      "noServices": "No services found. Create your first service.",
+      "confirmDelete": "Are you sure you want to delete this service?"
+    },
+    "contacts": {
+      "title": "Contact Submissions",
+      "subtitle": "View and manage contact form submissions",
+      "noSubmissions": "No submissions found",
+      "selectSubmission": "Select a submission to view details",
+      "new": "New",
+      "read": "Read",
+      "replied": "Replied",
+      "archived": "Archived",
+      "projectType": "Project Type",
+      "budget": "Budget",
+      "message": "Message",
+      "noMessage": "No message provided",
+      "submitted": "Submitted",
+      "replyViaEmail": "Reply via Email",
+      "call": "Call",
+      "confirmDelete": "Are you sure you want to delete this submission?"
+    },
+    "newsletter": {
+      "title": "Newsletter Subscribers",
+      "activeSubscribers": "active subscribers",
+      "email": "Email",
+      "status": "Status",
+      "active": "Active",
+      "unsubscribed": "Unsubscribed",
+      "unsubscribe": "Unsubscribe",
+      "resubscribe": "Resubscribe",
+      "noSubscribers": "No subscribers yet",
+      "confirmDelete": "Delete this subscriber?"
+    },
+    "heroSlides": {
+      "title": "Hero Slides",
+      "addSlide": "Add Slide",
+      "editSlide": "Edit Slide",
+      "slideImage": "Slide Image",
+      "subtitle": "Subtitle",
+      "link": "Link (optional)",
+      "confirmDelete": "Delete this slide?"
+    },
+    "team": {
+      "title": "Team Members",
+      "addMember": "Add Member",
+      "editMember": "Edit Member",
+      "name": "Name",
+      "position": "Position",
+      "bio": "Bio",
+      "profilePhoto": "Profile Photo",
+      "changePhoto": "Change Photo",
+      "choosePhoto": "Choose Photo",
+      "linkedin": "LinkedIn URL",
+      "confirmDelete": "Delete this team member?"
+    },
+    "media": {
+      "title": "Media Library",
+      "uploadImages": "Upload Images",
+      "clickToUpload": "Click to upload images",
+      "selectMultiple": "You can select multiple files",
+      "copyUrl": "Copy URL",
+      "urlCopied": "URL copied to clipboard!",
+      "confirmDelete": "Delete this media?"
+    },
+    "settings": {
+      "title": "Site Settings",
+      "subtitle": "Configure your website settings",
+      "company": "Company",
+      "contact": "Contact",
+      "socialMedia": "Social Media",
+      "seo": "SEO",
+      "language": "Language",
+      "companyInfo": "Company Information",
+      "companyName": "Company Name",
+      "tagline": "Tagline",
+      "contactInfo": "Contact Information",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "whatsapp": "WhatsApp",
+      "socialLinks": "Social Media Links",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "seoSettings": "SEO Settings",
+      "seoTitle": "SEO Title",
+      "seoDescription": "SEO Description",
+      "seoKeywords": "Keywords",
+      "languageSettings": "Language Settings",
+      "defaultLanguage": "Default Language",
+      "enableArabic": "Enable Arabic",
+      "saveSuccess": "Settings saved successfully!"
+    },
+    "styles": {
+      "title": "Architectural Styles",
+      "subtitle": "Manage architectural style categories",
+      "newStyle": "New Style",
+      "noStyles": "No styles found. Create your first style.",
+      "confirmDelete": "Are you sure you want to delete this style?"
+    },
+    "typologies": {
+      "title": "Building Typologies",
+      "subtitle": "Manage building typology categories",
+      "newTypology": "New Typology",
+      "noTypologies": "No typologies found. Create your first typology.",
+      "confirmDelete": "Are you sure you want to delete this typology?"
+    }
+  }
+}
