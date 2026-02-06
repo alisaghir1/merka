@@ -146,6 +146,10 @@ export default function BlogPageClient({ initialBlogs = [], categories = [] }) {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                       priority
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentNode.classList.add('bg-gradient-to-br', 'from-[#041533]', 'to-[#877051]');
+                      }}
                     />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-[#041533] to-[#877051]"></div>

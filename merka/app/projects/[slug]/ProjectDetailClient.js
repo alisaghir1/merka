@@ -77,7 +77,7 @@ export default function ProjectDetailClient({ project, allProjects = [] }) {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src={project.image}
+            src={project.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80'}
             alt={projectTitle}
             fill
             className="object-cover"
@@ -319,7 +319,7 @@ export default function ProjectDetailClient({ project, allProjects = [] }) {
                   <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
                     <div className="relative h-48">
                       <Image
-                        src={prevProject.image}
+                        src={prevProject.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'}
                         alt={language === 'ar' && prevProject.title_ar ? prevProject.title_ar : prevProject.title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
@@ -349,7 +349,7 @@ export default function ProjectDetailClient({ project, allProjects = [] }) {
                   <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
                     <div className="relative h-48">
                       <Image
-                        src={nextProject.image}
+                        src={nextProject.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'}
                         alt={language === 'ar' && nextProject.title_ar ? nextProject.title_ar : nextProject.title}
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"

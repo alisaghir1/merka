@@ -227,11 +227,11 @@ export default function StylesTypologiesClient({ initialStyles = [], initialTypo
                     </h3>
                     
                     <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
-                      {language === 'ar' && style.short_description_ar ? style.short_description_ar : style.shortDescription}
+                      {language === 'ar' && style.short_description_ar ? style.short_description_ar : (style.short_description || style.shortDescription)}
                     </p>
                     
                     <ul className="space-y-2 mb-6">
-                      {style.features.slice(0, 3).map((feature, featureIndex) => (
+                      {(style.features || []).slice(0, 3).map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-center text-sm text-gray-800 group-hover:text-gray-900 transition-colors duration-300">
                           <div className="w-2 h-2 bg-[#877051] rounded-full mr-3 group-hover:scale-150 group-hover:bg-[#041533] transition-all duration-300"></div>
                           <span className="group-hover:translate-x-1 transition-transform duration-300">{feature}</span>
@@ -296,14 +296,14 @@ export default function StylesTypologiesClient({ initialStyles = [], initialTypo
                     </h3>
                     
                     <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
-                      {language === 'ar' && typology.short_description_ar ? typology.short_description_ar : typology.shortDescription}
+                      {language === 'ar' && typology.short_description_ar ? typology.short_description_ar : (typology.short_description || typology.shortDescription)}
                     </p>
                     
                     <div className="grid grid-cols-2 gap-4 mb-6">
-                      {(typology.subtypes || []).map((subtype, subtypeIndex) => (
-                        <div key={subtypeIndex} className={`flex items-center text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {(typology.features || typology.subtypes || []).slice(0, 6).map((item, itemIndex) => (
+                        <div key={itemIndex} className={`flex items-center text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300 ${isRTL ? 'flex-row-reverse' : ''}`}>
                           <div className={`w-2 h-2 bg-[#877051] rounded-full ${isRTL ? 'ml-3' : 'mr-3'} group-hover:scale-150 group-hover:bg-[#041533] transition-all duration-300`}></div>
-                          <span className={`transition-transform duration-300 ${isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>{subtype}</span>
+                          <span className={`transition-transform duration-300 ${isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>{item}</span>
                         </div>
                       ))}
                     </div>

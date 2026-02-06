@@ -84,8 +84,7 @@ const MenuBar = ({ editor }) => {
     <div className="border-b border-gray-200 p-2 flex flex-wrap gap-1 bg-gray-50">
       {/* Text Style */}
       <div className="flex gap-1 pr-2 border-r border-gray-300">
-        <button
-          onClick={() => editor.chain().focus().toggleBold().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('bold') ? 'bg-[#041533] text-white' : ''}`}
           title="Bold"
@@ -94,8 +93,7 @@ const MenuBar = ({ editor }) => {
             <path d="M3 4a1 1 0 011-1h6a4 4 0 014 4 4 4 0 01-1.5 3.12A4.5 4.5 0 0114 14.5 4.5 4.5 0 019.5 19H4a1 1 0 01-1-1V4zm4 4h2a2 2 0 100-4H7v4zm0 2v4h2.5a2.5 2.5 0 100-5H7z"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleItalic().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()}
           disabled={!editor.can().chain().focus().toggleItalic().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('italic') ? 'bg-[#041533] text-white' : ''}`}
           title="Italic"
@@ -104,8 +102,7 @@ const MenuBar = ({ editor }) => {
             <path d="M8 3a1 1 0 011-1h6a1 1 0 110 2h-2.5l-2 12H13a1 1 0 110 2H7a1 1 0 110-2h2.5l2-12H9a1 1 0 01-1-1z"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleUnderline().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleUnderline().run()}
           disabled={!editor.can().chain().focus().toggleUnderline().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('underline') ? 'bg-[#041533] text-white' : ''}`}
           title="Underline"
@@ -115,8 +112,7 @@ const MenuBar = ({ editor }) => {
             <path d="M4 17a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleStrike().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleStrike().run()}
           disabled={!editor.can().chain().focus().toggleStrike().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('strike') ? 'bg-[#041533] text-white' : ''}`}
           title="Strikethrough"
@@ -130,29 +126,25 @@ const MenuBar = ({ editor }) => {
 
       {/* Headings */}
       <div className="flex gap-1 pr-2 border-r border-gray-300">
-        <button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
           className={`p-2 rounded hover:bg-gray-200 text-sm font-bold ${editor.isActive('heading', { level: 1 }) ? 'bg-[#041533] text-white' : ''}`}
           title="Heading 1"
         >
           H1
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           className={`p-2 rounded hover:bg-gray-200 text-sm font-bold ${editor.isActive('heading', { level: 2 }) ? 'bg-[#041533] text-white' : ''}`}
           title="Heading 2"
         >
           H2
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
           className={`p-2 rounded hover:bg-gray-200 text-sm font-bold ${editor.isActive('heading', { level: 3 }) ? 'bg-[#041533] text-white' : ''}`}
           title="Heading 3"
         >
           H3
         </button>
-        <button
-          onClick={() => editor.chain().focus().setParagraph().run()}
+        <button type="button" onClick={() => editor.chain().focus().setParagraph().run()}
           className={`p-2 rounded hover:bg-gray-200 text-sm ${editor.isActive('paragraph') ? 'bg-[#041533] text-white' : ''}`}
           title="Paragraph"
         >
@@ -162,8 +154,7 @@ const MenuBar = ({ editor }) => {
 
       {/* Lists */}
       <div className="flex gap-1 pr-2 border-r border-gray-300">
-        <button
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('bulletList') ? 'bg-[#041533] text-white' : ''}`}
           title="Bullet List"
         >
@@ -171,8 +162,7 @@ const MenuBar = ({ editor }) => {
             <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleOrderedList().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('orderedList') ? 'bg-[#041533] text-white' : ''}`}
           title="Numbered List"
         >
@@ -184,8 +174,7 @@ const MenuBar = ({ editor }) => {
 
       {/* Alignment */}
       <div className="flex gap-1 pr-2 border-r border-gray-300">
-        <button
-          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+        <button type="button" onClick={() => editor.chain().focus().setTextAlign('left').run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive({ textAlign: 'left' }) ? 'bg-[#041533] text-white' : ''}`}
           title="Align Left"
         >
@@ -193,8 +182,7 @@ const MenuBar = ({ editor }) => {
             <path fillRule="evenodd" d="M2 4a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zm0 4a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm0 4a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zm0 4a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1z" clipRule="evenodd"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().setTextAlign('center').run()}
+        <button type="button" onClick={() => editor.chain().focus().setTextAlign('center').run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive({ textAlign: 'center' }) ? 'bg-[#041533] text-white' : ''}`}
           title="Align Center"
         >
@@ -202,8 +190,7 @@ const MenuBar = ({ editor }) => {
             <path fillRule="evenodd" d="M4 4a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zm-2 4a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm2 4a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zm-2 4a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1z" clipRule="evenodd"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().setTextAlign('right').run()}
+        <button type="button" onClick={() => editor.chain().focus().setTextAlign('right').run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive({ textAlign: 'right' }) ? 'bg-[#041533] text-white' : ''}`}
           title="Align Right"
         >
@@ -215,8 +202,7 @@ const MenuBar = ({ editor }) => {
 
       {/* Insert */}
       <div className="flex gap-1 pr-2 border-r border-gray-300">
-        <button
-          onClick={setLink}
+        <button type="button" onClick={setLink}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('link') ? 'bg-[#041533] text-white' : ''}`}
           title="Add Link"
         >
@@ -233,8 +219,7 @@ const MenuBar = ({ editor }) => {
           accept="image/*"
           className="hidden"
         />
-        <button
-          onClick={() => fileInputRef.current?.click()}
+        <button type="button" onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
           className={`p-2 rounded hover:bg-gray-200 ${uploading ? 'opacity-50' : ''}`}
           title="Upload Image"
@@ -250,8 +235,7 @@ const MenuBar = ({ editor }) => {
             </svg>
           )}
         </button>
-        <button
-          onClick={addImageFromUrl}
+        <button type="button" onClick={addImageFromUrl}
           className="p-2 rounded hover:bg-gray-200"
           title="Add Image from URL"
         >
@@ -260,8 +244,7 @@ const MenuBar = ({ editor }) => {
           </svg>
         </button>
         
-        <button
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleBlockquote().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('blockquote') ? 'bg-[#041533] text-white' : ''}`}
           title="Quote"
         >
@@ -269,8 +252,7 @@ const MenuBar = ({ editor }) => {
             <path fillRule="evenodd" d="M6 3a1 1 0 00-1 1v2a1 1 0 001 1h1.586l-1.293 1.293a1 1 0 101.414 1.414l2-2A1 1 0 0010 6V4a1 1 0 00-1-1H6zm7 0a1 1 0 00-1 1v2a1 1 0 001 1h1.586l-1.293 1.293a1 1 0 101.414 1.414l2-2A1 1 0 0017 6V4a1 1 0 00-1-1h-3z" clipRule="evenodd"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+        <button type="button" onClick={() => editor.chain().focus().setHorizontalRule().run()}
           className="p-2 rounded hover:bg-gray-200"
           title="Horizontal Rule"
         >
@@ -282,8 +264,7 @@ const MenuBar = ({ editor }) => {
 
       {/* Code */}
       <div className="flex gap-1 pr-2 border-r border-gray-300">
-        <button
-          onClick={() => editor.chain().focus().toggleCode().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleCode().run()}
           disabled={!editor.can().chain().focus().toggleCode().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('code') ? 'bg-[#041533] text-white' : ''}`}
           title="Inline Code"
@@ -292,8 +273,7 @@ const MenuBar = ({ editor }) => {
             <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        <button type="button" onClick={() => editor.chain().focus().toggleCodeBlock().run()}
           className={`p-2 rounded hover:bg-gray-200 ${editor.isActive('codeBlock') ? 'bg-[#041533] text-white' : ''}`}
           title="Code Block"
         >
@@ -305,8 +285,7 @@ const MenuBar = ({ editor }) => {
 
       {/* History */}
       <div className="flex gap-1">
-        <button
-          onClick={() => editor.chain().focus().undo().run()}
+        <button type="button" onClick={() => editor.chain().focus().undo().run()}
           disabled={!editor.can().chain().focus().undo().run()}
           className="p-2 rounded hover:bg-gray-200 disabled:opacity-50"
           title="Undo"
@@ -315,8 +294,7 @@ const MenuBar = ({ editor }) => {
             <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a2 2 0 012 2v4a1 1 0 11-2 0v-4H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"/>
           </svg>
         </button>
-        <button
-          onClick={() => editor.chain().focus().redo().run()}
+        <button type="button" onClick={() => editor.chain().focus().redo().run()}
           disabled={!editor.can().chain().focus().redo().run()}
           className="p-2 rounded hover:bg-gray-200 disabled:opacity-50"
           title="Redo"
@@ -382,3 +360,4 @@ export default function RichTextEditor({ content, onChange, placeholder = 'Write
     </div>
   )
 }
+

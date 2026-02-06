@@ -291,7 +291,7 @@ export default function ProjectsPageClient({ initialProjects = [], initialCatego
                     }}
                   ></div>
                   <Image
-                    src={project.image}
+                    src={project.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80'}
                     alt={language === 'ar' && project.title_ar ? project.title_ar : project.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
