@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/app/components/LocaleLink'
 import { useLanguage } from '@/lib/LanguageContext'
 
 export default function AboutClient() {

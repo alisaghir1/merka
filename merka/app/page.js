@@ -1,23 +1,16 @@
 import { getServices, getProjects } from '@/lib/server-data'
 import HomeClient from './HomeClient'
+import { getLocale, buildMetadata } from '@/lib/locale'
 
-// Metadata for SEO
-export const metadata = {
-  title: 'MERKA Architecture | Premium Architectural Design in UAE',
-  description: 'MERKA Architecture offers premium architectural design services in the UAE. We specialize in residential, commercial, and hospitality projects with innovative design solutions.',
-  keywords: 'architecture, design, UAE, Dubai, Abu Dhabi, residential, commercial, hospitality, interior design',
-  openGraph: {
-    title: 'MERKA Architecture | Premium Architectural Design',
-    description: 'Premium architectural design services in the UAE',
-    images: ['/og-home.jpg'],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MERKA Architecture | Premium Architectural Design',
-    description: 'Premium architectural design services in the UAE',
-    images: ['/og-home.jpg'],
-  },
+// Dynamic metadata for SEO (locale-aware)
+export async function generateMetadata() {
+  const locale = await getLocale()
+  return buildMetadata('home', locale, {
+    openGraph: { images: ['/og-home.jpg'] },
+    twitter: { images: ['/og-home.jpg'] },
+    enPath: '/',
+    arPath: '/ar',
+  })
 }
 
 // Force dynamic rendering for SSR

@@ -1,23 +1,15 @@
 import { getSiteSettings } from '@/lib/server-data'
 import ContactClient from './ContactClient'
+import { getLocale, buildMetadata } from '@/lib/locale'
 
-// Static metadata for contact page
-export const metadata = {
-  title: 'Contact Us | MERKA Architecture',
-  description: 'Get in touch with MERKA Architecture. We are here to help with your architectural project in the UAE. Contact us for consultations and inquiries.',
-  keywords: 'contact MERKA, architecture consultation, Dubai architects contact, UAE architecture firm, project inquiry',
-  openGraph: {
-    title: 'Contact Us | MERKA Architecture',
-    description: 'Get in touch with MERKA Architecture for your next project.',
-    images: ['/og-contact.jpg'],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Contact Us | MERKA Architecture',
-    description: 'Get in touch with MERKA Architecture for your next project.',
-    images: ['/og-contact.jpg'],
-  },
+export async function generateMetadata() {
+  const locale = await getLocale()
+  return buildMetadata('contact', locale, {
+    openGraph: { images: ['/og-contact.jpg'] },
+    twitter: { images: ['/og-contact.jpg'] },
+    enPath: '/contact',
+    arPath: '/ar/contact',
+  })
 }
 
 // Force dynamic rendering for SSR (to get latest contact info)

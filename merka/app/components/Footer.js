@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { FaLinkedinIn, FaInstagram, FaTwitter, FaWhatsapp, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
-import Link from 'next/link'
+import Link from '@/app/components/LocaleLink'
 import Image from 'next/image'
 import { getSiteSettings, getServices } from '@/lib/data'
 import { useLanguage } from '@/lib/LanguageContext'

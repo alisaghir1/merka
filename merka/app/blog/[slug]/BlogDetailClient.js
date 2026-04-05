@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import Link from '@/app/components/LocaleLink'
 import Image from 'next/image'
 import { useLanguage } from '@/lib/LanguageContext'
 

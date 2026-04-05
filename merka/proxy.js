@@ -68,9 +68,27 @@ async function verifySessionToken(token) {
 export async function proxy(request) {
   const { pathname } = request.nextUrl
   
-  // Create response with pathname header for layout detection
-  const response = NextResponse.next()
+  // Determine locale from URL
+  const isArabic = pathname.startsWith('/ar')
+  const locale = isArabic ? 'ar' : 'en'
+
+  // For Arabic routes, compute the rewritten path (without /ar prefix)
+  const rewritePath = isArabic ? (pathname.replace(/^\/ar/, '') || '/') : pathname
+
+  // Create response — rewrite for Arabic, pass through for English
+  let response
+  if (isArabic) {
+    const url = request.nextUrl.clone()
+    url.pathname = rewritePath
+    response = NextResponse.rewrite(url)
+  } else {
+    response = NextResponse.next()
+  }
+
+  // Set headers for layout and locale detection in server components
   response.headers.set('x-pathname', pathname)
+  response.headers.set('x-locale', locale)
+  response.cookies.set('NEXT_LOCALE', locale, { path: '/' })
   
   // Add security headers
   response.headers.set('X-Content-Type-Options', 'nosniff')

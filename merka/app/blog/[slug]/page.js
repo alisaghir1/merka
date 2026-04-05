@@ -1,35 +1,49 @@
 import { notFound } from 'next/navigation'
 import { getBlogBySlug, getBlogs } from '@/lib/server-data'
 import BlogDetailClient from './BlogDetailClient'
+import { getLocale } from '@/lib/locale'
 
 // Generate dynamic metadata based on blog post
 export async function generateMetadata({ params }) {
   const { slug } = await params
-  const post = await getBlogBySlug(slug)
+  const [post, locale] = await Promise.all([getBlogBySlug(slug), getLocale()])
+  const isAr = locale === 'ar'
   
   if (!post) {
     return {
-      title: 'Blog Post Not Found | MERKA Architecture',
+      title: isAr ? 'مقال غير موجود | ميركا للعمارة' : 'Blog Post Not Found | MERKA Architecture',
     }
   }
+
+  const title = isAr ? (post.title_ar || post.title) : post.title
+  const description = isAr
+    ? (post.excerpt_ar || post.description_ar || post.excerpt || post.description || `اقرأ ${title} - مقال من ميركا للعمارة.`)
+    : (post.excerpt || post.description || `Read ${title} - an insightful article from MERKA Architecture.`)
   
   return {
-    title: `${post.title} | MERKA Architecture Blog`,
-    description: post.excerpt || post.description || `Read ${post.title} - an insightful article from MERKA Architecture.`,
-    keywords: `${post.title}, ${post.category || 'architecture'}, MERKA blog, architectural insights`,
+    title: `${title} | ${isAr ? 'مدونة ميركا للعمارة' : 'MERKA Architecture Blog'}`,
+    description,
+    keywords: `${title}, ${post.category || 'architecture'}, ${isAr ? 'مدونة ميركا, رؤى معمارية' : 'MERKA blog, architectural insights'}`,
     openGraph: {
-      title: `${post.title} | MERKA Architecture`,
-      description: post.excerpt || post.description,
+      title: `${title} | ${isAr ? 'ميركا للعمارة' : 'MERKA Architecture'}`,
+      description,
       images: post.image ? [post.image] : ['/og-blog.jpg'],
       type: 'article',
+      locale: isAr ? 'ar_AE' : 'en_US',
       publishedTime: post.date,
-      authors: [post.author || 'MERKA Architecture'],
+      authors: [post.author || (isAr ? 'ميركا للعمارة' : 'MERKA Architecture')],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${post.title} | MERKA Architecture`,
-      description: post.excerpt || post.description,
+      title: `${title} | ${isAr ? 'ميركا للعمارة' : 'MERKA Architecture'}`,
+      description,
       images: post.image ? [post.image] : ['/og-blog.jpg'],
+    },
+    alternates: {
+      languages: {
+        'en': `/blog/${slug}`,
+        'ar': `/ar/blog/${slug}`,
+      },
     },
   }
 }

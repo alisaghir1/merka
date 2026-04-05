@@ -1,22 +1,14 @@
 import AboutClient from './AboutClient'
+import { getLocale, buildMetadata } from '@/lib/locale'
 
-// Static metadata for about page
-export const metadata = {
-  title: 'About Us | MERKA Architecture',
-  description: 'Learn about MERKA Architecture, our vision, mission, and the team behind our innovative architectural designs in the UAE.',
-  keywords: 'about MERKA, architecture firm, UAE architects, design philosophy, architectural team',
-  openGraph: {
-    title: 'About Us | MERKA Architecture',
-    description: 'Learn about MERKA Architecture and our design philosophy.',
-    images: ['/og-about.jpg'],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'About Us | MERKA Architecture',
-    description: 'Learn about MERKA Architecture and our design philosophy.',
-    images: ['/og-about.jpg'],
-  },
+export async function generateMetadata() {
+  const locale = await getLocale()
+  return buildMetadata('about', locale, {
+    openGraph: { images: ['/og-about.jpg'] },
+    twitter: { images: ['/og-about.jpg'] },
+    enPath: '/about',
+    arPath: '/ar/about',
+  })
 }
 
 export default function AboutPage() {

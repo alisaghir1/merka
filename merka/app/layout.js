@@ -30,21 +30,20 @@ const tajawal = Tajawal({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://merka-architecture.com'),
-  title: "Merka Architecture - Dubai's Premier Architectural Design Studio",
-  description: "Leading architectural design studio in Dubai specializing in residential, commercial, and hospitality projects with modern and traditional fusion styles.",
-  keywords: "architecture Dubai, architectural design, residential architecture, commercial architecture, Dubai architects",
-};
+  metadataBase: new URL('https://merka.ae'),
+}
 
 export default async function RootLayout({ children }) {
   const headersList = await headers()
   const pathname = headersList.get('x-pathname') || ''
+  const locale = headersList.get('x-locale') || 'en'
   const isAdminRoute = pathname.startsWith('/admin')
+  const isArabic = locale === 'ar'
 
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang={isArabic ? 'ar' : 'en'} dir={isArabic ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} ${cairo.variable} ${tajawal.variable} antialiased`}>
-        <LanguageProvider>
+        <LanguageProvider initialLocale={locale}>
           {!isAdminRoute && <Header />}
           <main className={!isAdminRoute ? "pt-20" : ""}>
             {children}

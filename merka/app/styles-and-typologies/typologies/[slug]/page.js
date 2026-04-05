@@ -1,33 +1,47 @@
 import { notFound } from 'next/navigation'
 import { getTypologyBySlug } from '@/lib/server-data'
 import TypologyDetailClient from './TypologyDetailClient'
+import { getLocale } from '@/lib/locale'
 
 // Generate dynamic metadata based on typology
 export async function generateMetadata({ params }) {
   const { slug } = await params
-  const typology = await getTypologyBySlug(slug)
+  const [typology, locale] = await Promise.all([getTypologyBySlug(slug), getLocale()])
+  const isAr = locale === 'ar'
   
   if (!typology) {
     return {
-      title: 'Typology Not Found | MERKA Architecture',
+      title: isAr ? 'تصنيف غير موجود | ميركا للعمارة' : 'Typology Not Found | MERKA Architecture',
     }
   }
+
+  const title = isAr ? (typology.title_ar || typology.title) : typology.title
+  const description = isAr
+    ? (typology.description_ar || typology.description || `استكشف تصنيف المبنى ${title} - الخصائص واعتبارات التصميم والأمثلة.`)
+    : (typology.description || `Explore ${typology.title} building typology - characteristics, design considerations, and examples.`)
   
   return {
-    title: `${typology.title} | Building Typologies | MERKA Architecture`,
-    description: typology.description || `Explore ${typology.title} building typology - characteristics, design considerations, and examples.`,
-    keywords: `${typology.title}, building typology, architectural typology, MERKA Architecture`,
+    title: `${title} | ${isAr ? 'تصنيفات المباني | ميركا للعمارة' : 'Building Typologies | MERKA Architecture'}`,
+    description,
+    keywords: `${title}, ${isAr ? 'تصنيف مبنى, تصنيف معماري, ميركا للعمارة' : `building typology, architectural typology, MERKA Architecture`}`,
     openGraph: {
-      title: `${typology.title} | MERKA Architecture`,
-      description: typology.description,
+      title: `${title} | ${isAr ? 'ميركا للعمارة' : 'MERKA Architecture'}`,
+      description,
       images: typology.image ? [typology.image] : ['/og-typologies.jpg'],
       type: 'article',
+      locale: isAr ? 'ar_AE' : 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${typology.title} | MERKA Architecture`,
-      description: typology.description,
+      title: `${title} | ${isAr ? 'ميركا للعمارة' : 'MERKA Architecture'}`,
+      description,
       images: typology.image ? [typology.image] : ['/og-typologies.jpg'],
+    },
+    alternates: {
+      languages: {
+        'en': `/styles-and-typologies/typologies/${slug}`,
+        'ar': `/ar/styles-and-typologies/typologies/${slug}`,
+      },
     },
   }
 }

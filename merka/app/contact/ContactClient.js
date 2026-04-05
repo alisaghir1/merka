@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
+import Link from '@/app/components/LocaleLink'
 import Image from 'next/image'
 import emailjs from '@emailjs/browser'
 import { submitContactForm, subscribeNewsletter } from '@/lib/data'

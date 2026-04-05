@@ -1,23 +1,15 @@
 import { getBlogs } from '@/lib/server-data'
 import BlogPageClient from './BlogPageClient'
+import { getLocale, buildMetadata } from '@/lib/locale'
 
-// Metadata for SEO
-export const metadata = {
-  title: 'Blog | MERKA Architecture',
-  description: 'Stay updated with the latest insights, trends, and news from MERKA Architecture. Explore our articles on architecture, design, and the UAE construction industry.',
-  keywords: 'architecture blog, design insights, UAE architecture news, MERKA blog, architectural trends',
-  openGraph: {
-    title: 'Blog | MERKA Architecture',
-    description: 'Latest insights and news from MERKA Architecture.',
-    images: ['/og-blog.jpg'],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Blog | MERKA Architecture',
-    description: 'Latest insights and news from MERKA Architecture.',
-    images: ['/og-blog.jpg'],
-  },
+export async function generateMetadata() {
+  const locale = await getLocale()
+  return buildMetadata('blog', locale, {
+    openGraph: { images: ['/og-blog.jpg'] },
+    twitter: { images: ['/og-blog.jpg'] },
+    enPath: '/blog',
+    arPath: '/ar/blog',
+  })
 }
 
 // Force dynamic rendering for SSR

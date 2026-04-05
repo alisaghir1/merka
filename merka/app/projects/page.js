@@ -1,23 +1,15 @@
 import { getProjects } from '@/lib/server-data'
 import ProjectsPageClient from './ProjectsPageClient'
+import { getLocale, buildMetadata } from '@/lib/locale'
 
-// Metadata for SEO
-export const metadata = {
-  title: 'Our Projects | MERKA Architecture',
-  description: 'Explore our portfolio of architectural projects including residential, commercial, and hospitality designs in the UAE.',
-  keywords: 'architecture projects, UAE projects, Dubai architecture, residential design, commercial architecture',
-  openGraph: {
-    title: 'Our Projects | MERKA Architecture',
-    description: 'Explore our portfolio of architectural projects.',
-    images: ['/og-projects.jpg'],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Our Projects | MERKA Architecture',
-    description: 'Explore our portfolio of architectural projects.',
-    images: ['/og-projects.jpg'],
-  },
+export async function generateMetadata() {
+  const locale = await getLocale()
+  return buildMetadata('projects', locale, {
+    openGraph: { images: ['/og-projects.jpg'] },
+    twitter: { images: ['/og-projects.jpg'] },
+    enPath: '/projects',
+    arPath: '/ar/projects',
+  })
 }
 
 // Force dynamic rendering for SSR

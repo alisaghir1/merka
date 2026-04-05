@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import en from '@/locales/en.json'
 import ar from '@/locales/ar.json'
 
@@ -25,24 +26,40 @@ export const LANGUAGES = {
   }
 }
 
-export function LanguageProvider({ children }) {
-  const [language, setLanguageState] = useState('en')
+// Helper to detect locale from pathname
+function getLocaleFromPath(pathname) {
+  return pathname.startsWith('/ar') ? 'ar' : 'en'
+}
+
+// Helper to strip locale prefix from pathname
+function stripLocale(pathname) {
+  if (pathname.startsWith('/ar')) {
+    return pathname.replace(/^\/ar/, '') || '/'
+  }
+  return pathname
+}
+
+// Helper to build a locale-prefixed path
+export function localePath(path, locale) {
+  if (locale === 'ar') {
+    return path === '/' ? '/ar' : `/ar${path}`
+  }
+  return path
+}
+
+export function LanguageProvider({ children, initialLocale }) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const [language, setLanguageState] = useState(initialLocale || 'en')
   const [mounted, setMounted] = useState(false)
 
-  // Load saved language preference on mount
+  // Sync language from URL on mount and on navigation
   useEffect(() => {
     setMounted(true)
-    const savedLang = localStorage.getItem('merka-language')
-    if (savedLang && (savedLang === 'en' || savedLang === 'ar')) {
-      setLanguageState(savedLang)
-    } else {
-      // Detect browser language
-      const browserLang = navigator.language.split('-')[0]
-      if (browserLang === 'ar') {
-        setLanguageState('ar')
-      }
-    }
-  }, [])
+    const urlLocale = getLocaleFromPath(window.location.pathname)
+    setLanguageState(urlLocale)
+    localStorage.setItem('merka-language', urlLocale)
+  }, [pathname])
 
   // Update HTML attributes when language changes
   useEffect(() => {
@@ -50,15 +67,20 @@ export function LanguageProvider({ children }) {
       const lang = LANGUAGES[language]
       document.documentElement.lang = lang.code
       document.documentElement.dir = lang.dir
-      localStorage.setItem('merka-language', language)
     }
   }, [language, mounted])
 
   const setLanguage = useCallback((newLang) => {
     if (newLang === 'en' || newLang === 'ar') {
+      // Update state immediately so UI reflects the change
       setLanguageState(newLang)
+      localStorage.setItem('merka-language', newLang)
+      // Navigate to the new locale URL
+      const currentPath = stripLocale(window.location.pathname)
+      const newPath = localePath(currentPath, newLang)
+      router.push(newPath)
     }
-  }, [])
+  }, [router])
 
   const toggleLanguage = useCallback(() => {
     setLanguageState(prev => prev === 'en' ? 'ar' : 'en')
@@ -93,6 +115,11 @@ export function LanguageProvider({ children }) {
     return fallback || key
   }, [language])
 
+  // Build locale-aware path
+  const getLocalePath = useCallback((path) => {
+    return localePath(path, language)
+  }, [language])
+
   const value = {
     language,
     setLanguage,
@@ -103,7 +130,8 @@ export function LanguageProvider({ children }) {
     isArabic: language === 'ar',
     currentLanguage: LANGUAGES[language],
     languages: LANGUAGES,
-    mounted
+    mounted,
+    localePath: getLocalePath
   }
 
   return (

@@ -1,23 +1,15 @@
 import { getStyles, getTypologies } from '@/lib/server-data'
 import StylesTypologiesClient from './StylesTypologiesClient'
+import { getLocale, buildMetadata } from '@/lib/locale'
 
-// Metadata for SEO
-export const metadata = {
-  title: 'Architectural Styles & Typologies | MERKA Architecture',
-  description: 'Explore various architectural styles and building typologies. From modern minimalism to traditional designs, discover the diversity of architectural expression.',
-  keywords: 'architectural styles, building typologies, modern architecture, traditional design, contemporary architecture, UAE design',
-  openGraph: {
-    title: 'Architectural Styles & Typologies | MERKA Architecture',
-    description: 'Explore various architectural styles and building typologies.',
-    images: ['/og-styles.jpg'],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Architectural Styles & Typologies | MERKA Architecture',
-    description: 'Explore various architectural styles and building typologies.',
-    images: ['/og-styles.jpg'],
-  },
+export async function generateMetadata() {
+  const locale = await getLocale()
+  return buildMetadata('stylesTypologies', locale, {
+    openGraph: { images: ['/og-styles.jpg'] },
+    twitter: { images: ['/og-styles.jpg'] },
+    enPath: '/styles-and-typologies',
+    arPath: '/ar/styles-and-typologies',
+  })
 }
 
 // Force dynamic rendering for SSR
