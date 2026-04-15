@@ -5,8 +5,8 @@
     "learnMore": "Learn More",
     "getStarted": "Get Started",
     "contactUs": "Contact Us",
-    "exploreProjects": "Explore Projects",
-    "viewProject": "View Project",
+    "exploreProjects": "Explore Services",
+    "viewProject": "View Projects",
     "submit": "Submit",
     "sending": "Sending...",
     "subscribeNow": "Subscribe Now",
@@ -16,7 +16,7 @@
     "discoverStory": "Discover Our Story",
     "readOurStory": "Read Our Story",
     "meetTheTeam": "Meet The Team",
-    "discoverProcess": "Discover Our Process",
+    "discoverProcess": "Our Services",
     "explorePortfolio": "Explore Our Portfolio"
   },
   "nav": {
@@ -30,41 +30,41 @@
   },
   "home": {
     "hero": {
-      "title": "Crafting Tomorrow's",
-      "titleHighlight": "Landmarks",
-      "subtitle": "Where Vision Meets Architecture",
-      "description": "Award-winning architectural design studio in Dubai, creating iconic spaces that blend innovation with cultural heritage."
+      "title": "Engineering Meets",
+      "titleHighlight": "Architecture",
+      "subtitle": "Engineering & Architecture",
+      "description": "One of the trusted engineering companies in Dubai \u2014 providing structural, MEP, and architectural design services for residential, commercial projects across the UAE."
     },
     "services": {
-      "title": "Our Expertise",
-      "subtitle": "Comprehensive architectural services tailored to bring your vision to life"
+      "title": "Our Engineering & Architecture Services",
+      "subtitle": "Consulting services covering every project phase \u2014 from feasibility to handover"
     },
     "projects": {
       "title": "Featured Projects",
       "subtitle": "Discover our latest architectural achievements"
     },
     "cta": {
-      "title": "Ready to Build Your Vision?",
-      "subtitle": "Let's create something extraordinary together",
-      "button": "Start Your Project"
+      "title": "Have a Project in Mind?",
+      "subtitle": "Talk to our engineering consultants and architects in Dubai",
+      "button": "Get a Consultation"
     },
     "inspires": {
-      "title": "Architecture That Inspires",
-      "description": "Every structure tells a story. We craft architectural narratives that blend Dubai's rich heritage with cutting-edge innovation."
+      "title": "Engineering That Builds Confidence",
+      "description": "From concept to completion, we provide end-to-end engineering consulting and architectural design services across Dubai and Abu Dhabi. Every project is built on accuracy, code compliance, and practical experience."
     },
     "philosophy": {
-      "title": "Our Design Philosophy",
-      "description": "We believe architecture should tell a story, create experiences, and enhance lives while respecting cultural heritage.",
-      "innovation": "Innovation",
-      "innovationDesc": "Cutting-edge design solutions that push architectural boundaries while maintaining functionality.",
-      "sustainability": "Sustainability",
-      "sustainabilityDesc": "Environmentally conscious designs that harmonize with nature and reduce environmental impact.",
-      "culturalFusion": "Cultural Fusion",
-      "culturalFusionDesc": "Blending traditional Emirati elements with contemporary architectural language."
+      "title": "Why Clients Choose MERKA",
+      "description": "A full-service engineering company and architecture firm in the UAE, built on technical know-how and hands-on project experience.",
+      "innovation": "Integrated Engineering",
+      "innovationDesc": "Structural, MEP, and civil engineering under one roof \u2014 with proper coordination between design and construction stages.",
+      "sustainability": "Design-Led Architecture",
+      "sustainabilityDesc": "Architectural services that balance form with function, designed for UAE weather conditions, local codes, and project requirements.",
+      "culturalFusion": "Regulatory Expertise",
+      "culturalFusionDesc": "Deep knowledge of Dubai Municipality, Abu Dhabi DMT, and federal authority requirements to keep your project on track."
     },
     "vision": {
-      "title": "Where Vision Meets Reality",
-      "description": "From concept sketches to architectural marvels, we transform ideas into iconic structures that define Dubai's skyline."
+      "title": "From Blueprint to Built Environment",
+      "description": "Whether it's a high-rise in Dubai Marina or a villa community in Abu Dhabi, our engineering consultants and architects work together to turn project briefs into practical, approved, and well-built spaces."
     },
     "featuredProjects": {
       "badge": "Featured Work",
@@ -581,7 +581,7 @@
     "teamAvailable": "Our team is available to discuss your requirements and provide expert guidance."
   },
   "footer": {
-    "description": "Leading architectural design studio in Dubai specializing in residential, commercial, and hospitality projects.",
+    "description": "MERKA is an engineering consulting and architecture firm in Dubai, UAE \u2014 offering structural, MEP, and architectural design for residential, commercial, and infrastructure projects across Dubai and Abu Dhabi.",
     "services": "Our Services",
     "quickLinks": "Quick Links",
     "followUs": "Follow Us",

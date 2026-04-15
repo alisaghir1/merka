@@ -21,12 +21,12 @@ const defaultSocial = {
 }
 
 const defaultServices = [
-  { title: 'Conceptual Design', slug: 'conceptual-design' },
-  { title: 'Schematic Design', slug: 'schematic-design' },
-  { title: 'Design Development', slug: 'design-development' },
-  { title: 'Construction Drawings', slug: 'construction-drawings' },
-  { title: 'Tender Documentation', slug: 'tender-documentation' },
-  { title: 'Authority Approvals', slug: 'authority-approvals' }
+  { title: 'Structural Engineering', slug: 'structural-engineering' },
+  { title: 'MEP Engineering', slug: 'mep-engineering' },
+  { title: 'Architectural Design', slug: 'architectural-design' },
+  { title: 'Construction Documentation', slug: 'construction-documentation' },
+  { title: 'Authority Approvals & Permits', slug: 'authority-approvals' },
+  { title: 'Project Supervision', slug: 'project-supervision' }
 ]
 
 export default function Footer() {

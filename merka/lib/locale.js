@@ -15,14 +15,14 @@ export async function getLocale() {
 export const pageMetadata = {
   home: {
     en: {
-      title: 'MERKA Architecture | Premium Architectural Design in UAE',
-      description: 'MERKA Architecture offers premium architectural design services in the UAE. We specialize in residential, commercial, and hospitality projects with innovative design solutions.',
-      keywords: 'architecture, design, UAE, Dubai, Abu Dhabi, residential, commercial, hospitality, interior design',
+      title: 'MERKA | Engineering Consultants & Architecture Firm in Dubai, UAE',
+      description: 'MERKA — engineering company in Dubai offering structural, MEP, and architectural design services across Dubai & Abu Dhabi, UAE.',
+      keywords: 'engineering consultants in Dubai, engineering company UAE, architecture firm Dubai, MEP engineering Abu Dhabi, structural engineering Dubai, engineering consulting companies in UAE, architectural design services Abu Dhabi',
     },
     ar: {
-      title: 'ميركا للعمارة | تصميم معماري متميز في الإمارات',
-      description: 'تقدم ميركا للعمارة خدمات تصميم معماري متميزة في الإمارات العربية المتحدة. نحن متخصصون في المشاريع السكنية والتجارية والضيافة مع حلول تصميم مبتكرة.',
-      keywords: 'عمارة, تصميم, الإمارات, دبي, أبوظبي, سكني, تجاري, ضيافة, تصميم داخلي',
+      title: 'ميركا | استشارات هندسية وشركة تصميم معماري في دبي، الإمارات',
+      description: 'ميركا — شركة هندسية في دبي تقدم خدمات التصميم الإنشائي والكهروميكانيكي والمعماري في دبي وأبوظبي، الإمارات.',
+      keywords: 'استشارات هندسية في دبي, شركة هندسية في الإمارات, مكتب تصميم معماري دبي, هندسة كهروميكانيكية أبوظبي, هندسة إنشائية دبي, شركات استشارات هندسية في الإمارات, خدمات تصميم معماري أبوظبي',
     },
   },
   about: {

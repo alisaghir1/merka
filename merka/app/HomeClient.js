@@ -6,12 +6,12 @@ import { useLanguage } from '@/lib/LanguageContext'
 
 // Fallback services if no data
 const fallbackServices = [
-  { title: "Conceptual Design", description: "Initial design concepts and feasibility studies", icon: "💡", slug: "conceptual-design" },
-  { title: "Schematic Design", description: "Detailed schematic drawings that translate concepts", icon: "📐", slug: "schematic-design" },
-  { title: "Design Development", description: "Comprehensive design with detailed specifications", icon: "🏗️", slug: "design-development" },
-  { title: "Construction Drawings", description: "Precise technical drawings for construction", icon: "📋", slug: "construction-drawings" },
-  { title: "Tender Documentation", description: "Complete tender packages for contractor bidding", icon: "📄", slug: "tender-documentation" },
-  { title: "Authority Approvals", description: "Expert guidance through approval processes", icon: "✅", slug: "authority-approvals" }
+  { title: "Structural Engineering", description: "Structural analysis, design, and detailing for buildings and infrastructure projects across Dubai and Abu Dhabi.", icon: "🏗️", slug: "structural-engineering" },
+  { title: "MEP Engineering", description: "Mechanical, electrical, and plumbing system design built around performance, energy efficiency, and UAE code compliance.", icon: "⚡", slug: "mep-engineering" },
+  { title: "Architectural Design", description: "Concept-to-construction architectural services for residential, commercial, hospitality, and mixed-use developments.", icon: "📐", slug: "architectural-design" },
+  { title: "Construction Documentation", description: "Detailed technical drawings, specifications, and BOQ preparation for tendering and construction.", icon: "📋", slug: "construction-documentation" },
+  { title: "Authority Approvals & Permits", description: "Engineering permit submissions and coordination with Dubai Municipality, Trakhees, Abu Dhabi DMT, and other UAE authorities.", icon: "✅", slug: "authority-approvals" },
+  { title: "Project Supervision", description: "On-site engineering supervision and quality assurance to make sure design intent is carried through during construction.", icon: "🔍", slug: "project-supervision" }
 ]
 
 export default function HomeClient({ initialServices = [], initialFeaturedProjects = [] }) {
@@ -135,7 +135,7 @@ export default function HomeClient({ initialServices = [], initialFeaturedProjec
             } ${isRTL ? 'sm:flex-row-reverse' : ''}`}
             style={{ transitionDelay: '1800ms' }}
           >
-            <Link href="/projects">
+            <Link href="/services">
               <button className={`group bg-white text-[#041533] px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-[#877051] hover:text-white hover:scale-105 transition-all duration-500 shadow-xl hover:shadow-2xl flex items-center gap-2 mx-auto sm:mx-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 {t('common.exploreProjects')}
                 <svg className={`w-5 h-5 transition-transform ${isRTL ? 'group-hover:-translate-x-1 rotate-180' : 'group-hover:translate-x-1'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,7 +187,7 @@ export default function HomeClient({ initialServices = [], initialFeaturedProjec
               filter: 'drop-shadow(0 0 20px rgba(4, 21, 51, 0.3))',
             }}
           >
-            MERKA
+            {isRTL ? 'ميركا' : 'MERKA'}
           </h2>
         </div>
 
@@ -288,7 +288,7 @@ export default function HomeClient({ initialServices = [], initialFeaturedProjec
               filter: 'drop-shadow(0 0 30px rgba(255, 255, 255, 0.3))',
             }}
           >
-            DESIGN
+            {isRTL ? 'المشاريع' : 'PROJECTS'}
           </h2>
         </div>
 
@@ -551,7 +551,7 @@ export default function HomeClient({ initialServices = [], initialFeaturedProjec
               </Link>
               <Link href="/projects">
                 <button className="border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-white hover:text-[#877051] hover:scale-105 transition-all duration-500 backdrop-blur-sm bg-white/10">
-                  {t('common.viewAll')}
+                  {t('common.viewProject')}
                 </button>
               </Link>
             </div>

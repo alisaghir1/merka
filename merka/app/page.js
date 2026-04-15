@@ -35,14 +35,14 @@ export default async function HomePage() {
         '@type': 'WebSite',
         '@id': 'https://merka.ae/#website',
         url: 'https://merka.ae/',
-        name: 'MERKA Architecture',
-        description: 'Premium Architectural Design in UAE',
+        name: 'MERKA',
+        description: 'Engineering Consultants & Architecture Firm in Dubai, UAE',
         publisher: { '@id': 'https://merka.ae/#organization' }
       },
       {
         '@type': 'Organization',
         '@id': 'https://merka.ae/#organization',
-        name: 'MERKA Architecture',
+        name: 'MERKA',
         url: 'https://merka.ae/',
         logo: {
           '@type': 'ImageObject',
@@ -62,7 +62,7 @@ export default async function HomePage() {
         '@type': 'WebPage',
         '@id': 'https://merka.ae/#webpage',
         url: 'https://merka.ae/',
-        name: 'MERKA Architecture | Premium Architectural Design in UAE',
+        name: 'MERKA | Engineering Consultants & Architecture Firm in Dubai, UAE',
         isPartOf: { '@id': 'https://merka.ae/#website' },
         about: { '@id': 'https://merka.ae/#organization' }
       },
