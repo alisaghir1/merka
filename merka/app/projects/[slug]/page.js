@@ -61,6 +61,45 @@ export default async function ProjectDetailPage({ params }) {
   
   // Fetch all projects for related projects section
   const allProjects = await getProjects({ published: true })
-  
-  return <ProjectDetailClient project={project} allProjects={allProjects} />
+
+  const pageUrl = `https://merka.ae/projects/${slug}`
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CreativeWork',
+        '@id': `${pageUrl}#project`,
+        name: project.title,
+        description: project.description || '',
+        url: pageUrl,
+        author: { '@id': 'https://merka.ae/#organization' },
+        ...(project.images?.[0] && { image: project.images[0] }),
+        ...(project.location && {
+          locationCreated: {
+            '@type': 'Place',
+            name: project.location
+          }
+        })
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://merka.ae/' },
+          { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://merka.ae/projects' },
+          { '@type': 'ListItem', position: 3, name: project.title, item: pageUrl }
+        ]
+      }
+    ]
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProjectDetailClient project={project} allProjects={allProjects} />
+    </>
+  )
 }

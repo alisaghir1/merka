@@ -21,6 +21,36 @@ export default async function StylesTypologiesPage() {
     getStyles({ published: true }),
     getTypologies({ published: true })
   ])
-  
-  return <StylesTypologiesClient initialStyles={styles} initialTypologies={typologies} />
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': 'https://merka.ae/styles-and-typologies#webpage',
+        url: 'https://merka.ae/styles-and-typologies',
+        name: 'Architectural Styles & Typologies | MERKA Architecture',
+        isPartOf: { '@id': 'https://merka.ae/#website' },
+        breadcrumb: { '@id': 'https://merka.ae/styles-and-typologies#breadcrumb' }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://merka.ae/styles-and-typologies#breadcrumb',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://merka.ae/' },
+          { '@type': 'ListItem', position: 2, name: 'Styles & Typologies', item: 'https://merka.ae/styles-and-typologies' }
+        ]
+      }
+    ]
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <StylesTypologiesClient initialStyles={styles} initialTypologies={typologies} />
+    </>
+  )
 }

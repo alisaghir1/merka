@@ -58,6 +58,48 @@ export default async function ServiceDetailPage({ params }) {
   if (!service) {
     notFound()
   }
+
+  const pageUrl = `https://merka.ae/services/${slug}`
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': `${pageUrl}#service`,
+        name: service.title,
+        description: service.description || '',
+        url: pageUrl,
+        provider: { '@id': 'https://merka.ae/#organization' },
+        areaServed: { '@type': 'Country', name: 'United Arab Emirates' },
+        serviceType: service.title
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: `${service.title} | MERKA Architecture Services`,
+        isPartOf: { '@id': 'https://merka.ae/#website' },
+        breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://merka.ae/' },
+          { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://merka.ae/services' },
+          { '@type': 'ListItem', position: 3, name: service.title, item: pageUrl }
+        ]
+      }
+    ]
+  }
   
-  return <ServiceDetailClient service={service} />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ServiceDetailClient service={service} />
+    </>
+  )
 }

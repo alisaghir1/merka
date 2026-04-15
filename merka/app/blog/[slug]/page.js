@@ -66,6 +66,49 @@ export default async function BlogPostPage({ params }) {
   const relatedPosts = allBlogs
     .filter(blog => blog.slug !== slug && blog.category === post.category)
     .slice(0, 3)
-  
-  return <BlogDetailClient post={post} relatedPosts={relatedPosts} />
+
+  const pageUrl = `https://merka.ae/blog/${slug}`
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${pageUrl}#article`,
+        headline: post.title,
+        url: pageUrl,
+        datePublished: post.date || undefined,
+        dateModified: post.date || undefined,
+        author: { '@id': 'https://merka.ae/#organization' },
+        publisher: { '@id': 'https://merka.ae/#organization' },
+        ...(post.image && { image: post.image }),
+        mainEntityOfPage: { '@id': `${pageUrl}#webpage` }
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${pageUrl}#webpage`,
+        url: pageUrl,
+        isPartOf: { '@id': 'https://merka.ae/#website' },
+        breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://merka.ae/' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://merka.ae/blog' },
+          { '@type': 'ListItem', position: 3, name: post.title, item: pageUrl }
+        ]
+      }
+    ]
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BlogDetailClient post={post} relatedPosts={relatedPosts} />
+    </>
+  )
 }

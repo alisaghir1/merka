@@ -18,6 +18,36 @@ export const dynamic = 'force-dynamic'
 export default async function ContactPage() {
   // Fetch site settings on the server
   const settings = await getSiteSettings()
-  
-  return <ContactClient initialSettings={settings} />
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ContactPage',
+        '@id': 'https://merka.ae/contact#webpage',
+        url: 'https://merka.ae/contact',
+        name: 'Contact Us | MERKA Architecture',
+        isPartOf: { '@id': 'https://merka.ae/#website' },
+        breadcrumb: { '@id': 'https://merka.ae/contact#breadcrumb' }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://merka.ae/contact#breadcrumb',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://merka.ae/' },
+          { '@type': 'ListItem', position: 2, name: 'Contact Us', item: 'https://merka.ae/contact' }
+        ]
+      }
+    ]
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ContactClient initialSettings={settings} />
+    </>
+  )
 }

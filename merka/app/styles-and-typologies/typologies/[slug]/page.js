@@ -58,6 +58,38 @@ export default async function TypologyDetailPage({ params }) {
   if (!typology) {
     notFound()
   }
-  
-  return <TypologyDetailClient typology={typology} />
+
+  const pageUrl = `https://merka.ae/styles-and-typologies/typologies/${slug}`
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: `${typology.title} | Building Typologies | MERKA Architecture`,
+        isPartOf: { '@id': 'https://merka.ae/#website' },
+        breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://merka.ae/' },
+          { '@type': 'ListItem', position: 2, name: 'Styles & Typologies', item: 'https://merka.ae/styles-and-typologies' },
+          { '@type': 'ListItem', position: 3, name: typology.title, item: pageUrl }
+        ]
+      }
+    ]
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <TypologyDetailClient typology={typology} />
+    </>
+  )
 }
