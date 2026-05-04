@@ -42,6 +42,20 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang={isArabic ? 'ar' : 'en'} dir={isArabic ? 'rtl' : 'ltr'} suppressHydrationWarning>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBG87HSDMV"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-PBG87HSDMV');
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${playfair.variable} ${cairo.variable} ${tajawal.variable} antialiased`}>
         <LanguageProvider initialLocale={locale}>
           {!isAdminRoute && <Header />}
